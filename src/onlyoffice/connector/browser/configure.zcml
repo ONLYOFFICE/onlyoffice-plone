@@ -12,4 +12,11 @@
       layer="onlyoffice.connector.interfaces.IOnlyofficeConnectorLayer"
       />
 
+  <browser:page
+      name="onlyoffice-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.OnlyofficeControlPanelView"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>
