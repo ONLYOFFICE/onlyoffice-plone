@@ -19,4 +19,36 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:page
+      name="onlyoffice-view"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.View"
+      permission="zope2.View"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-edit"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.Edit"
+      permission="cmf.ModifyPortalContent"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-callback"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.Callback"
+      permission="zope2.View"
+      />
+
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IFile"
+      menu="plone_displayviews"
+      title="ONLYOFFICE View"
+      action="onlyoffice-view"
+      description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
 </configure>
