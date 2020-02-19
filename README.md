@@ -1,4 +1,4 @@
-# Plone-ONLYOFFICE integration plugin
+# Plone ONLYOFFICE integration plugin
 
 This plugin allows users to edit office documents within [Plone](https://plone.org/) using ONLYOFFICE Document Server - [Community or Integration Edition](#onlyoffice-document-server-editions).
 
@@ -27,7 +27,7 @@ To install Integration Edition, follow instructions [here](https://helpcenter.on
 
 Community Edition vs Integration Edition comparison can be found [here](#onlyoffice-document-server-editions).
 
-## Installing Plone-ONLYOFFICE integration plugin
+## Installing Plone ONLYOFFICE integration plugin
 
 Install plugin by adding it to your `buildout.cfg`:
 
@@ -44,7 +44,7 @@ and then running `bin/buildout`
 
 To enable plugin, go to `Site Setup` -> `Add-ons`and press the `Install` button.
 
-## Configuring Plone-ONLYOFFICE integration plugin
+## Configuring Plone ONLYOFFICE integration plugin
 
 To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
 
@@ -66,7 +66,7 @@ The ONLYOFFICE integration follows the API documented [here](https://api.onlyoff
 * After 10 seconds of inactivity, ONLYOFFICE Document Server sends a POST to the `callback` URL letting Plone know that the clients have finished editing the document and closed it.
 * Plone downloads the new version of the document, replacing the old one.
 
-## Developing Plone-ONLYOFFICE  plugin
+## Developing Plone ONLYOFFICE plugin
 
 - Clone repository and change directory
 
