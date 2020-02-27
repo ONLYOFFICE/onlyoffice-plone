@@ -17,6 +17,7 @@ setup(
     version='1.0.0',
     description="Plone ONLYOFFICE integration plugin",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     # Get more from https://pypi.org/classifiers/
     classifiers=[
         "Environment :: Web Environment",
@@ -26,7 +27,7 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Operating System :: OS Independent",
-        "License :: OSI Approved :: GNU Affero General Public License v3 (AGPLv3)",
+        "License :: OSI Approved :: GNU Affero General Public License v3",
     ],
     keywords='Python Plone',
     author='Ascensio System SIA',
