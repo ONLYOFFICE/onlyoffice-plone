@@ -12,7 +12,7 @@ The plugin allows to:
 
 Supported formats:
 
-* For viewing and editing: docx, xlsx, pptx.
+* For viewing and editing: DOCX, XLSX, PPTX.
 * For viewing only: PDF, ODT, ODS, ODP, DOC, XLS, PPT.
 
 ## Installing ONLYOFFICE Document Server
