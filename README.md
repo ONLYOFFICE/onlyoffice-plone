@@ -122,6 +122,7 @@ The table below will help you make the right choice.
 | Tabbed interface                       | + | + |
 | White Label                            | - | - |
 | Integrated test example (node.js)     | - | + |
+| Mobile web editors                    | - | + |
 | **Plugins & Macros** | **Community Edition** | **Integration Edition** |
 | Plugins                           | + | + |
 | Macros                            | + | + |
@@ -135,11 +136,13 @@ The table below will help you make the right choice.
 | **Document Editor features** | **Community Edition** | **Integration Edition** |
 | Font and paragraph formatting   | + | + |
 | Object insertion                | + | + |
-| Content control                 | + | + |
+| Adding Content control          | - | + | 
+| Editing Content control         | + | + | 
 | Layout tools                    | + | + |
 | Table of contents               | + | + |
 | Navigation panel                | + | + |
 | Mail Merge                      | + | + |
+| Comparing Documents             | - | + |
 | **Spreadsheet Editor features** | **Community Edition** | **Integration Edition** |
 | Font and paragraph formatting   | + | + |
 | Object insertion                | + | + |
