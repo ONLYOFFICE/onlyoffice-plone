@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-02-14 10:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ../browser/controlpanel.py:12
+msgid "Document Editing service"
+msgstr "Documentbewerkingsservice"
+
+#: ../configure.zcml:28
+msgid "Installs the ONLYOFFICE connector add-on."
+msgstr "Installeert de add-on van de ONLYOFFICE connector"
+
+#: ../browser/controlpanel.py:21
+msgid "ONLYOFFICE Configuration"
+msgstr "ONLYOFFICE Configuratie"
+
+#: ../profiles/default/types/File.xml
+msgid "ONLYOFFICE Edit"
+msgstr "ONLYOFFICE Bewerken"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View"
+msgstr "ONLYOFFICE Bekijken"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View page"
+msgstr "ONLYOFFICE Bekijk pagina"
+
+#: ../browser/templates/error.pt:10
+msgid "ONLYOFFICE can't open this file."
+msgstr "ONLYOFFICE kan dit bestand niet openen."
+
+#: ../configure.zcml:37
+msgid "Uninstalls the ONLYOFFICE connector add-on."
+msgstr "Hiermee wordt de add-on ONLYOFFICE-connector verwijderd."
+
+#: ../configure.zcml:28
+msgid "onlyoffice.connector"
+msgstr "onlyoffice.connector"
+
+#: ../configure.zcml:37
+msgid "onlyoffice.connector (uninstall)"
+msgstr "onlyoffice.connector (verwijdering)"
