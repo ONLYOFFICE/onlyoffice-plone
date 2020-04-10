@@ -1,0 +1,56 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="onlyoffice.connector">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+
+  <!--
+  <browser:jbot
+      directory="overrides"
+      layer="onlyoffice.connector.interfaces.IOnlyofficeConnectorLayer"
+      />
+  -->
+
+  <browser:page
+      name="onlyoffice-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.OnlyofficeControlPanelView"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="onlyoffice-view"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.View"
+      permission="zope2.View"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-edit"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.Edit"
+      permission="cmf.ModifyPortalContent"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-callback"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.Callback"
+      permission="zope2.View"
+      />
+
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IFile"
+      menu="plone_displayviews"
+      title="ONLYOFFICE View"
+      action="onlyoffice-view"
+      description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
+</configure>

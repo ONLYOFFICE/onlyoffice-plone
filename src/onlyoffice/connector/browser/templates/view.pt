@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="onlyoffice.connector">
+
+<metal:block fill-slot="content-core">
+    <div id="onlyofficeEditor"></div>
+
+    <script type="text/javascript" src="${view/cfg/docUrl}/web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript" language="javascript">
+        var docEditor;
+        config = ${view/editorCfg}
+        config.width = "100%";
+        config.height = "600px";
+        docEditor = new DocsAPI.DocEditor("onlyofficeEditor", config);
+    </script>
+</metal:block>
+
+</html>

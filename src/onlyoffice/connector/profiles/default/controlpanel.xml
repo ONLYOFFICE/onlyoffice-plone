@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel">
+  <configlet
+      title="ONLYOFFICE Configuration"
+      action_id="onlyoffice-controlpanel"
+      appId="onlyoffice-controlpanel"
+      category="Products"
+      url_expr="string:${portal_url}/@@onlyoffice-controlpanel"
+      visible="True">
+    <permission>Manage portal</permission>
+  </configlet>
+</object>
