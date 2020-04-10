@@ -11,8 +11,7 @@ from zope.component import getUtility
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
-
-from urllib2 import urlopen
+from urllib.request import urlopen
 
 import json
 

@@ -7,10 +7,12 @@
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
 
+  <!--
   <browser:jbot
       directory="overrides"
       layer="onlyoffice.connector.interfaces.IOnlyofficeConnectorLayer"
       />
+  -->
 
   <browser:page
       name="onlyoffice-controlpanel"
