@@ -44,6 +44,14 @@ and then running `bin/buildout`
 
 To enable plugin, go to `Site Setup` -> `Add-ons`and press the `Install` button.
 
+You could also install plugin via Docker
+
+```
+docker run --rm -p 8080:8080 -e ADDONS="onlyoffice.connector" plone
+```
+
+Both options will automatically install plugin from [PyPi](https://pypi.org/project/onlyoffice.connector/).
+
 ## Configuring Plone ONLYOFFICE integration plugin
 
 To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
