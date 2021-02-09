@@ -20,7 +20,9 @@
 from zope import schema
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.i18nmessageid import MessageFactory
+import logging
 
+logger = logging.getLogger("onlyoffice")
 _ = MessageFactory('onlyoffice.connector')
 
 class IOnlyofficeConnectorLayer(IDefaultBrowserLayer):

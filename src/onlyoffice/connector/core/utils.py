@@ -14,7 +14,26 @@
 # limitations under the License.
 #
 
+from logging import log
+from plone.uuid.interfaces import IUUID
+from zope.publisher.interfaces import Unauthorized
+from urllib.parse import parse_qs
+
 import base64
+import jwt
 
 def getDocumentKey(obj):
     return base64.b64encode((obj.id + '_' + str(obj.modification_date)).encode('utf8')).decode('ascii')
+
+def getSecurityToken(obj):
+    return jwt.encode({"key": obj.id}, IUUID(obj), algorithm="HS256").decode("utf-8")
+
+def checkSecurityToken(obj, token):
+    if (token != getSecurityToken(obj)):
+        raise Unauthorized
+
+def getTokenFromRequest(request):
+    query = parse_qs(request['QUERY_STRING'])
+    if 'token' in query:
+        return query['token'][0]
+    return None
