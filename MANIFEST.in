@@ -1,0 +1,17 @@
+include *.js
+include *.json
+include *.py
+include *.md
+include *.txt
+include *.cfg
+recursive-include src *.css
+recursive-include src *.js
+recursive-include src *.map
+recursive-include src *.po
+recursive-include src *.pot
+recursive-include src *.pt
+recursive-include src *.py
+recursive-include src *.sh
+recursive-include src *.txt
+recursive-include src *.xml
+recursive-include src *.zcml
