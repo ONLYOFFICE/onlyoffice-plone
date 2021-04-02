@@ -41,7 +41,14 @@
       name="onlyoffice-callback"
       for="plone.app.contenttypes.interfaces.IFile"
       class=".api.Callback"
-      permission="zope2.View"
+      permission="zope2.Public"
+      />
+
+  <browser:page
+      name="onlyoffice-dl"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.ODownload"
+      permission="zope2.Public"
       />
 
   <browser:menuItem
