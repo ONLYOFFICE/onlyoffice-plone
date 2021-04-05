@@ -16,6 +16,8 @@
 
 class Config():
     docUrl = None
+    jwtSecret = None
 
     def __init__(self, registry):
         self.docUrl = registry.get('onlyoffice.connector.docUrl')
+        self.jwtSecret = registry.get('onlyoffice.connector.jwtSecret')
