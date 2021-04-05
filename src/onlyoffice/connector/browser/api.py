@@ -120,6 +120,9 @@ def get_config(self, forEdit):
     if canEdit:
         config['editorConfig']['callbackUrl'] = self.context.absolute_url() + '/onlyoffice-callback?token=' + securityToken
 
+    if utils.isJwtEnabled():
+        config['token'] = utils.createSecurityToken(config)
+
     return json.dumps(config)
 
 class Callback(BrowserView):
