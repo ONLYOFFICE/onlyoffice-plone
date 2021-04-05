@@ -33,6 +33,7 @@ from onlyoffice.connector.interfaces import logger
 from urllib.request import urlopen
 
 import json
+import os
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -143,7 +144,7 @@ class Callback(BrowserView):
                 token = body.get('token')
 
                 if (not token):
-                    jwtHeader = 'HTTP_AUTHORIZATION'
+                    jwtHeader = 'HTTP_' + os.getenv('ONLYOFFICE_JWT_HEADER').upper() if os.getenv('ONLYOFFICE_JWT_HEADER', None) else 'HTTP_AUTHORIZATION'
                     token = self.request._orig_env.get(jwtHeader)
                     if token:
                         token = token[len('Bearer '):]
