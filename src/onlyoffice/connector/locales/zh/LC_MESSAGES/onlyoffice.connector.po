@@ -16,35 +16,35 @@ msgstr ""
 
 #: ../browser/controlpanel.py:12
 msgid "Document Editing service"
-msgstr "ドキュメント編集サービス"
+msgstr "文档编辑服务"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
-msgstr "ONLYOFFICE コネクターアドオンをインストールします"
+msgstr "安装ONLYOFFICE连接器附加组件"
 
 #: ../browser/controlpanel.py:21
 msgid "ONLYOFFICE Configuration"
-msgstr "ONLYOFFICE コンフィギュレーション"
+msgstr "ONLYOFFICE配置"
 
 #: ../profiles/default/types/File.xml
 msgid "ONLYOFFICE Edit"
-msgstr "ONLYOFFICE 編集"
+msgstr "ONLYOFFICE 编辑"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
-msgstr "ONLYOFFICE 閲覧"
+msgstr "ONLYOFFICE视图"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
-msgstr "ONLYOFFICE 閲覧ページ"
+msgstr "ONLYOFFICE视图页"
 
 #: ../browser/templates/error.pt:10
 msgid "ONLYOFFICE can't open this file."
-msgstr "このファイルを開くことができません"
+msgstr "ONLYOFFICE无法打开该文件"
 
 #: ../configure.zcml:37
 msgid "Uninstalls the ONLYOFFICE connector add-on."
-msgstr "ONLYOFFICE コネクターアドオンをアンインストールします"
+msgstr "卸载ONLYOFFICE连接器附加组件"
 
 #: ../configure.zcml:28
 msgid "onlyoffice.connector"
@@ -52,7 +52,7 @@ msgstr "onlyoffice.connector"
 
 #: ../configure.zcml:37
 msgid "onlyoffice.connector (uninstall)"
-msgstr "onlyoffice.connector (アンインストール)"
+msgstr "onlyoffice.connector (卸载)"
 
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
