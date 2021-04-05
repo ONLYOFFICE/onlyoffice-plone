@@ -53,3 +53,7 @@ msgstr "onlyoffice.connector"
 #: ../configure.zcml:37
 msgid "onlyoffice.connector (uninstall)"
 msgstr "onlyoffice.connector (アンインストール)"
+
+#: ../browser/controlpanel.py:34
+msgid "Secret key (leave blank to disable)"
+msgstr "秘钥(留空为关闭)"
