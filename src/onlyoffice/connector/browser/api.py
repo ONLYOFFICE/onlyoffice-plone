@@ -39,11 +39,11 @@ class Edit(form.EditForm):
         filename = self.context.file.filename
         return fileUtils.canEdit(filename)
 
-    cfg = None
+    docUrl = None
     editorCfg = None
 
     def __call__(self):
-        self.cfg = Config(getUtility(IRegistry))
+        self.docUrl = Config(getUtility(IRegistry)).docUrl
         self.editorCfg = get_config(self, True)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -55,11 +55,11 @@ class View(BrowserView):
         filename = self.context.file.filename
         return fileUtils.canView(filename)
 
-    cfg = None
+    docUrl = None
     editorCfg = None
 
     def __call__(self):
-        self.cfg = Config(getUtility(IRegistry))
+        self.docUrl = Config(getUtility(IRegistry)).docUrl
         self.editorCfg = get_config(self, False)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -87,7 +87,7 @@ def get_config(self, forEdit):
 
     state = portal_state(self)
     user = state.member()
-    securityToken = utils.getSecurityToken(self.context)
+    securityToken = utils.createSecurityTokenFromContext(self.context)
     config = {
         'type': 'desktop',
         'documentType': fileUtils.getFileType(filename),
@@ -135,6 +135,23 @@ class Callback(BrowserView):
         try:
             body = json.loads(self.request.get('BODY'))
             logger.debug(body)
+
+            if utils.isJwtEnabled():
+                token = body.get('token')
+
+                if (not token):
+                    jwtHeader = 'HTTP_AUTHORIZATION'
+                    token = self.request._orig_env.get(jwtHeader)
+                    if token:
+                        token = token[len('Bearer '):]
+
+                if (not token):
+                    raise Exception('Expected JWT')
+
+                body = utils.decodeSecurityToken(token)
+                if (body.get('payload')):
+                    body = body['payload']
+
             status = body['status']
             download = body.get('url')
             if (status == 2) | (status == 3): # mustsave, corrupted
