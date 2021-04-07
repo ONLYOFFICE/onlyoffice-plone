@@ -99,7 +99,7 @@ virtualenv .
 ./bin/instance fg
 ```
 
-If you have a working Plone instance, you can install plugin by adding files project in the src directory:
+If you have a working Plone instance, you can install plugin by adding the project files to the src directory:
  - Create directory in the src directory named onlyoffice.connector
  - Put your project files received by git into the onlyoffice.connector directory
  - Edit the buildout.cfg file:
