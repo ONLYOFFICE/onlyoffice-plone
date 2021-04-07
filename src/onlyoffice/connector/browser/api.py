@@ -113,7 +113,6 @@ def get_config(self, forEdit):
                 'name': user.getUserName()
             },
             'customization': {
-                'about': True,
                 'feedback': True
             }
         }
