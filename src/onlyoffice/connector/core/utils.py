@@ -18,6 +18,9 @@ from logging import log
 from plone.uuid.interfaces import IUUID
 from zope.publisher.interfaces import Unauthorized
 from urllib.parse import parse_qs
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+from onlyoffice.connector.core.config import Config
 
 import base64
 import jwt
@@ -25,11 +28,22 @@ import jwt
 def getDocumentKey(obj):
     return base64.b64encode((obj.id + '_' + str(obj.modification_date)).encode('utf8')).decode('ascii')
 
-def getSecurityToken(obj):
-    return jwt.encode({"key": obj.id}, IUUID(obj), algorithm="HS256").decode("utf-8")
+def isJwtEnabled():
+    return bool(Config(getUtility(IRegistry)).jwtSecret)
+
+def createSecurityToken(payload, jwtSecret = None):
+    if (jwtSecret is None):
+        jwtSecret = Config(getUtility(IRegistry)).jwtSecret
+    return jwt.encode(payload, jwtSecret, algorithm="HS256").decode("utf-8")
+
+def createSecurityTokenFromContext(obj):
+    return createSecurityToken({"key": obj.id}, IUUID(obj))
+
+def decodeSecurityToken(token):
+    return jwt.decode(token, Config(getUtility(IRegistry)).jwtSecret, algorithms=['HS256'])
 
 def checkSecurityToken(obj, token):
-    if (token != getSecurityToken(obj)):
+    if (token != createSecurityTokenFromContext(obj)):
         raise Unauthorized
 
 def getTokenFromRequest(request):

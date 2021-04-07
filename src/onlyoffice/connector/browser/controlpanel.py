@@ -30,6 +30,10 @@ class IOnlyofficeControlPanel(Interface):
         default=u'https://documentserver/',
     )
 
+    jwtSecret = schema.TextLine(
+        title=_(u'Secret key (leave blank to disable)'),
+        required=False,
+    )
 
 class OnlyofficeControlPanelForm(RegistryEditForm):
     schema = IOnlyofficeControlPanel

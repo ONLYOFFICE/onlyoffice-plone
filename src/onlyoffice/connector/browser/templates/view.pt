@@ -28,7 +28,7 @@
     <div id="onlyofficeEditor"></div>
     <div id="onlyofficeError" i18n:translate="" style="display:none;">DocumentServer not accessible.</div>
 
-    <script type="text/javascript" src="${view/cfg/docUrl}/web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript" src="${view/docUrl}/web-apps/apps/api/documents/api.js"></script>
     <script type="text/javascript" language="javascript">
         var docEditor;
         config = ${view/editorCfg}
