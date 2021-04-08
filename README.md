@@ -56,6 +56,24 @@ Both options will automatically install plugin from [PyPi](https://pypi.org/proj
 
 To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
 
+
+## Upgrade Plone ONLYOFFICE integration plugin
+ - If you specified concrete version plugin in your buildout.cfg file (so-called “pinning”, and a recommended practice), 
+ like onlyoffice.connector = 1.0.0, update these reference to point to the new version. If the plugin version is not 
+ specified, then the latest version will be automatically loaded
+ 
+```
+[versions]
+
+ ...
+
+onlyoffice.connector = 2.0.0
+```
+
+ - Run bin/buildout. Wait until all new software is downloaded and installed.
+ - Restart Plone - your site may look weird, or even be inaccessible until you have performed the next step
+ - Navigate to the Add-on screen (add /prefs_install_products_form to your site URL) and in the Upgrades list select onlyoffice.connector and click the "Upgrade onlyoffice.connector"
+
 ## How it works
 
 The ONLYOFFICE integration follows the API documented [here](https://api.onlyoffice.com/editors/basic):
