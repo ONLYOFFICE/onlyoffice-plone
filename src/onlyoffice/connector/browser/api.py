@@ -33,7 +33,6 @@ from onlyoffice.connector.interfaces import logger
 from urllib.request import urlopen
 
 import json
-import os
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -143,10 +142,7 @@ class Callback(BrowserView):
                 token = body.get('token')
 
                 if (not token):
-                    jwtHeader = 'HTTP_' + os.getenv('ONLYOFFICE_JWT_HEADER').upper() if os.getenv('ONLYOFFICE_JWT_HEADER', None) else 'HTTP_AUTHORIZATION'
-                    token = self.request._orig_env.get(jwtHeader)
-                    if token:
-                        token = token[len('Bearer '):]
+                   token = utils.getTokenFromHeader(self.request)
 
                 if (not token):
                     raise Exception('Expected JWT')
@@ -179,6 +175,16 @@ class Callback(BrowserView):
 
 class ODownload(Download):
     def _getFile(self):
+        logger.info("got download request for " + self.context.absolute_url())
+
+        if utils.isJwtEnabled():
+            token = utils.getTokenFromHeader(self.request)
+
+            if (not token):
+                raise Exception('Expected JWT')
+
+            utils.decodeSecurityToken(token)
+
         utils.checkSecurityToken(self.context, utils.getTokenFromRequest(self.request))
 
         if not self.fieldname:

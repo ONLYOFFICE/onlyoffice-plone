@@ -24,6 +24,7 @@ from onlyoffice.connector.core.config import Config
 
 import base64
 import jwt
+import os
 
 def getDocumentKey(obj):
     return base64.b64encode((obj.id + '_' + str(obj.modification_date)).encode('utf8')).decode('ascii')
@@ -51,3 +52,10 @@ def getTokenFromRequest(request):
     if 'token' in query:
         return query['token'][0]
     return None
+
+def getTokenFromHeader(request):
+    jwtHeader = 'HTTP_' + os.getenv('ONLYOFFICE_JWT_HEADER').upper() if os.getenv('ONLYOFFICE_JWT_HEADER', None) else 'HTTP_AUTHORIZATION'
+    token = request._orig_env.get(jwtHeader)
+    if token:
+        token = token[len('Bearer '):]
+    return token

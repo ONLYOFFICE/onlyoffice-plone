@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<registry>
+   <!-- register new bundle -->
+   <records interface="onlyoffice.connector.browser.controlpanel.IOnlyofficeControlPanel" prefix="onlyoffice.connector">
+      <value key="jwtSecret"></value>
+   </records>
+</registry>
