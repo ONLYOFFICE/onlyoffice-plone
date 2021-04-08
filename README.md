@@ -29,7 +29,7 @@ Community Edition vs Enterprise Edition comparison can be found [here](#onlyoffi
 
 ## Installing Plone ONLYOFFICE integration plugin
 
-Install plugin by adding it to your `buildout.cfg`:
+1. Install plugin by adding it to your `buildout.cfg`:
 
 ```
 [buildout]
@@ -40,9 +40,9 @@ eggs =
     onlyoffice.connector
 ```
 
-and then running `bin/buildout`
+2. Run `bin/buildout`.
 
-To enable plugin, go to `Site Setup` -> `Add-ons`and press the `Install` button.
+3. Go to `Site Setup` -> `Add-ons`and press the `Install` button to enable plugin.
 
 You could also install plugin via Docker
 
@@ -56,23 +56,71 @@ Both options will automatically install plugin from [PyPi](https://pypi.org/proj
 
 To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
 
+## Developing Plone ONLYOFFICE plugin
+
+1. Clone repository and change directory:
+
+```
+git clone --branch deploy git@github.com:ONLYOFFICE/onlyoffice-plone.git
+cd onlyoffice-plone
+```
+
+2. Create a virtualenv in the package.
+3. Install requirements with pip.
+4. Run buildout:
+
+```
+virtualenv .
+./bin/pip install -r requirements.txt
+./bin/buildout
+```
+
+5. Start Plone in foreground:
+
+```
+./bin/instance fg
+```
+
+If you have a working Plone instance, you can install plugin by adding the project files to the src directory:
+1. In the src directory create the onlyoffice.connector directory.
+2. Put your project files received by git into the onlyoffice.connector directory.
+3. Edit the buildout.cfg file:
+ ```
+ [buildout]
+ 
+ ...
+ 
+ eggs =
+     onlyoffice.connector
+
+develop =
+    src/onlyoffice.connector
+ ```
+4. Rerun buildout for the changes to take effect:
+```
+./bin/buildout
+```
+
+5. Then start or restart your Plone instance.
+
+Note that Plone is based on Zope server and will not run as `root` user. If you intend to run it as `root` user. You must supply [effective-user directive](https://zope.readthedocs.io/en/2.12/SETUID.html). In order to do so add `effective-user <username>` line to `./parts/instance/etc/zope.conf`.
 
 ## Upgrade Plone ONLYOFFICE integration plugin
- - If you specified concrete version plugin in your buildout.cfg file (so-called “pinning”, and a recommended practice), 
- like onlyoffice.connector = 1.0.0, update these reference to point to the new version. If the plugin version is not 
- specified, then the latest version will be automatically loaded
+1. If you specified a concrete plugin version in your buildout.cfg file (so-called “pinning”, and a recommended practice), 
+ like onlyoffice.connector = 1.0.0, update this reference to point to the newer version. If the plugin version is not 
+ specified, then the latest version will be automatically loaded:
  
 ```
 [versions]
 
  ...
 
-onlyoffice.connector = 2.0.0
+onlyoffice.connector = 1.0.1
 ```
 
- - Run bin/buildout. Wait until all new software is downloaded and installed.
- - Restart Plone - your site may look weird, or even be inaccessible until you have performed the next step
- - Navigate to the Add-on screen (add /prefs_install_products_form to your site URL) and in the Upgrades list select onlyoffice.connector and click the "Upgrade onlyoffice.connector"
+2. Run bin/buildout. Wait until the new version is downloaded and installed.
+3. Restart Plone - your site may look weird, or even be inaccessible until you have performed the next step.
+4. Navigate to the Add-on screen (add /prefs_install_products_form to your site URL) and in the Upgrades list select onlyoffice.connector and click "Upgrade onlyoffice.connector".
 
 ## How it works
 
@@ -92,54 +140,6 @@ The ONLYOFFICE integration follows the API documented [here](https://api.onlyoff
 * After 10 seconds of inactivity, ONLYOFFICE Document Server sends a POST to the `callback` URL letting Plone know that the clients have finished editing the document and closed it.
 * Plone downloads the new version of the document, replacing the old one.
 
-## Developing Plone ONLYOFFICE plugin
-
-- Clone repository and change directory
-
-```
-git clone --branch deploy git@github.com:ONLYOFFICE/onlyoffice-plone.git
-cd onlyoffice-plone
-```
-
- - Create a virtualenv in the package
- - Install requirements with pip
- - Run buildout
-
-```
-virtualenv .
-./bin/pip install -r requirements.txt
-./bin/buildout
-```
-
- - Start Plone in foreground
-
-```
-./bin/instance fg
-```
-
-If you have a working Plone instance, you can install plugin by adding the project files to the src directory:
- - In the src directory create the onlyoffice.connector directory
- - Put your project files received by git into the onlyoffice.connector directory
- - Edit the buildout.cfg file:
- ```
- [buildout]
- 
- ...
- 
- eggs =
-     onlyoffice.connector
-
-develop =
-    src/onlyoffice.connector
- ```
- - You need to rerun buildout for the changes to take effect:
-```
-./bin/buildout
-```
-
- - Then start or restart your Plone instance
-
-Note that Plone is based on Zope server and will not run as `root` user. If you intend to run it as `root` user. You must supply [effective-user directive](https://zope.readthedocs.io/en/2.12/SETUID.html). In order to do so add `effective-user <username>` line to `./parts/instance/etc/zope.conf`.
 
 ## ONLYOFFICE Docs editions
 
