@@ -14,16 +14,10 @@
 # limitations under the License.
 #
 
-# -*- coding: utf-8 -*-
-"""Module where all interfaces, events and exceptions live."""
+PROFILE_ID = 'onlyoffice.connector:default'
 
-from zope import schema
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.i18nmessageid import MessageFactory
-import logging
-
-logger = logging.getLogger("onlyoffice")
-_ = MessageFactory('onlyoffice.connector')
-
-class IOnlyofficeConnectorLayer(IDefaultBrowserLayer):
-    """Marker interface that defines a browser layer."""
+def upgrade_to_2(context):
+    context.runImportStepFromProfile(
+        PROFILE_ID.replace('default', 'to_2'),
+        'plone.app.registry',
+    )

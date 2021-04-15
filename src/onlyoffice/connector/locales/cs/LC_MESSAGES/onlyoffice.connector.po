@@ -16,35 +16,35 @@ msgstr ""
 
 #: ../browser/controlpanel.py:12
 msgid "Document Editing service"
-msgstr "文档编辑服务"
+msgstr "Služba Úpravy dokumentů"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
-msgstr "安装ONLYOFFICE连接器附加组件"
+msgstr "Nainstaluje doplněk konektor ONLYOFFICE"
 
 #: ../browser/controlpanel.py:21
 msgid "ONLYOFFICE Configuration"
-msgstr "ONLYOFFICE配置"
+msgstr "Konfigurace ONLYOFFICE"
 
 #: ../profiles/default/types/File.xml
 msgid "ONLYOFFICE Edit"
-msgstr "ONLYOFFICE编辑"
+msgstr "Úprava ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
-msgstr "ONLYOFFICE视图"
+msgstr "Náhled ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
-msgstr "ONLYOFFICE视图页"
+msgstr "Stránka náhledu ONLYOFFICE"
 
 #: ../browser/templates/error.pt:10
 msgid "ONLYOFFICE can't open this file."
-msgstr "ONLYOFFICE无法打开该文件"
+msgstr "ONLYOFFICE nedokáže otevřít tento soubor."
 
 #: ../configure.zcml:37
 msgid "Uninstalls the ONLYOFFICE connector add-on."
-msgstr "卸载ONLYOFFICE连接器附加组件"
+msgstr "Odinstaluje doplněk konektor ONLYOFFICE"
 
 #: ../configure.zcml:28
 msgid "onlyoffice.connector"
@@ -52,4 +52,8 @@ msgstr "onlyoffice.connector"
 
 #: ../configure.zcml:37
 msgid "onlyoffice.connector (uninstall)"
-msgstr "onlyoffice.connector (アンインストールする)"
+msgstr "onlyoffice.connector (odinstalovat)"
+
+#: ../browser/controlpanel.py:34
+msgid "Secret key (leave blank to disable)"
+msgstr "Tajný klíč (pro deaktivaci ponechte prázdné)"

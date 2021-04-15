@@ -16,35 +16,35 @@ msgstr ""
 
 #: ../browser/controlpanel.py:12
 msgid "Document Editing service"
-msgstr "Serviço de edição de documentos"
+msgstr "ドキュメント編集サービス"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
-msgstr "Instala o complemento do conector do ONLYOFFICE"
+msgstr "ONLYOFFICE コネクターアドオンをインストールします"
 
 #: ../browser/controlpanel.py:21
 msgid "ONLYOFFICE Configuration"
-msgstr "Configuração do ONLYOFFICE"
+msgstr "ONLYOFFICE コンフィギュレーション"
 
 #: ../profiles/default/types/File.xml
 msgid "ONLYOFFICE Edit"
-msgstr "ONLYOFFICE Editar"
+msgstr "ONLYOFFICE 編集"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
-msgstr "ONLYOFFICE Ver"
+msgstr "ONLYOFFICE 閲覧"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
-msgstr "ONLYOFFICE Ver página"
+msgstr "ONLYOFFICE 閲覧ページ"
 
 #: ../browser/templates/error.pt:10
 msgid "ONLYOFFICE can't open this file."
-msgstr "O ONLYOFFICE não pode abrir este arquivo"
+msgstr "このファイルを開くことができません"
 
 #: ../configure.zcml:37
 msgid "Uninstalls the ONLYOFFICE connector add-on."
-msgstr "Desinstala o complemento do conector do ONLYOFFICE"
+msgstr "ONLYOFFICE コネクターアドオンをアンインストールします"
 
 #: ../configure.zcml:28
 msgid "onlyoffice.connector"
@@ -52,4 +52,8 @@ msgstr "onlyoffice.connector"
 
 #: ../configure.zcml:37
 msgid "onlyoffice.connector (uninstall)"
-msgstr "onlyoffice.connector (desinstalar)"
+msgstr "onlyoffice.connector (アンインストールする)"
+
+#: ../browser/controlpanel.py:34
+msgid "Secret key (leave blank to disable)"
+msgstr "シークレットキー (ブランクで無効)"
