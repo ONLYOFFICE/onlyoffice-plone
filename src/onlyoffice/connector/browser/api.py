@@ -18,6 +18,7 @@ from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 from plone.namedfile.browser import Download
 from plone.namedfile.file import NamedBlobFile
 from plone.rfc822.interfaces import IPrimaryFieldInfo
@@ -40,10 +41,14 @@ class Edit(form.EditForm):
         return fileUtils.canEdit(filename)
 
     docUrl = None
+    ploneUrl = None
+    docInnerUrl = None
     editorCfg = None
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.ploneUrl = Config(getUtility(IRegistry)).ploneUrl
+        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, True)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -56,10 +61,14 @@ class View(BrowserView):
         return fileUtils.canView(filename)
 
     docUrl = None
+    ploneUrl = None
+    docInnerUrl = None
     editorCfg = None
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.ploneUrl = Config(getUtility(IRegistry)).ploneUrl
+        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, False)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -76,10 +85,14 @@ def get_config(self, forEdit):
         portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
         return portal_state
 
-    logger.info("getting config for " + self.context.absolute_url())
     canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
 
     filename = self.context.file.filename
+
+    portal = api.portal.get()
+    self.ploneUrl = self.ploneUrl + portal.getPhysicalPath()[1] + "/" + filename if self.ploneUrl else self.context.absolute_url()
+    logger.info("getting config for " + self.ploneUrl)
+
     if not fileUtils.canView(filename) or (forEdit and not fileUtils.canEdit(filename)):
         # self.request.response.status = 500
         # self.request.response.setHeader('Location', self.viewURLFor(self.context))
@@ -93,7 +106,7 @@ def get_config(self, forEdit):
         'documentType': fileUtils.getFileType(filename),
         'document': {
             'title': filename,
-            'url': self.context.absolute_url() + '/onlyoffice-dl?token=' + securityToken,
+            'url': self.ploneUrl + '/onlyoffice-dl?token=' + securityToken,
             'fileType': fileUtils.getFileExt(filename)[1:],
             'key': utils.getDocumentKey(self.context),
             'info': {
@@ -117,7 +130,7 @@ def get_config(self, forEdit):
         }
     }
     if canEdit:
-        config['editorConfig']['callbackUrl'] = self.context.absolute_url() + '/onlyoffice-callback?token=' + securityToken
+        config['editorConfig']['callbackUrl'] = self.ploneUrl + '/onlyoffice-callback?token=' + securityToken
 
     if utils.isJwtEnabled():
         config['token'] = utils.createSecurityToken(config)
