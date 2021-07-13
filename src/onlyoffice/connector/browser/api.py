@@ -165,8 +165,8 @@ class Callback(BrowserView):
                     body = body['payload']
 
             status = body['status']
-            download = body.get('url')
             if (status == 2) | (status == 3): # mustsave, corrupted
+                download = utils.replaceDocUrlToInternal(body.get('url'))
                 logger.info("saving file " + self.context.absolute_url())
                 self.context.file = NamedBlobFile(urlopen(download).read(), filename=self.context.file.filename)
                 self.context.reindexObject()
