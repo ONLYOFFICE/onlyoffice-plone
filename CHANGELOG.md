@@ -3,6 +3,9 @@
 ## Added
 - advanced server settings for specifying internal addresses
 
+## Changed
+- document server v6.0 and earlier is no longer supported
+
 ## 2.0.0
 ## Added
  - JWT support
