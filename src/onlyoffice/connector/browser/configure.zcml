@@ -60,4 +60,22 @@
       permission="zope2.View"
       />
 
+  <adapter for="* *"
+      name="plone.contentmenu.onlyoffice.create"
+      factory=".menu.OnlyofficeCreateSubMenuItem"
+      provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
+  <browser:menu
+      id="plone_contentmenu_onlyoffice_create"
+      title="The 'Create in ONLYOFFICE' menu - allows the user to add new document, spredsheet or presentation"
+      class=".menu.OnlyofficeCreateMenu"
+      />
+
+  <browser:page
+      for="*"
+      name="onlyoffice-create"
+      class=".api.Create"
+      permission="cmf.AddPortalContent"
+      />
+
 </configure>

@@ -26,13 +26,18 @@ from z3c.form import form
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
+from plone.app.dexterity.interfaces import IDXFileFactory
+from plone.protect.utils import addTokenToUrl
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.interfaces import logger
+from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
 
 import json
+import os
+import mimetypes
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -200,3 +205,29 @@ class ODownload(Download):
             raise NotFound(self, self.fieldname, self.request)
 
         return file
+
+class Create(BrowserView):
+    def __call__(
+        self,
+        documentType
+    ):
+        fileName = fileUtils.getDefaultNameByType(documentType)
+        fileExt = fileUtils.getDefaultExtByType(documentType)
+
+        if fileName is None or fileExt is None:
+            raise NotFound(self, documentType, self.request)
+
+        template = 'new.' + fileExt
+
+        file = open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app_data', template), 'rb')
+        try:
+            data = file.read()
+        finally:
+            file.close()
+
+        factory = IDXFileFactory(self.context)
+        contentType = mimetypes.guess_type(template)[0] or ''
+
+        file = factory(fileName + '.' + fileExt, contentType, data)
+
+        self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))

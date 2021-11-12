@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+from onlyoffice.connector.interfaces import _
+
 def getFileName(str):
     ind = str.rfind('/')
     return str[ind+1:]
@@ -52,3 +54,23 @@ def canEdit(str):
         return True
 
     return False
+
+def getDefaultExtByType(str):
+    if (str == 'word'):
+        return 'docx'
+    if (str == 'cell'):
+        return 'xlsx'
+    if (str == 'slide'):
+        return 'pptx'
+
+    return None
+
+def getDefaultNameByType(str):
+    if (str == 'word'):
+        return _(u'Document')
+    if (str == 'cell'):
+        return _(u'Spreadsheet')
+    if (str == 'slide'):
+        return _(u'Presentation')
+
+    return None
