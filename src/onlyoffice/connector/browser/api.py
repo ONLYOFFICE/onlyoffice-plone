@@ -71,15 +71,15 @@ class View(BrowserView):
             return index(self)
         return self.index()
 
+def portal_state(self):
+    context = aq_inner(self.context)
+    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+    return portal_state
+
 def get_config(self, forEdit):
     # def viewURLFor(self, item):
         # cstate = getMultiAdapter((item, item.REQUEST), name='plone_context_state')
         # return cstate.view_url()
-
-    def portal_state(self):
-        context = aq_inner(self.context)
-        portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-        return portal_state
 
     logger.info("getting config for " + self.context.absolute_url())
     canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
@@ -219,7 +219,18 @@ class Create(BrowserView):
 
         template = 'new.' + fileExt
 
-        file = open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app_data', template), 'rb')
+        state = portal_state(self)
+        language = state.language()
+
+        localePath = fileUtils.localePath.get(language)
+        if localePath is None:
+            language = language.split('-')[0]
+            localePath = fileUtils.localePath.get(language)
+            if localePath is None:
+                localePath = fileUtils.localePath.get('en')
+
+        file = open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app_data', localePath, template), 'rb')
+
         try:
             data = file.read()
         finally:

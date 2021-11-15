@@ -16,6 +16,32 @@
 
 from onlyoffice.connector.interfaces import _
 
+localePath = {
+        'az': 'az-Latn-AZ',
+        'bg': 'bg-BG',
+        'cs': 'cs-CZ',
+        'de': 'de-DE',
+        'el': 'el-GR',
+        'en-gb': 'en-GB',
+        'en': 'en-US',
+        'es': 'es-ES',
+        'fr': 'fr-FR',
+        'it': 'it-IT',
+        'ja': 'ja-JP',
+        'ko': 'ko-KR',
+        'lv': 'lv-LV',
+        'nl': 'nl-NL',
+        'pl': 'pl-PL',
+        'pt-br': 'pt-BR',
+        'pt': 'pt-PT',
+        'ru': 'ru-RU',
+        'sk': 'sk-SK',
+        'sv': 'sv-SE',
+        'uk': 'uk-UA',
+        'vi': 'vi-VN',
+        'zh': 'zh-CN'
+    }
+
 def getFileName(str):
     ind = str.rfind('/')
     return str[ind+1:]
