@@ -7,4 +7,14 @@
 
     <records interface="onlyoffice.connector.browser.controlpanel.IOnlyofficeControlPanel" prefix="onlyoffice.connector" />
 
+
+    <records prefix="plone.bundles/onlyoffice"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="enabled">True</value>
+        <value key="csscompilation">++resource++onlyoffice-static/css/onlyoffice.css</value>
+        <value key="last_compilation">2021-11-16 00:00:00</value>
+        <value key="compile">False</value>
+        <value key="depends">plone</value>
+    </records>
+
 </registry>

@@ -38,8 +38,7 @@ class OnlyofficeCreateSubMenuItem(BrowserSubMenuItem):
         )
 
     extra = {
-        'id': 'plone_contentmenu_onlyoffice_create',
-        'li_class': 'plonetoolbar-onlyoffice-create'
+        'id': 'onlyoffice-create'
     }
 
     order = 10
@@ -76,7 +75,7 @@ class OnlyofficeCreateMenu(BrowserMenu):
                 'extra': {
                     'id': 'document',
                     'separator': None,
-                    'class': 'contenttype-document'
+                    'class': 'contenttype-onlyoffice icon-onlyoffice-file-' + documentType
                 },
                 'submenu': None
             })

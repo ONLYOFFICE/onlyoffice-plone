@@ -1,0 +1,5 @@
+
+.icon-onlyoffice-logo:before { content: '\e801'; } /* '' */
+.icon-file-word:before { content: '\f1c2'; } /* '' */
+.icon-file-excel:before { content: '\f1c3'; } /* '' */
+.icon-file-powerpoint:before { content: '\f1c4'; } /* '' */

@@ -14,6 +14,10 @@
       />
   -->
 
+  <browser:resourceDirectory
+      name="onlyoffice-static"
+      directory="static" />
+
   <browser:page
       name="onlyoffice-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
