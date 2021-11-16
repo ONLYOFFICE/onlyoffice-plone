@@ -104,4 +104,11 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IFile"
+      name="onlyoffice-rename"
+      class=".api.Rename"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

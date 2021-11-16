@@ -58,6 +58,7 @@
         var docEditor;
         var config = ${view/editorCfg}
         var saveAs = ${view/saveAs}
+        var rename = ${view/rename}
         config.width = "100%";
         config.height = "600px";
 
@@ -196,6 +197,24 @@
             });
         };
 
+        var onRequestRename = function (event) {
+            var title = event.data;
+
+            var request = new XMLHttpRequest();
+            request.open("POST", "${context/absolute_url}/onlyoffice-rename?newTitle=" + title);
+            request.setRequestHeader("x-csrf-token", "${view/token}"); 
+            request.send()
+
+            request.onreadystatechange = function() {
+                if (request.readyState != 4) return;
+                if (request.status == 200) {
+                    window.location.reload();
+                } else {
+                    docEditor.showMessage(rename.MessageError);
+                }
+            }
+        };
+
         config.events = {
             "onRequestInsertImage": onRequestInsertImage,
             "onRequestCompareFile": onRequestCompareFile,
@@ -205,6 +224,10 @@
 
         if (saveAs.available) {
             config.events.onRequestSaveAs = onRequestSaveAs
+        }
+
+        if (rename.available) {
+            config.events.onRequestRename = onRequestRename;
         }
 
         if (typeof DocsAPI === "undefined") {

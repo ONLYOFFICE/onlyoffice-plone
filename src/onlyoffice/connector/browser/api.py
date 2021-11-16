@@ -38,6 +38,9 @@ from plone.app.content.utils import json_dumps
 from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
+from plone.app.content.utils import json_dumps
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -50,6 +53,7 @@ from onlyoffice.connector.interfaces import _
 import json
 import os
 import mimetypes
+import re
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -67,6 +71,11 @@ class Edit(form.EditForm):
         self.editorCfg = get_config(self, True)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
+        self.rename = json.dumps({
+            'available': bool(getSecurityManager().checkPermission('Modify portal content', self.context)),
+            'MessageError': _(u'Error renaming')
+        })
+
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
@@ -107,10 +116,20 @@ class View(BrowserView):
         self.editorCfg = get_config(self, False)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
+        self.rename = json.dumps({
+            'available': getSecurityManager().checkPermission('Modify portal content', self.context),
+            'messageError': _(u'Error renaming')
+        })
+
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
         return self.index()
+
+def get_token(self):
+        authenticator = getMultiAdapter((self.context, self.request), name="authenticator")
+
+        return authenticator.token()
 
 def portal_state(self):
     context = aq_inner(self.context)
@@ -361,3 +380,36 @@ class OInsert(BrowserView):
         )
 
         return json.dumps(response)
+
+class Rename(BrowserView):
+    def __call__(
+        self,
+        newTitle
+    ):
+        if newTitle is None:
+            raise NotFound(self, newTitle, self.request)
+
+        newTitle = re.sub('[*?:"<>/|\\\\]', '_', newTitle)
+
+        try:
+            ext = fileUtils.getFileExt(self.context.file.filename)[1:]
+            self.context.file.filename = newTitle + "." + ext
+
+            title = self.context.Title()
+            change_title = newTitle and title != newTitle
+            if change_title:
+                getSecurityManager().validate(self.context, self.context, "setTitle", self.context.setTitle)
+                self.context.setTitle(newTitle + "." + ext)
+                notify(ObjectModifiedEvent(self.context))
+        except Exception as e:
+            logger.error(
+                'Error renaming "{title}": "{exception}"'.format(
+                    title=title, exception=e
+                )
+            )
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        return json_dumps({ "status": "success"})
