@@ -95,6 +95,8 @@ def getDefaultExtByType(str):
         return 'xlsx'
     if (str == 'slide'):
         return 'pptx'
+    if (str == 'form'):
+        return 'docxf'
 
     return None
 
@@ -105,5 +107,7 @@ def getDefaultNameByType(str):
         return _(u'Spreadsheet')
     if (str == 'slide'):
         return _(u'Presentation')
+    if (str == 'form'):
+        return _(u'Master From')
 
     return None

@@ -60,7 +60,7 @@ class OnlyofficeCreateMenu(BrowserMenu):
 
     def getMenuItems(self, context, request):
 
-        documentTypes = ['word', 'cell', 'slide']
+        documentTypes = ['word', 'cell', 'slide', 'form']
 
         currentUrl = context.absolute_url()
         menuItems = []
