@@ -14,6 +14,34 @@
 # limitations under the License.
 #
 
+from onlyoffice.connector.interfaces import _
+
+localePath = {
+        'az': 'az-Latn-AZ',
+        'bg': 'bg-BG',
+        'cs': 'cs-CZ',
+        'de': 'de-DE',
+        'el': 'el-GR',
+        'en-gb': 'en-GB',
+        'en': 'en-US',
+        'es': 'es-ES',
+        'fr': 'fr-FR',
+        'it': 'it-IT',
+        'ja': 'ja-JP',
+        'ko': 'ko-KR',
+        'lv': 'lv-LV',
+        'nl': 'nl-NL',
+        'pl': 'pl-PL',
+        'pt-br': 'pt-BR',
+        'pt': 'pt-PT',
+        'ru': 'ru-RU',
+        'sk': 'sk-SK',
+        'sv': 'sv-SE',
+        'uk': 'uk-UA',
+        'vi': 'vi-VN',
+        'zh': 'zh-CN'
+    }
+
 def getFileName(str):
     ind = str.rfind('/')
     return str[ind+1:]
@@ -59,3 +87,23 @@ def canFillForm(str):
         return True
 
     return False
+
+def getDefaultExtByType(str):
+    if (str == 'word'):
+        return 'docx'
+    if (str == 'cell'):
+        return 'xlsx'
+    if (str == 'slide'):
+        return 'pptx'
+
+    return None
+
+def getDefaultNameByType(str):
+    if (str == 'word'):
+        return _(u'Document')
+    if (str == 'cell'):
+        return _(u'Spreadsheet')
+    if (str == 'slide'):
+        return _(u'Presentation')
+
+    return None

@@ -26,13 +26,18 @@ from z3c.form import form
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
+from plone.app.dexterity.interfaces import IDXFileFactory
+from plone.protect.utils import addTokenToUrl
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.interfaces import logger
+from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
 
 import json
+import os
+import mimetypes
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -82,15 +87,15 @@ class View(BrowserView):
             return index(self)
         return self.index()
 
+def portal_state(self):
+    context = aq_inner(self.context)
+    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+    return portal_state
+
 def get_config(self, forEdit):
     # def viewURLFor(self, item):
         # cstate = getMultiAdapter((item, item.REQUEST), name='plone_context_state')
         # return cstate.view_url()
-
-    def portal_state(self):
-        context = aq_inner(self.context)
-        portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-        return portal_state
 
     logger.info("getting config for " + self.context.absolute_url())
     canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
@@ -216,3 +221,40 @@ class ODownload(Download):
             raise NotFound(self, self.fieldname, self.request)
 
         return file
+
+class Create(BrowserView):
+    def __call__(
+        self,
+        documentType
+    ):
+        fileName = fileUtils.getDefaultNameByType(documentType)
+        fileExt = fileUtils.getDefaultExtByType(documentType)
+
+        if fileName is None or fileExt is None:
+            raise NotFound(self, documentType, self.request)
+
+        template = 'new.' + fileExt
+
+        state = portal_state(self)
+        language = state.language()
+
+        localePath = fileUtils.localePath.get(language)
+        if localePath is None:
+            language = language.split('-')[0]
+            localePath = fileUtils.localePath.get(language)
+            if localePath is None:
+                localePath = fileUtils.localePath.get('en')
+
+        file = open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app_data', localePath, template), 'rb')
+
+        try:
+            data = file.read()
+        finally:
+            file.close()
+
+        factory = IDXFileFactory(self.context)
+        contentType = mimetypes.guess_type(template)[0] or ''
+
+        file = factory(fileName + '.' + fileExt, contentType, data)
+
+        self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))

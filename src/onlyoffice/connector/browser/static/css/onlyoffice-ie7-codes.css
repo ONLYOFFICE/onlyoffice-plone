@@ -1,0 +1,5 @@
+
+.icon-onlyoffice-logo { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
+.icon-file-word { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c2;&nbsp;'); }
+.icon-file-excel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c3;&nbsp;'); }
+.icon-file-powerpoint { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c4;&nbsp;'); }
