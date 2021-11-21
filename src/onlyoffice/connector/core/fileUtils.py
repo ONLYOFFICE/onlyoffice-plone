@@ -30,7 +30,7 @@ def getFileExt(str):
 
 def getFileType(str):
     ext = getFileExt(str)
-    if ext in [ ".doc", ".docx", ".docm", ".dot", ".dotx", ".dotm", ".odt", ".fodt", ".ott", ".rtf", ".txt", ".html", ".htm", ".mht", ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".docxf" ]:
+    if ext in [ ".doc", ".docx", ".docm", ".dot", ".dotx", ".dotm", ".odt", ".fodt", ".ott", ".rtf", ".txt", ".html", ".htm", ".mht", ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".docxf", ".oform" ]:
         return 'text'
     if ext in [ ".xls", ".xlsx", ".xlsm", ".xlt", ".xltx", ".xltm", ".ods", ".fods", ".ots", ".csv" ]:
         return 'spreadsheet'
@@ -41,7 +41,7 @@ def getFileType(str):
 
 def canView(str):
     ext = getFileExt(str)
-    if ext in [ ".doc", ".docx", ".docm", ".dot", ".dotx", ".dotm", ".odt", ".fodt", ".ott", ".rtf", ".txt", ".html", ".htm", ".mht", ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".xls", ".xlsx", ".xlsm", ".xlt", ".xltx", ".xltm", ".ods", ".fods", ".ots", ".csv", ".pps", ".ppsx", ".ppsm", ".ppt", ".pptx", ".pptm", ".pot", ".potx", ".potm", ".odp", ".fodp", ".otp", ".docxf" ]:
+    if ext in [ ".doc", ".docx", ".docm", ".dot", ".dotx", ".dotm", ".odt", ".fodt", ".ott", ".rtf", ".txt", ".html", ".htm", ".mht", ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".xls", ".xlsx", ".xlsm", ".xlt", ".xltx", ".xltm", ".ods", ".fods", ".ots", ".csv", ".pps", ".ppsx", ".ppsm", ".ppt", ".pptx", ".pptm", ".pot", ".potx", ".potm", ".odp", ".fodp", ".otp", ".docxf", ".oform" ]:
         return True
 
     return False
@@ -49,6 +49,13 @@ def canView(str):
 def canEdit(str):
     ext = getFileExt(str)
     if ext in [ ".docx", ".xlsx", ".pptx", ".docxf" ]:
+        return True
+
+    return False
+
+def canFillForm(str):
+    ext = getFileExt(str)
+    if ext in [ ".oform" ]:
         return True
 
     return False

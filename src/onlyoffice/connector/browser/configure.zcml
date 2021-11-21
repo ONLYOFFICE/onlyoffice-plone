@@ -38,6 +38,14 @@
       />
 
   <browser:page
+      name="onlyoffice-fill-form"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.FillForm"
+      permission="cmf.ModifyPortalContent"
+      template="templates/view.pt"
+      />
+
+  <browser:page
       name="onlyoffice-callback"
       for="plone.app.contenttypes.interfaces.IFile"
       class=".api.Callback"

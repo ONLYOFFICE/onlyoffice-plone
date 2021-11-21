@@ -50,6 +50,22 @@ class Edit(form.EditForm):
             return index(self)
         return self.index()
 
+class FillForm(form.EditForm):
+    def isAvailable(self):
+        filename = self.context.file.filename
+        return fileUtils.canFillForm(filename)
+
+    docUrl = None
+    editorCfg = None
+
+    def __call__(self):
+        self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.editorCfg = get_config(self, True)
+        if not self.editorCfg:
+            index = ViewPageTemplateFile("templates/error.pt")
+            return index(self)
+        return self.index()
+
 class View(BrowserView):
     def isAvailable(self):
         filename = self.context.file.filename
@@ -80,7 +96,7 @@ def get_config(self, forEdit):
     canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
 
     filename = self.context.file.filename
-    if not fileUtils.canView(filename) or (forEdit and not fileUtils.canEdit(filename)):
+    if not fileUtils.canView(filename) or (forEdit and not fileUtils.canEdit(filename) and not fileUtils.canFillForm(filename)):
         # self.request.response.status = 500
         # self.request.response.setHeader('Location', self.viewURLFor(self.context))
         return None
