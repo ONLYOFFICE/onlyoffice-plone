@@ -75,6 +75,8 @@ class FillForm(form.EditForm):
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.token = get_token(self)
+        self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -274,7 +276,7 @@ class Create(BrowserView):
 
         file = factory(fileName + '.' + fileExt, contentType, data)
 
-        self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))        return file
+        self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))
 
 class SaveAs(BrowserView):
     def __call__(self):
