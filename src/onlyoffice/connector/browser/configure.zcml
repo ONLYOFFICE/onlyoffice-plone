@@ -90,4 +90,11 @@
       permission="cmf.AddPortalContent"
       />
 
+  <browser:page
+      name="onlyoffice-save-as"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.SaveAs"
+      permission="zope2.View"
+      />
+
 </configure>

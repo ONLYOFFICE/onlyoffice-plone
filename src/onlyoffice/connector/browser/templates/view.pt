@@ -34,6 +34,40 @@
         config = ${view/editorCfg}
         config.width = "100%";
         config.height = "600px";
+
+        var saveAs = ${view/saveAs}
+
+        var onRequestSaveAs = function (event) {
+            var url = event.data.url;
+            var fileType = event.data.fileType;
+
+            var request = new XMLHttpRequest();
+            request.open("POST", "${context/absolute_url}/onlyoffice-save-as", true);
+            request.setRequestHeader("x-csrf-token", "${view/token}");
+            request.send(JSON.stringify({
+                url: url,
+                fileType: fileType
+            }));
+
+            request.onreadystatechange = function() {
+                if (request.readyState != 4) return;
+                if (request.status == 200) {
+                    var response = JSON.parse(request.response);
+                    docEditor.showMessage(saveAs.messages.success + response.fileName);
+                } else if (request.status == 403) {
+                    docEditor.showMessage(saveAs.messages.errorNotAuthorized);
+                } else {
+                    docEditor.showMessage(saveAs.messages.errorUnknown);
+                }
+            }
+        }
+
+        config.events = {};
+
+        if (saveAs.available) {
+            config.events.onRequestSaveAs = onRequestSaveAs
+        }
+
         if (typeof DocsAPI === "undefined") {
             document.getElementById("onlyofficeError").style.display = "block";
         } else {
