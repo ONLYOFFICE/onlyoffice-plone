@@ -25,6 +25,7 @@
 
 .icon-onlyoffice-create:before { content: '\e801' !important; } /* '' */
 .icon-onlyoffice-edit:before { content: '\e801' !important; } /* '' */
+.icon-onlyoffice-fill-form:before { content: '\e801' !important; } /* '' */
 .icon-onlyoffice-file-word:before { content: '\f1c2' !important; } /* '' */
 .icon-onlyoffice-file-cell:before { content: '\f1c3' !important; } /* '' */
 .icon-onlyoffice-file-slide:before { content: '\f1c4' !important; } /* '' */
