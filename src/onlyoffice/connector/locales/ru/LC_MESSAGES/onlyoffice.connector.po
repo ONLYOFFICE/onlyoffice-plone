@@ -57,3 +57,15 @@ msgstr "onlyoffice.connector (удаление)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Секретный ключ (оставьте пустым для отключения)"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "Файл был успешно сохранен как "
+ 
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "У вас нет прав на добавление содержимого в эту папку"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgid "Неизвестная ошибка при сохранении файла"

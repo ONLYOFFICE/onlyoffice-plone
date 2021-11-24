@@ -26,13 +26,23 @@ from z3c.form import form
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
+from Acquisition import aq_inner
+from Acquisition import aq_parent
+from plone.app.dexterity.interfaces import IDXFileFactory
+from zExceptions import BadRequest
+from plone.app.content.utils import json_dumps
+from AccessControl import getSecurityManager
+from Products.CMFPlone.permissions import AddPortalContent
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
+from onlyoffice.connector.core import featureUtils
 from onlyoffice.connector.interfaces import logger
 from urllib.request import urlopen
+from onlyoffice.connector.interfaces import _
 
 import json
+import mimetypes
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -44,6 +54,8 @@ class Edit(form.EditForm):
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.token = get_token(self)
+        self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -60,11 +72,18 @@ class View(BrowserView):
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.token = get_token(self)
+        self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, False)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
         return self.index()
+
+def get_token(self):
+        authenticator = getMultiAdapter((self.context, self.request), name="authenticator")
+
+        return authenticator.token()
 
 def get_config(self, forEdit):
     # def viewURLFor(self, item):
@@ -200,3 +219,37 @@ class ODownload(Download):
             raise NotFound(self, self.fieldname, self.request)
 
         return file
+
+class SaveAs(BrowserView):
+    def __call__(self):
+        folder = aq_parent(aq_inner(self.context))
+        sm = getSecurityManager()
+
+        if not sm.checkPermission(AddPortalContent, folder):
+            response = self.request.RESPONSE
+            response.setStatus(403)
+            return "You are not authorized to add content to this folder."
+
+        body = json.loads(self.request.get('BODY'))
+        url = body.get('url')
+        fileType = body.get('fileType')
+
+        if not url or not fileType:
+            raise BadRequest(u'Required url and fileType parameters not found.')
+
+        fileName = fileUtils.getFileNameWithoutExt(self.context.file.filename) + "." + fileType
+        contentType = mimetypes.guess_type(fileName)[0] or ''
+
+        data = urlopen(url).read()
+
+        factory = IDXFileFactory(folder)
+        file = factory(fileName, contentType, data)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        return json_dumps({
+            "status": "success",
+            "fileName": fileName
+        })
