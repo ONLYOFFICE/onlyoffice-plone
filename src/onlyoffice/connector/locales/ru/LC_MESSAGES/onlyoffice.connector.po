@@ -57,3 +57,19 @@ msgstr "onlyoffice.connector (удаление)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Секретный ключ (оставьте пустым для отключения)"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr "Создать в ONLYOFFICE"
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "Документ"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "Таблица"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "Презентация"

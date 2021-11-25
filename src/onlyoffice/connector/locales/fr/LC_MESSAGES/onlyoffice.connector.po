@@ -57,3 +57,19 @@ msgstr "onlyoffice.connecteur (désinstaller)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Clé secrète (laisser vide pour désactiver)"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "Document"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "Feuille de calcul"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "Présentation"
