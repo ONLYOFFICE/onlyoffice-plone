@@ -21,22 +21,60 @@
       ]
     },
     {
-      "uid": "310ffd629da85142bc8669f010556f2d",
+      "uid": "694d51a314bd37e8d0a5f10c38a71dd2",
       "css": "file-word",
-      "code": 61890,
-      "src": "fontawesome"
+      "code": 59392,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M940.6 0H59.4C28.1 0 0 28.1 0 59.4V940.6C0 971.9 28.1 1000 59.4 1000H940.6C975 1000 1000 971.9 1000 940.6V59.4C1000 28.1 971.9 0 940.6 0ZM843.8 750H156.3V656.3H843.8V750ZM843.8 531.3H156.3V437.5H843.8V531.3ZM843.8 312.5H156.3V218.8H843.8V312.5Z",
+        "width": 1000
+      },
+      "search": [
+        "file-word"
+      ]
     },
     {
-      "uid": "f761c3bbe16ba2d332914ecb28e7a042",
-      "css": "file-excel",
-      "code": 61891,
-      "src": "fontawesome"
+      "uid": "848f0b15e652462da0ee0e496d9ecbb7",
+      "css": "file-cell",
+      "code": 59394,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M468.8 468.8H187.5V250H468.8V468.8ZM812.5 531.3H531.3V750H812.5V531.3ZM812.5 250H531.3V468.8H812.5V250ZM468.8 531.3H187.5V750H468.8V531.3ZM1000 65.6V934.4C1000 971.9 968.8 1000 934.4 1000H65.6C31.3 1003.1 0 971.9 0 937.5V65.6C0 31.3 31.3 0 65.6 0H931.3C968.8 0 1000 31.3 1000 65.6ZM906.3 156.3H93.8V843.8H906.3V156.3Z",
+        "width": 1000
+      },
+      "search": [
+        "file-cell"
+      ]
     },
     {
-      "uid": "edcd4022de8d8df266ef7c42d2658ca5",
-      "css": "file-powerpoint",
-      "code": 61892,
-      "src": "fontawesome"
+      "uid": "ef8943399733f05d64dd3ad31b19f220",
+      "css": "file-slide",
+      "code": 59395,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M781.3 750H218.8V250H781.3V750ZM1000 65.6V931.3C1000 968.8 968.8 996.9 934.4 996.9H65.6C31.3 1000 0 968.8 0 934.4V65.6C0 31.3 31.3 0 65.6 0H931.3C968.8 0 1000 31.3 1000 65.6ZM875 156.3H125V843.8H875V156.3Z",
+        "width": 1000
+      },
+      "search": [
+        "file-slide"
+      ]
+    },
+    {
+      "uid": "add7fc68dd08cdbe077bd72202390c87",
+      "css": "file-form",
+      "code": 59396,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M934.4 0H65.6C31.3 0 0 31.3 0 65.6V931.3C0 968.8 31.3 1000 65.6 1000H931.3C968.8 1000 996.9 968.8 996.9 934.4V65.6C1000 31.3 968.8 0 934.4 0ZM812.5 640.6V718.8H187.5V562.5H812.5V640.6ZM812.5 437.5H187.5V281.3H812.5V437.5Z",
+        "width": 1000
+      },
+      "search": [
+        "file-form"
+      ]
     }
   ]
 }

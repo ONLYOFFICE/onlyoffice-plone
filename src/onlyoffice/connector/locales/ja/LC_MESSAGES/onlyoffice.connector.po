@@ -57,3 +57,19 @@ msgstr "onlyoffice.connector (アンインストールする)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "シークレットキー (ブランクで無効)"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "ドキュメント"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "スプレッドシート"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "プレゼンテーション"

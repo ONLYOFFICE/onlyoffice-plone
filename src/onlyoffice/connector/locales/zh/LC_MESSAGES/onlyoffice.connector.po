@@ -57,3 +57,19 @@ msgstr "onlyoffice.connector (卸载)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "秘钥(留空为关闭)"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "文档"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "电子表格"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "演示文稿"
