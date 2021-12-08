@@ -84,4 +84,8 @@ msgstr "У вас нет прав на добавление содержимог
 
 #: ../browser/api.py
 msgid "Unknown error while saving file"
-msgid "Неизвестная ошибка при сохранении файла"
+msgstr "Неизвестная ошибка при сохранении файла"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Обновите сервер документов ONLYOFFICE до версии 7.0, чтобы работать с заполняемыми формами."

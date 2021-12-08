@@ -27,6 +27,7 @@
 <metal:block fill-slot="content-core">
     <div id="onlyofficeEditor"></div>
     <div id="onlyofficeError" i18n:translate="" style="display:none;">DocumentServer not accessible.</div>
+    <div id="onlyofficeErrorVersion" i18n:translate="" style="display:none;">Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online.</div>
 
     <script type="text/javascript" src="${view/docUrl}/web-apps/apps/api/documents/api.js"></script>
     <script type="text/javascript" language="javascript">
@@ -70,6 +71,9 @@
 
         if (typeof DocsAPI === "undefined") {
             document.getElementById("onlyofficeError").style.display = "block";
+        } else if ((config.document.fileType === "docxf" || config.document.fileType === "oform")
+            && DocsAPI.DocEditor.version().split(".")[0] < 7) {
+            document.getElementById("onlyofficeErrorVersion").style.display = "block";
         } else {
             docEditor = new DocsAPI.DocEditor("onlyofficeEditor", config);
         }
