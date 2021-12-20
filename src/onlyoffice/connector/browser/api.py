@@ -41,13 +41,11 @@ class Edit(form.EditForm):
         return fileUtils.canEdit(filename)
 
     docUrl = None
-    ploneUrl = None
     docInnerUrl = None
     editorCfg = None
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
-        self.ploneUrl = Config(getUtility(IRegistry)).ploneUrl
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, True)
         if not self.editorCfg:
@@ -61,13 +59,11 @@ class View(BrowserView):
         return fileUtils.canView(filename)
 
     docUrl = None
-    ploneUrl = None
     docInnerUrl = None
     editorCfg = None
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
-        self.ploneUrl = Config(getUtility(IRegistry)).ploneUrl
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, False)
         if not self.editorCfg:
@@ -89,9 +85,7 @@ def get_config(self, forEdit):
 
     filename = self.context.file.filename
 
-    portal = api.portal.get()
-    self.ploneUrl = self.ploneUrl + portal.getPhysicalPath()[1] + "/" + filename if self.ploneUrl else self.context.absolute_url()
-    logger.info("getting config for " + self.ploneUrl)
+    logger.info("getting config for " + utils.getPloneContextUrl(self.context))
 
     if not fileUtils.canView(filename) or (forEdit and not fileUtils.canEdit(filename)):
         # self.request.response.status = 500
@@ -106,7 +100,7 @@ def get_config(self, forEdit):
         'documentType': fileUtils.getFileType(filename),
         'document': {
             'title': filename,
-            'url': self.ploneUrl + '/onlyoffice-dl?token=' + securityToken,
+            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
             'fileType': fileUtils.getFileExt(filename)[1:],
             'key': utils.getDocumentKey(self.context),
             'info': {
@@ -130,7 +124,7 @@ def get_config(self, forEdit):
         }
     }
     if canEdit:
-        config['editorConfig']['callbackUrl'] = self.ploneUrl + '/onlyoffice-callback?token=' + securityToken
+        config['editorConfig']['callbackUrl'] = utils.getPloneContextUrl(self.context) + '/onlyoffice-callback?token=' + securityToken
 
     if utils.isJwtEnabled():
         config['token'] = utils.createSecurityToken(config)

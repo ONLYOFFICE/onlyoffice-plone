@@ -66,3 +66,11 @@ def replaceDocUrlToInternal(url):
     if docInnerUrl:
         url = url.replace(docUrl, docInnerUrl)
     return url
+
+def getPloneContextUrl(context):
+    innerPloneUrl = Config(getUtility(IRegistry)).ploneUrl
+
+    if innerPloneUrl:
+        return innerPloneUrl + "/".join(context.getPhysicalPath())
+    else:
+        return context.absolute_url()
