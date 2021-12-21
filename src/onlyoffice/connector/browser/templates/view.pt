@@ -28,12 +28,85 @@
     <div id="onlyofficeEditor"></div>
     <div id="onlyofficeError" i18n:translate="" style="display:none;">DocumentServer not accessible.</div>
 
+    <a id="insert-dialog-onlyoffice-triger"
+        href="#insert-dialog-onlyoffice"
+        class="pat-plone-modal" 
+        data-pat-plone-modal="width: 600px;"
+        style="display: none;">
+    </a>
+    <div id="insert-dialog-onlyoffice" style="display: none" i18n:domain="plone">
+        <div class="linkModal">
+            <h1 i18n:translate="label_select_content_item">Select a content item</h1>
+            <div id="relatedItems"></div>
+            <div class="formControls">
+                <input type="submit" class="plone-btn" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
+                <input type="submit" class="plone-btn plone-btn-primary context" name="ok" value="Ok" i18n:attributes="value label_ok;" />
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="${view/docUrl}/web-apps/apps/api/documents/api.js"></script>
     <script type="text/javascript" language="javascript">
         var docEditor;
         config = ${view/editorCfg}
         config.width = "100%";
         config.height = "600px";
+
+        var modalInsertDialog = function (docEditorEvent, selectableTypes, command = null) {
+            var modalDialog = $('#insert-dialog-onlyoffice-triger').patPloneModal().data("pattern-plone-modal");
+
+            var dataRelatedItems = {
+                "vocabularyUrl": "${context/absolute_url}/@@getVocabulary?name=plone.app.vocabularies.Catalog&field=relatedItems",
+                "selectableTypes": selectableTypes,
+                "maximumSelectionSize": 1
+            }
+
+            var relatedItems = document.createElement("input");
+            relatedItems.type = "text";
+            relatedItems.className = "pat-relateditems";
+            relatedItems.setAttribute("data-pat-relateditems", JSON.stringify(dataRelatedItems));
+
+            document.getElementById('relatedItems').innerHTML = "";
+            document.getElementById('relatedItems').append(relatedItems);
+
+            modalDialog.show();
+
+            modalDialog.$modal.find("div.pattern-modal-buttons input[name='cancel']").on("click", function () {
+                modalDialog.hide();
+            });
+
+            modalDialog.$modal.find("div.pattern-modal-buttons input[name='ok']").on("click", function () {
+                var selectedItems = modalDialog.$modal.find("div.pat-relateditems").select2("data");
+                var selectedUIDs = (selectedItems || []).map(
+                    function (el) {
+                        return el.UID;
+                    }
+                );
+
+                var request = new XMLHttpRequest();
+                request.open("POST", "${context/absolute_url}/onlyoffice-insert", false);
+                request.setRequestHeader("x-csrf-token", "${view/token}");
+                request.send(JSON.stringify({
+                    command: command,
+                    UIDs: selectedUIDs
+                }));
+
+                if (request.status == 200) {
+                    var insertObjects = JSON.parse(request.responseText);
+
+                    // bug https://bugzilla.onlyoffice.com/show_bug.cgi?id=50683
+                    // insertObjects.forEach((insertObject) => {
+                    //    docEditorEvent(insertObject);
+                    // });
+
+                    docEditorEvent(insertObjects[0]);
+                    modalDialog.hide();
+                }
+            });
+
+            return modalDialog;
+        }
+
         if (typeof DocsAPI === "undefined") {
             document.getElementById("onlyofficeError").style.display = "block";
         } else {
