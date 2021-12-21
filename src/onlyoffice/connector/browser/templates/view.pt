@@ -55,16 +55,14 @@
         var modalInsertDialog = function (docEditorEvent, selectableTypes, command = null) {
             var modalDialog = $('#insert-dialog-onlyoffice-triger').patPloneModal().data("pattern-plone-modal");
 
-            var dataRelatedItems = {
-                "vocabularyUrl": "${context/absolute_url}/@@getVocabulary?name=plone.app.vocabularies.Catalog&field=relatedItems",
-                "selectableTypes": selectableTypes,
-                "maximumSelectionSize": 1
-            }
+            var relatedItemsOptions = ${view/relatedItemsOptions}
+            relatedItemsOptions.selectableTypes = selectableTypes;
+            relatedItemsOptions.maximumSelectionSize = 1;
 
             var relatedItems = document.createElement("input");
             relatedItems.type = "text";
             relatedItems.className = "pat-relateditems";
-            relatedItems.setAttribute("data-pat-relateditems", JSON.stringify(dataRelatedItems));
+            relatedItems.setAttribute("data-pat-relateditems", JSON.stringify(relatedItemsOptions));
 
             document.getElementById('relatedItems').innerHTML = "";
             document.getElementById('relatedItems').append(relatedItems);
