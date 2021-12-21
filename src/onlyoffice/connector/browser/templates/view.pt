@@ -115,9 +115,14 @@
             modalInsertDialog(docEditor.setRevisedFile, ["File"]);
         };
 
+        var onRequestMailMergeRecipients = function() {
+            modalInsertDialog(docEditor.setMailMergeRecipients, ["File"]);
+        };
+
         config.events = {
             "onRequestInsertImage": onRequestInsertImage,
-            "onRequestCompareFile": onRequestCompareFile
+            "onRequestCompareFile": onRequestCompareFile,
+            "onRequestMailMergeRecipients": onRequestMailMergeRecipients
         };
 
         if (typeof DocsAPI === "undefined") {
