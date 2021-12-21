@@ -111,8 +111,13 @@
             modalInsertDialog(docEditor.insertImage, ["Image"], event.data.c);
         };
 
+        var onRequestCompareFile = function() {
+            modalInsertDialog(docEditor.setRevisedFile, ["File"]);
+        };
+
         config.events = {
-            "onRequestInsertImage": onRequestInsertImage
+            "onRequestInsertImage": onRequestInsertImage,
+            "onRequestCompareFile": onRequestCompareFile
         };
 
         if (typeof DocsAPI === "undefined") {
