@@ -107,6 +107,14 @@
             return modalDialog;
         }
 
+        var onRequestInsertImage = function(event) {
+            modalInsertDialog(docEditor.insertImage, ["Image"], event.data.c);
+        };
+
+        config.events = {
+            "onRequestInsertImage": onRequestInsertImage
+        };
+
         if (typeof DocsAPI === "undefined") {
             document.getElementById("onlyofficeError").style.display = "block";
         } else {
