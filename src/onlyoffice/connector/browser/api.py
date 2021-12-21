@@ -27,6 +27,8 @@ from z3c.form import form
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
+from plone.app.uuid.utils import uuidToObject
+from Products.CMFCore import permissions
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -48,6 +50,7 @@ class Edit(form.EditForm):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, True)
+        self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
@@ -66,10 +69,16 @@ class View(BrowserView):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, False)
+        self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
         return self.index()
+
+def get_token(self):
+        authenticator = getMultiAdapter((self.context, self.request), name="authenticator")
+
+        return authenticator.token()
 
 def get_config(self, forEdit):
     # def viewURLFor(self, item):
@@ -207,3 +216,35 @@ class ODownload(Download):
             raise NotFound(self, self.fieldname, self.request)
 
         return file
+
+class OInsert(BrowserView):
+    def __call__(self):
+        body = json.loads(self.request.get('BODY'))
+        command = body.get('command')
+        UIDs = body.get('UIDs')
+
+        response = []
+
+        for UID in UIDs:
+            obj = uuidToObject(UID)
+
+            if getSecurityManager().checkPermission(permissions.View, obj):
+                portal_type = obj.portal_type
+                if  portal_type == "Image" or portal_type == "File" :
+                    filename = obj.image.filename if portal_type == "Image" else obj.file.filename
+
+                    insertObject = {}
+                    insertObject['command'] = command
+                    insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(obj)
+                    insertObject['fileType'] = fileUtils.getFileExt(filename)[1:]
+
+                    if utils.isJwtEnabled():
+                        insertObject['token'] = utils.createSecurityToken(insertObject)
+
+                    response.append(insertObject)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        return json.dumps(response)

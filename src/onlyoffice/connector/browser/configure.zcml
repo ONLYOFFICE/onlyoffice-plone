@@ -46,7 +46,7 @@
 
   <browser:page
       name="onlyoffice-dl"
-      for="plone.app.contenttypes.interfaces.IFile"
+      for="*"
       class=".api.ODownload"
       permission="zope2.Public"
       />
@@ -57,6 +57,13 @@
       title="ONLYOFFICE View"
       action="onlyoffice-view"
       description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-insert"
+      for="*"
+      class=".api.OInsert"
       permission="zope2.View"
       />
 
