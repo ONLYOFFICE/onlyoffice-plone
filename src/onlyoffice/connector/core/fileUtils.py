@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+from plone.app.widgets.utils import get_relateditems_options
+
 def getFileName(str):
     ind = str.rfind('/')
     return str[ind+1:]
@@ -52,3 +54,13 @@ def canEdit(str):
         return True
 
     return False
+
+def getRelatedRtemsOptions(context):
+    return get_relateditems_options(
+            context=context,
+            value=None,
+            separator=";",
+            vocabulary_name="plone.app.vocabularies.Catalog",
+            vocabulary_view="@@getVocabulary",
+            field_name="relatedItems",
+        )

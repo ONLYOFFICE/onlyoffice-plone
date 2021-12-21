@@ -50,6 +50,7 @@ class Edit(form.EditForm):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, True)
+        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -69,6 +70,7 @@ class View(BrowserView):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.editorCfg = get_config(self, False)
+        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
