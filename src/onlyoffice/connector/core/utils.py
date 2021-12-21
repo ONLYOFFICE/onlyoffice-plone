@@ -59,3 +59,18 @@ def getTokenFromHeader(request):
     if token:
         token = token[len('Bearer '):]
     return token
+
+def replaceDocUrlToInternal(url):
+    docUrl = Config(getUtility(IRegistry)).docUrl
+    docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
+    if docInnerUrl:
+        url = url.replace(docUrl, docInnerUrl)
+    return url
+
+def getPloneContextUrl(context):
+    innerPloneUrl = Config(getUtility(IRegistry)).ploneUrl
+
+    if innerPloneUrl:
+        return innerPloneUrl + "/".join(context.getPhysicalPath())
+    else:
+        return context.absolute_url()
