@@ -53,58 +53,63 @@
         config.width = "100%";
         config.height = "600px";
 
-        var modalInsertDialog = function (docEditorEvent, selectableTypes, command = null) {
-            var modalDialog = $('#insert-dialog-onlyoffice-triger').patPloneModal().data("pattern-plone-modal");
+        var baseModalDialog = {
+            createDialod: function (selectableTypes) {
+                var modalDialog = $('#insert-dialog-onlyoffice-triger').patPloneModal().data("pattern-plone-modal");
 
-            var relatedItemsOptions = ${view/relatedItemsOptions}
-            relatedItemsOptions.selectableTypes = selectableTypes;
-            relatedItemsOptions.maximumSelectionSize = 1;
+                var relatedItemsOptions = ${view/relatedItemsOptions}
+                relatedItemsOptions.selectableTypes = selectableTypes;
+                relatedItemsOptions.maximumSelectionSize = 1;
 
-            var relatedItems = document.createElement("input");
-            relatedItems.type = "text";
-            relatedItems.className = "pat-relateditems";
-            relatedItems.setAttribute("data-pat-relateditems", JSON.stringify(relatedItemsOptions));
+                var relatedItems = document.createElement("input");
+                relatedItems.type = "text";
+                relatedItems.className = "pat-relateditems";
+                relatedItems.setAttribute("data-pat-relateditems", JSON.stringify(relatedItemsOptions));
 
-            document.getElementById('relatedItems').innerHTML = "";
-            document.getElementById('relatedItems').append(relatedItems);
+                document.getElementById('relatedItems').innerHTML = "";
+                document.getElementById('relatedItems').append(relatedItems);
 
-            modalDialog.show();
+                modalDialog.show();
 
-            modalDialog.$modal.find("div.pattern-modal-buttons input[name='cancel']").on("click", function () {
-                modalDialog.hide();
-            });
-
-            modalDialog.$modal.find("div.pattern-modal-buttons input[name='ok']").on("click", function () {
-                var selectedItems = modalDialog.$modal.find("div.pat-relateditems").select2("data");
-                var selectedUIDs = (selectedItems || []).map(
-                    function (el) {
-                        return el.UID;
-                    }
-                );
-
-                var request = new XMLHttpRequest();
-                request.open("POST", "${context/absolute_url}/onlyoffice-insert", false);
-                request.setRequestHeader("x-csrf-token", "${view/token}");
-                request.send(JSON.stringify({
-                    command: command,
-                    UIDs: selectedUIDs
-                }));
-
-                if (request.status == 200) {
-                    var insertObjects = JSON.parse(request.responseText);
-
-                    // bug https://bugzilla.onlyoffice.com/show_bug.cgi?id=50683
-                    // insertObjects.forEach((insertObject) => {
-                    //    docEditorEvent(insertObject);
-                    // });
-
-                    docEditorEvent(insertObjects[0]);
+                modalDialog.$modal.find("div.pattern-modal-buttons input[name='cancel']").on("click", function () {
                     modalDialog.hide();
-                }
-            });
+                });
 
-            return modalDialog;
-        }
+                return modalDialog;
+            },
+            setSubmitRequest: function (modalDialog, submitRequest) {
+                modalDialog.$modal.find("div.pattern-modal-buttons input[name='ok']").on("click", submitRequest);
+            }
+        };
+
+        var requestInsert = function (modalDialog, docEditorEvent, command = null) {
+            var selectedItems = modalDialog.$modal.find("div.pat-relateditems").select2("data");
+            var selectedUIDs = (selectedItems || []).map(
+                function (el) {
+                    return el.UID;
+                }
+            );
+
+            var request = new XMLHttpRequest();
+            request.open("POST", "${context/absolute_url}/onlyoffice-insert", false);
+            request.setRequestHeader("x-csrf-token", "${view/token}");
+            request.send(JSON.stringify({
+                command: command,
+                UIDs: selectedUIDs
+            }));
+
+            if (request.status == 200) {
+                var insertObjects = JSON.parse(request.responseText);
+
+                // bug https://bugzilla.onlyoffice.com/show_bug.cgi?id=50683
+                // insertObjects.forEach((insertObject) => {
+                //    docEditorEvent(insertObject);
+                // });
+
+                docEditorEvent(insertObjects[0]);
+                modalDialog.hide();
+            }
+        };
 
         var onRequestSaveAs = function (event) {
             var url = event.data.url;
@@ -132,7 +137,10 @@
         }
 
         var onRequestInsertImage = function(event) {
-            modalInsertDialog(docEditor.insertImage, ["Image"], event.data.c);
+           var insertImageDialog = baseModalDialog.createDialod(["Image"]);
+           baseModalDialog.setSubmitRequest(insertImageDialog, function () {
+               requestInsert(insertImageDialog, docEditor.insertImage, event.data.c);
+           });
         };
 
         config.events = {
