@@ -118,7 +118,10 @@
         };
 
         var onRequestCompareFile = function() {
-            modalInsertDialog(docEditor.setRevisedFile, ["File"]);
+            var insertFileDialog = baseModalDialog.createDialod(["File"]);
+            baseModalDialog.setSubmitRequest(insertFileDialog, function () {
+                requestInsert(insertFileDialog, docEditor.setRevisedFile);
+            });
         };
 
         config.events = {
