@@ -125,7 +125,10 @@
         };
 
         var onRequestMailMergeRecipients = function() {
-            modalInsertDialog(docEditor.setMailMergeRecipients, ["File"]);
+            var insertFileDialog = baseModalDialog.createDialod(["File"]);
+            baseModalDialog.setSubmitRequest(insertFileDialog, function () {
+                requestInsert(insertFileDialog, docEditor.setMailMergeRecipients);
+            });
         };
 
         config.events = {
