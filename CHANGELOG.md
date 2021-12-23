@@ -1,8 +1,5 @@
 # Change Log
 
-## Added
-- advanced server settings for specifying internal addresses
-
 ## 2.0.0
 ## Added
  - JWT support
