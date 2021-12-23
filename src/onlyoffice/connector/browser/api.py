@@ -78,9 +78,10 @@ class FillForm(form.EditForm):
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
-        self.token = get_token(self)
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
+        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
+        self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
