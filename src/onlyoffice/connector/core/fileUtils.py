@@ -15,6 +15,7 @@
 #
 
 from plone.app.widgets.utils import get_relateditems_options
+import re
 
 def getFileName(str):
     ind = str.rfind('/')
@@ -24,6 +25,9 @@ def getFileNameWithoutExt(str):
     fn = getFileName(str)
     ind = fn.rfind('.')
     return fn[:ind]
+
+def getCorrectFileName(str):
+    return re.sub(r'[*?:\"<>/|\\\\]', '_', str)
 
 def getFileExt(str):
     fn = getFileName(str)

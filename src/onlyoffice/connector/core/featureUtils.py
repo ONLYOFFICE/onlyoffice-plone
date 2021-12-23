@@ -25,6 +25,7 @@ import json
 def getSaveAsObject(context):
     return json.dumps({
                 'available': getSecurityManager().checkPermission('Add portal content', aq_parent(aq_inner(context))),
+                'title': _(u'Save copy file as'),
                 'messages': {
                     'success': _(u'The file was successfully saved as '),
                     'errorNotAuthorized': _(u'You are not authorized to add content to this folder'),

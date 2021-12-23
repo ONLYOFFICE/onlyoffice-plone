@@ -36,6 +36,7 @@ from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
 from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
+from Products.CMFCore.utils import getToolByName
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -233,22 +234,27 @@ class ODownload(Download):
 
 class SaveAs(BrowserView):
     def __call__(self):
-        folder = aq_parent(aq_inner(self.context))
-        sm = getSecurityManager()
+        body = json.loads(self.request.get('BODY'))
+        url = body.get('url')
+        fileType = body.get('fileType')
+        fileTitle = body.get('fileTitle')
+        folderUID = body.get('folderUID')
 
-        if not sm.checkPermission(AddPortalContent, folder):
+        if not url or not fileType or not fileTitle:
+            raise BadRequest(u'Required url or fileType or fileTitle parameters not found.')
+
+        if not folderUID:
+            portal_url = getToolByName(self.context, "portal_url")
+            folder = portal_url.getPortalObject()
+        else:
+            folder = uuidToObject(folderUID)
+
+        if not getSecurityManager().checkPermission(AddPortalContent, folder):
             response = self.request.RESPONSE
             response.setStatus(403)
             return "You are not authorized to add content to this folder."
 
-        body = json.loads(self.request.get('BODY'))
-        url = body.get('url')
-        fileType = body.get('fileType')
-
-        if not url or not fileType:
-            raise BadRequest(u'Required url and fileType parameters not found.')
-
-        fileName = fileUtils.getFileNameWithoutExt(self.context.file.filename) + "." + fileType
+        fileName = fileUtils.getCorrectFileName(fileTitle + "." + fileType)
         contentType = mimetypes.guess_type(fileName)[0] or ''
 
         data = urlopen(url).read()
