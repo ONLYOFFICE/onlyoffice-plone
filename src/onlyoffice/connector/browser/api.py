@@ -26,6 +26,7 @@ from z3c.form import form
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
+from plone.app.uuid.utils import uuidToObject
 from plone.protect.utils import addTokenToUrl
 from Acquisition import aq_inner
 from Acquisition import aq_parent
@@ -34,6 +35,7 @@ from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
 from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
+from Products.CMFCore.utils import getToolByName
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -57,9 +59,10 @@ class Edit(form.EditForm):
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
-        self.token = get_token(self)
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
+        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
+        self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
@@ -93,9 +96,10 @@ class View(BrowserView):
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
-        self.token = get_token(self)
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, False)
+        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
+        self.token = get_token(self)
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
@@ -280,22 +284,27 @@ class Create(BrowserView):
 
 class SaveAs(BrowserView):
     def __call__(self):
-        folder = aq_parent(aq_inner(self.context))
-        sm = getSecurityManager()
+        body = json.loads(self.request.get('BODY'))
+        url = body.get('url')
+        fileType = body.get('fileType')
+        fileTitle = body.get('fileTitle')
+        folderUID = body.get('folderUID')
 
-        if not sm.checkPermission(AddPortalContent, folder):
+        if not url or not fileType or not fileTitle:
+            raise BadRequest(u'Required url or fileType or fileTitle parameters not found.')
+
+        if not folderUID:
+            portal_url = getToolByName(self.context, "portal_url")
+            folder = portal_url.getPortalObject()
+        else:
+            folder = uuidToObject(folderUID)
+
+        if not getSecurityManager().checkPermission(AddPortalContent, folder):
             response = self.request.RESPONSE
             response.setStatus(403)
             return "You are not authorized to add content to this folder."
 
-        body = json.loads(self.request.get('BODY'))
-        url = body.get('url')
-        fileType = body.get('fileType')
-
-        if not url or not fileType:
-            raise BadRequest(u'Required url and fileType parameters not found.')
-
-        fileName = fileUtils.getFileNameWithoutExt(self.context.file.filename) + "." + fileType
+        fileName = fileUtils.getCorrectFileName(fileTitle + "." + fileType)
         contentType = mimetypes.guess_type(fileName)[0] or ''
 
         data = urlopen(url).read()

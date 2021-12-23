@@ -14,17 +14,16 @@
 # limitations under the License.
 #
 
-from Acquisition import aq_inner
-from Acquisition import aq_parent
-from AccessControl import getSecurityManager
-from Products.CMFPlone.permissions import AddPortalContent
+from Products.CMFCore.utils import getToolByName 
 from onlyoffice.connector.interfaces import _
 
 import json
 
 def getSaveAsObject(context):
     return json.dumps({
-                'available': getSecurityManager().checkPermission('Add portal content', aq_parent(aq_inner(context))),
+                'available': not getToolByName(context, 'portal_membership').isAnonymousUser(),
+                'title': _(u'Save copy file as'),
+                'helpTitle': _(u'Leave the field blank to save to the root of the site'),
                 'messages': {
                     'success': _(u'The file was successfully saved as '),
                     'errorNotAuthorized': _(u'You are not authorized to add content to this folder'),

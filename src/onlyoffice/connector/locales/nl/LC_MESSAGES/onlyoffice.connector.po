@@ -73,3 +73,7 @@ msgstr "Spreadsheet"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Presentatie"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Verplichte waarde mist."

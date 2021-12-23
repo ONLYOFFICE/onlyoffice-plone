@@ -14,7 +14,9 @@
 # limitations under the License.
 #
 
+from plone.app.widgets.utils import get_relateditems_options
 from onlyoffice.connector.interfaces import _
+import re
 
 localePath = {
         'az': 'az-Latn-AZ',
@@ -50,6 +52,9 @@ def getFileNameWithoutExt(str):
     fn = getFileName(str)
     ind = fn.rfind('.')
     return fn[:ind]
+
+def getCorrectFileName(str):
+    return re.sub(r'[*?:\"<>/|\\\\]', '_', str)
 
 def getFileExt(str):
     fn = getFileName(str)
@@ -111,3 +116,13 @@ def getDefaultNameByType(str):
         return _(u'Master From')
 
     return None
+
+def getRelatedRtemsOptions(context):
+    return get_relateditems_options(
+            context=context,
+            value=None,
+            separator=";",
+            vocabulary_name="plone.app.vocabularies.Catalog",
+            vocabulary_view="@@getVocabulary",
+            field_name="relatedItems",
+        )
