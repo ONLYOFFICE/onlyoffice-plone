@@ -63,6 +63,10 @@ msgid "Save copy file as"
 msgstr "Сохранить копию файла как"
 
 #: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Оставьте поле пустым, чтобы сохранить в корень сайта"
+
+#: ../browser/api.py
 msgid "The file was successfully saved as "
 msgstr "Файл был успешно сохранен как "
  

@@ -137,6 +137,7 @@
 
             var saveAsDialog = baseModalDialog.createDialod(["Folder"], fileTitle);
             saveAsDialog.$modal.find(".plone-modal-title").text(saveAs.title);
+            saveAsDialog.$modal.find("div.pat-relateditems").append("<div class='formHelp'>" + saveAs.helpTitle + " </div>");
 
             baseModalDialog.setSubmitRequest(saveAsDialog, function () {
                 var selectedItems = saveAsDialog.$modal.find("div.pat-relateditems").select2("data");

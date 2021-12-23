@@ -23,6 +23,7 @@ def getSaveAsObject(context):
     return json.dumps({
                 'available': not getToolByName(context, 'portal_membership').isAnonymousUser(),
                 'title': _(u'Save copy file as'),
+                'helpTitle': _(u'Leave the field blank to save to the root of the site'),
                 'messages': {
                     'success': _(u'The file was successfully saved as '),
                     'errorNotAuthorized': _(u'You are not authorized to add content to this folder'),
