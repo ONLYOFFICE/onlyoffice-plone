@@ -59,6 +59,10 @@ msgid "Secret key (leave blank to disable)"
 msgstr "Секретный ключ (оставьте пустым для отключения)"
 
 #: ../browser/api.py
+msgid "Save copy file as"
+msgstr "Сохранить копию файла как"
+
+#: ../browser/api.py
 msgid "The file was successfully saved as "
 msgstr "Файл был успешно сохранен как "
  

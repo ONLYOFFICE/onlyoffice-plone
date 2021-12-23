@@ -57,3 +57,7 @@ msgstr "onlyoffice.connector (disinstalla)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Chiave segreta (lasciare vuoto per disabilitare)"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Un campo richiesto è mancante."

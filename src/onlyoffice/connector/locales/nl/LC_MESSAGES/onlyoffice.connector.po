@@ -57,3 +57,7 @@ msgstr "onlyoffice.connector (verwijdering)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Geheime sleutel (leeg laten om uit te schakelen)"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Verplichte waarde mist."

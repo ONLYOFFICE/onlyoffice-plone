@@ -57,3 +57,7 @@ msgstr "onlyoffice.connector (アンインストールする)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "シークレットキー (ブランクで無効)"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "必須"
