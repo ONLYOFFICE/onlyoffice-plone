@@ -1,5 +1,9 @@
 # Change Log
 
+## 
+## Added
+ - "save copy as" from editor
+
 ## 2.0.0
 ## Added
  - JWT support
