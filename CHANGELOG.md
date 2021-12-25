@@ -2,7 +2,9 @@
 
 ## 
 ## Added
- - "save copy as" from editor
+- support docxf and oform formats
+- create blank docxf from creation menu
+- "save as" in editor
 
 ## 2.0.0
 ## Added
