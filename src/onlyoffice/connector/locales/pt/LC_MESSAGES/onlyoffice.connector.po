@@ -75,3 +75,7 @@ msgstr "Planilha"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Apresentação"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Falta informação obrigatória."

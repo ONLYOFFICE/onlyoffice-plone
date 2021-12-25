@@ -75,3 +75,6 @@ msgstr "Tabelle"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Präsentation"
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Notwendige Eingabe fehlt."

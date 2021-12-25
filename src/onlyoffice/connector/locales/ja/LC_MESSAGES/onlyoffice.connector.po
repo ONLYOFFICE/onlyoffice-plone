@@ -75,3 +75,7 @@ msgstr "スプレッドシート"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "プレゼンテーション"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "必須"

@@ -75,3 +75,6 @@ msgstr "Hoja de cálculo"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Presentación"
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Un campo requerido esta sin tomar en cuenta."
