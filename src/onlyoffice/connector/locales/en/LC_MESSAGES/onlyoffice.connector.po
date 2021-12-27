@@ -34,6 +34,10 @@ msgstr ""
 msgid "ONLYOFFICE View"
 msgstr ""
 
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr ""
+
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
 msgstr ""
@@ -72,6 +76,10 @@ msgstr ""
 
 #: ../core/fileUtils.py
 msgid "Presentation"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Form template"
 msgstr ""
 
 #: ../browser/api.py

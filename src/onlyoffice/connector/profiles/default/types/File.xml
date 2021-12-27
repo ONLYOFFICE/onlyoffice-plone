@@ -24,7 +24,7 @@
       condition_expr="object/@@onlyoffice-fill-form/isAvailable"
       i18n:domain="onlyoffice.connector"
       i18n:attributes="title"
-      title="ONLYOFFICE Fill Form"
+      title="Fill in form in ONLYOFFICE"
       url_expr="string:${object_url}/onlyoffice-fill-form"
       visible="True">
     <permission value="Modify portal content"/>
