@@ -34,6 +34,10 @@ msgstr "Редактирование файла в ONLYOFFICE"
 msgid "ONLYOFFICE View"
 msgstr "Просмотр файла в ONLYOFFICE"
 
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "Заполнить форму в ONLYOFFICE"
+
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
 msgstr "ONLYOFFICE (Страница просмотра файла)"
@@ -74,8 +78,12 @@ msgstr "Таблица"
 msgid "Presentation"
 msgstr "Презентация"
 
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "Шаблон формы"
+
 #: ../browser/api.py
-msgid "Save copy file as"
+msgid "Save file copy as"
 msgstr "Сохранить копию файла как"
 
 #: ../browser/api.py
@@ -97,3 +105,7 @@ msgstr "Неизвестная ошибка при сохранении файл
 #: ../browser/templates/view.pt
 msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
 msgstr "Обновите сервер документов ONLYOFFICE до версии 7.0, чтобы работать с заполняемыми формами."
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Отсутствуют требуемые входные данные"
