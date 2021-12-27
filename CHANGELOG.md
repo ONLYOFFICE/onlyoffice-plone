@@ -1,7 +1,10 @@
 # Change Log
 
+## 2.1.0
 ## Added
-- advanced server settings for specifying internal addresses
+- support docxf and oform formats
+- create blank docxf from creation menu
+- "save as" in editor
 
 ## 2.0.0
 ## Added

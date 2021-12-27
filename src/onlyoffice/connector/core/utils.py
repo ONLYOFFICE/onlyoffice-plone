@@ -59,10 +59,3 @@ def getTokenFromHeader(request):
     if token:
         token = token[len('Bearer '):]
     return token
-
-def replaceDocUrlToInternal(url):
-    docUrl = Config(getUtility(IRegistry)).docUrl
-    docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
-    if docInnerUrl:
-        url = url.replace(docUrl, docInnerUrl)
-    return url

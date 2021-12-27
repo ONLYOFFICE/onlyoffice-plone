@@ -57,3 +57,43 @@ msgstr "onlyoffice.connector (удаление)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Секретный ключ (оставьте пустым для отключения)"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr "Создать в ONLYOFFICE"
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "Документ"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "Таблица"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "Презентация"
+
+#: ../browser/api.py
+msgid "Save copy file as"
+msgstr "Сохранить копию файла как"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Оставьте поле пустым, чтобы сохранить в корень сайта"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "Файл был успешно сохранен как "
+ 
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "У вас нет прав на добавление содержимого в эту папку"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "Неизвестная ошибка при сохранении файла"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Обновите сервер документов ONLYOFFICE до версии 7.0, чтобы работать с заполняемыми формами."

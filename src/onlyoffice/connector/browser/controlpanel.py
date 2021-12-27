@@ -34,17 +34,6 @@ class IOnlyofficeControlPanel(Interface):
         title=_(u'Secret key (leave blank to disable)'),
         required=False,
     )
-    
-    ploneUrl = schema.TextLine(
-        title=_(u'Server address for internal requests from the Document Editing Service'),
-        required=False
-    )
-
-    docInnerUrl = schema.TextLine(
-        title=_(u'Document Editing Service address for internal requests from the server'),
-        required=False
-    )
-
 
 class OnlyofficeControlPanelForm(RegistryEditForm):
     schema = IOnlyofficeControlPanel

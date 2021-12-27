@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2021 by original authors @ fontello.com</metadata>
+<defs>
+<font id="onlyoffice" horiz-adv-x="1000" >
+<font-face font-family="onlyoffice" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="file-word" unicode="&#xe800;" d="M941 850h-882c-31 0-59-28-59-59v-882c0-31 28-59 59-59h882c34 0 59 28 59 59v882c0 31-28 59-59 59z m-97-750h-688v94h688v-94z m0 219h-688v94h688v-94z m0 219h-688v93h688v-93z" horiz-adv-x="1000" />
+
+<glyph glyph-name="onlyoffice-logo" unicode="&#xe801;" d="M438-76l-412 193c-35 17-35 43 0 58l144 68 266-126c35-17 91-17 125 0l267 126 143-68c35-16 35-43 0-58l-412-193c-32-15-88-15-121 0z m0 238l-412 193c-35 17-35 43 0 58l140 66 272-127c35-17 91-17 125 0l271 127 140-66c35-17 35-43 0-58l-411-193c-36-17-92-17-125 0z m0 231l-412 193c-35 17-35 43 0 58l412 193c35 17 91 17 125 0l411-193c35-17 35-43 0-58l-411-193c-36-15-92-15-125 0z" horiz-adv-x="1000" />
+
+<glyph glyph-name="file-cell" unicode="&#xe802;" d="M469 381h-281v219h281v-219z m344-62h-282v-219h282v219z m0 281h-282v-219h282v219z m-344-281h-281v-219h281v219z m531 465v-868c0-38-31-66-66-66h-868c-35-3-66 28-66 62v872c0 35 31 66 66 66h865c38 0 69-31 69-66z m-94-90h-812v-688h812v688z" horiz-adv-x="1000" />
+
+<glyph glyph-name="file-slide" unicode="&#xe803;" d="M781 100h-562v500h562v-500z m219 684v-865c0-38-31-66-66-66h-868c-35-3-66 28-66 63v868c0 35 31 66 66 66h865c38 0 69-31 69-66z m-125-90h-750v-688h750v688z" horiz-adv-x="1000" />
+
+<glyph glyph-name="file-form" unicode="&#xe804;" d="M934 850h-868c-35 0-66-31-66-66v-865c0-38 31-69 66-69h865c38 0 66 31 66 66v868c3 35-28 66-63 66z m-121-641v-78h-625v157h625v-79z m0 204h-625v156h625v-156z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>
