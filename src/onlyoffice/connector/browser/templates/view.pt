@@ -124,6 +124,13 @@
             }
         };
 
+        var onRequestInsertImage = function(event) {
+           var insertImageDialog = baseModalDialog.createDialod(["Image"]);
+           baseModalDialog.setSubmitRequest(insertImageDialog, function () {
+               requestInsert(insertImageDialog, docEditor.insertImage, event.data.c);
+           });
+        };
+
         var onRequestSaveAs = function (event) {
             var url = event.data.url;
             var fileTitle = event.data.title.substring(0, event.data.title.lastIndexOf("."));
@@ -175,7 +182,9 @@
             });
         };
 
-        config.events = {};
+        config.events = {
+            "onRequestInsertImage": onRequestInsertImage
+        };
 
 
         if (saveAs.available) {

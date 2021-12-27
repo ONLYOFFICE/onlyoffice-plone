@@ -1,5 +1,8 @@
 # Change Log
 
+## Added
+- advanced server settings for specifying internal addresses
+
 ## 2.1.0
 ## Added
 - support docxf and oform formats

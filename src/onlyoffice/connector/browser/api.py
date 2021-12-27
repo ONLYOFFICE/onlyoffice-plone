@@ -18,6 +18,7 @@ from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 from plone.namedfile.browser import Download
 from plone.namedfile.file import NamedBlobFile
 from plone.rfc822.interfaces import IPrimaryFieldInfo
@@ -28,6 +29,7 @@ from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
 from plone.app.uuid.utils import uuidToObject
 from plone.protect.utils import addTokenToUrl
+from Products.CMFCore import permissions
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from plone.app.dexterity.interfaces import IDXFileFactory
@@ -55,10 +57,12 @@ class Edit(form.EditForm):
         return fileUtils.canEdit(filename)
 
     docUrl = None
+    docInnerUrl = None
     editorCfg = None
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
@@ -93,10 +97,12 @@ class View(BrowserView):
         return fileUtils.canView(filename)
 
     docUrl = None
+    docInnerUrl = None
     editorCfg = None
 
     def __call__(self):
         self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, False)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
@@ -121,10 +127,12 @@ def get_config(self, forEdit):
         # cstate = getMultiAdapter((item, item.REQUEST), name='plone_context_state')
         # return cstate.view_url()
 
-    logger.info("getting config for " + self.context.absolute_url())
     canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
 
     filename = self.context.file.filename
+
+    logger.info("getting config for " + utils.getPloneContextUrl(self.context))
+
     if not fileUtils.canView(filename) or (forEdit and not fileUtils.canEdit(filename) and not fileUtils.canFillForm(filename)):
         # self.request.response.status = 500
         # self.request.response.setHeader('Location', self.viewURLFor(self.context))
@@ -138,7 +146,7 @@ def get_config(self, forEdit):
         'documentType': fileUtils.getFileType(filename),
         'document': {
             'title': filename,
-            'url': self.context.absolute_url() + '/onlyoffice-dl?token=' + securityToken,
+            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
             'fileType': fileUtils.getFileExt(filename)[1:],
             'key': utils.getDocumentKey(self.context),
             'info': {
@@ -162,7 +170,7 @@ def get_config(self, forEdit):
         }
     }
     if canEdit:
-        config['editorConfig']['callbackUrl'] = self.context.absolute_url() + '/onlyoffice-callback?token=' + securityToken
+        config['editorConfig']['callbackUrl'] = utils.getPloneContextUrl(self.context) + '/onlyoffice-callback?token=' + securityToken
 
     if utils.isJwtEnabled():
         config['token'] = utils.createSecurityToken(config)
@@ -197,8 +205,8 @@ class Callback(BrowserView):
                     body = body['payload']
 
             status = body['status']
-            download = body.get('url')
             if (status == 2) | (status == 3): # mustsave, corrupted
+                download = utils.replaceDocUrlToInternal(body.get('url'))
                 logger.info("saving file " + self.context.absolute_url())
                 self.context.file = NamedBlobFile(urlopen(download).read(), filename=self.context.file.filename)
                 self.context.reindexObject()
@@ -321,3 +329,35 @@ class SaveAs(BrowserView):
             "status": "success",
             "fileName": fileName
         })
+
+class OInsert(BrowserView):
+    def __call__(self):
+        body = json.loads(self.request.get('BODY'))
+        command = body.get('command')
+        UIDs = body.get('UIDs')
+
+        response = []
+
+        for UID in UIDs:
+            obj = uuidToObject(UID)
+
+            if getSecurityManager().checkPermission(permissions.View, obj):
+                portal_type = obj.portal_type
+                if  portal_type == "Image" or portal_type == "File" :
+                    filename = obj.image.filename if portal_type == "Image" else obj.file.filename
+
+                    insertObject = {}
+                    insertObject['command'] = command
+                    insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(obj)
+                    insertObject['fileType'] = fileUtils.getFileExt(filename)[1:]
+
+                    if utils.isJwtEnabled():
+                        insertObject['token'] = utils.createSecurityToken(insertObject)
+
+                    response.append(insertObject)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        return json.dumps(response)
