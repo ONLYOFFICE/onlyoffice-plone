@@ -75,6 +75,7 @@ msgstr "Foglio di calcolo"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Presentazione"
+
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
 msgstr "Un campo richiesto è mancante."

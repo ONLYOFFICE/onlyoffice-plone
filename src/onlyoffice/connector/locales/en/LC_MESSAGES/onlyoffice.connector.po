@@ -74,6 +74,26 @@ msgstr ""
 msgid "Presentation"
 msgstr ""
 
+#: ../browser/api.py
+msgid "Save copy file as"
+msgstr ""
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr ""
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr ""
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr ""
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr ""
+
 #: ../browser/templates/view.pt
 msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
 msgstr ""
