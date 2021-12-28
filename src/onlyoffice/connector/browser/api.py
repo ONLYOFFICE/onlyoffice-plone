@@ -35,7 +35,6 @@ from Acquisition import aq_parent
 from plone.app.dexterity.interfaces import IDXFileFactory
 from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
-from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.event import notify
@@ -71,10 +70,7 @@ class Edit(form.EditForm):
         self.editorCfg = get_config(self, True)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
-        self.rename = json.dumps({
-            'available': bool(getSecurityManager().checkPermission('Modify portal content', self.context)),
-            'MessageError': _(u'Error renaming')
-        })
+        self.rename = featureUtils.getRenameObject(self.context)
 
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
@@ -95,10 +91,7 @@ class FillForm(form.EditForm):
         self.editorCfg = get_config(self, True)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
-        self.rename = json.dumps({
-            'available': getSecurityManager().checkPermission('Modify portal content', self.context),
-            'messageError': _(u'Error renaming')
-        })
+        self.rename = featureUtils.getRenameObject(self.context)
 
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")

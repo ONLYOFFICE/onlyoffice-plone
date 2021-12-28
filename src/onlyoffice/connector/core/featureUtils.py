@@ -14,7 +14,8 @@
 # limitations under the License.
 #
 
-from Products.CMFCore.utils import getToolByName 
+from Products.CMFCore.utils import getToolByName
+from AccessControl import getSecurityManager
 from onlyoffice.connector.interfaces import _
 
 import json
@@ -30,3 +31,9 @@ def getSaveAsObject(context):
                     'errorUnknown': _(u'Unknown error while saving file')
                 }
             })
+
+def getRenameObject(context):
+    return json.dumps({
+            'available': bool(getSecurityManager().checkPermission('Modify portal content', context)),
+            'MessageError': _(u'Error renaming')
+        })
