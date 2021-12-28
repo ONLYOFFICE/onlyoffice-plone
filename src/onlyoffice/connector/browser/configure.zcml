@@ -14,6 +14,10 @@
       />
   -->
 
+  <browser:resourceDirectory
+      name="onlyoffice-static"
+      directory="static" />
+
   <browser:page
       name="onlyoffice-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
@@ -38,6 +42,14 @@
       />
 
   <browser:page
+      name="onlyoffice-fill-form"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.FillForm"
+      permission="cmf.ModifyPortalContent"
+      template="templates/view.pt"
+      />
+
+  <browser:page
       name="onlyoffice-callback"
       for="plone.app.contenttypes.interfaces.IFile"
       class=".api.Callback"
@@ -46,7 +58,7 @@
 
   <browser:page
       name="onlyoffice-dl"
-      for="plone.app.contenttypes.interfaces.IFile"
+      for="*"
       class=".api.ODownload"
       permission="zope2.Public"
       />
@@ -57,6 +69,38 @@
       title="ONLYOFFICE View"
       action="onlyoffice-view"
       description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
+  <adapter for="* *"
+      name="plone.contentmenu.onlyoffice.create"
+      factory=".menu.OnlyofficeCreateSubMenuItem"
+      provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
+  <browser:menu
+      id="plone_contentmenu_onlyoffice_create"
+      title="The 'Create in ONLYOFFICE' menu - allows the user to add new document, spredsheet or presentation"
+      class=".menu.OnlyofficeCreateMenu"
+      />
+
+  <browser:page
+      for="*"
+      name="onlyoffice-create"
+      class=".api.Create"
+      permission="cmf.AddPortalContent"
+      />
+
+  <browser:page
+      name="onlyoffice-save-as"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.SaveAs"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-insert"
+      for="*"
+      class=".api.OInsert"
       permission="zope2.View"
       />
 

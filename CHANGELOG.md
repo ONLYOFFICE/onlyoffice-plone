@@ -6,6 +6,12 @@
 ## Changed
 - document server v6.0 and earlier is no longer supported
 
+## 2.1.0
+## Added
+- support docxf and oform formats
+- create blank docxf from creation menu
+- "save as" in editor
+
 ## 2.0.0
 ## Added
  - JWT support
