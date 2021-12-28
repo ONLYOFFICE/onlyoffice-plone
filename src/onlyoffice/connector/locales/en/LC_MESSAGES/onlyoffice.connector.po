@@ -57,3 +57,27 @@ msgstr ""
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr ""
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr ""
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr ""
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr ""

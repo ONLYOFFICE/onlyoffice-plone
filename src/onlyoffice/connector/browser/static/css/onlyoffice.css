@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'onlyoffice';
+  src: url('../++resource++onlyoffice-static/font/onlyoffice.eot?85072311');
+  src: url('../++resource++onlyoffice-static/font/onlyoffice.eot?85072311#iefix') format('embedded-opentype'),
+       url('../++resource++onlyoffice-static/font/onlyoffice.woff2?85072311') format('woff2'),
+       url('../++resource++onlyoffice-static/font/onlyoffice.woff?85072311') format('woff'),
+       url('../++resource++onlyoffice-static/font/onlyoffice.ttf?85072311') format('truetype'),
+       url('../++resource++onlyoffice-static/font/onlyoffice.svg?85072311#onlyoffice') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'onlyoffice';
+    src: url('../++resource++onlyoffice-static/font/onlyoffice.svg?85072311#onlyoffice') format('svg');
+  }
+}
+*/
+[class^="icon-onlyoffice"]:before, [class*=" icon-onlyoffice"]:before {
+  font-family: "onlyoffice" !important;
+}
+
+.icon-onlyoffice-create:before { content: '\e801' !important; } /* '' */
+.icon-onlyoffice-edit:before { content: '\e801' !important; } /* '' */
+.icon-onlyoffice-fill-form:before { content: '\e801' !important; } /* '' */
+.icon-onlyoffice-file-word:before { content: '\e800' !important; } /* '' */
+.icon-onlyoffice-file-cell:before { content: '\e802' !important; } /* '' */
+.icon-onlyoffice-file-slide:before { content: '\e803' !important; } /* '' */
+.icon-onlyoffice-file-form:before { content: '\e804' !important; } /* '' */
