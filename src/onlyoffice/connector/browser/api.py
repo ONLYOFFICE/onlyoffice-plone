@@ -95,6 +95,11 @@ class FillForm(form.EditForm):
         self.editorCfg = get_config(self, True)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
         self.token = get_token(self)
+        self.rename = json.dumps({
+            'available': getSecurityManager().checkPermission('Modify portal content', self.context),
+            'messageError': _(u'Error renaming')
+        })
+
         if not self.editorCfg:
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
