@@ -1,6 +1,7 @@
 # Change Log
 
 ## Added
+- mail merge from storage
 - advanced server settings for specifying internal addresses
 
 ## 2.1.0
