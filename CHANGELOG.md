@@ -1,6 +1,7 @@
 # Change Log
 
 ## Added
+- renaming documents from editor
 - mail merge from storage
 - compare file from storage
 - advanced server settings for specifying internal addresses
