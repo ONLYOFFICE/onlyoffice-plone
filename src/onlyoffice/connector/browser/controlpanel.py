@@ -16,11 +16,19 @@
 
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
+from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform import layout
 from zope import schema
 from zope.interface import Interface
+from zope.interface import Invalid
+from zope.interface import invariant
+from urllib.request import urlopen
 from onlyoffice.connector.interfaces import _
+from onlyoffice.connector.interfaces import logger
+from onlyoffice.connector.core import utils
 
+import json
+import requests
 
 class IOnlyofficeControlPanel(Interface):
 
@@ -45,6 +53,60 @@ class IOnlyofficeControlPanel(Interface):
         required=False
     )
 
+    @invariant
+    def check_doc_serv_url(data):
+
+        if data.docInnerUrl != None and data.docInnerUrl != "":
+            nameField = "docInnerUrl"
+            url = data.docInnerUrl
+        else :
+            nameField = "docUrl"
+            url = data.docUrl
+
+        url = url if url.endswith("/") else url + "/"
+
+        logger.debug("Checking docserv url")
+        try:
+            url = url if url.endswith("/") else url + "/"
+            response = urlopen(url + "healthcheck")
+            healthcheck = response.read()
+            if not healthcheck:
+                raise Exception(url + "healthcheck returned false.")
+        except Exception as e:
+            raise WidgetActionExecutionError(
+                    nameField,
+                    Invalid(_(u'ONLYOFFICE cannot be reached'))
+                )
+
+        logger.debug("Checking docserv commandservice")
+        try:
+            headers = { "Content-Type" : "application/json" }
+            bodyJson = { "c" : "version" }
+
+            if data.jwtSecret != None and data.jwtSecret != "":
+                payload = { "payload" :  bodyJson }
+                
+                headerToken = utils.createSecurityToken(payload, data.jwtSecret)
+                headers[utils.getJwtHeader()] = "Bearer " + headerToken
+
+                token = utils.createSecurityToken(bodyJson, data.jwtSecret)
+                bodyJson["token"] = token
+
+            response = requests.post(url + "coauthoring/CommandService.ashx", data = json.dumps(bodyJson), headers = headers)
+
+            if response.json()["error"] == 6:
+                raise WidgetActionExecutionError(
+                    "jwtSecret",
+                    Invalid(_(u"Authorization error"))
+                )
+
+            if response.json()["error"] != 0:
+                raise Exception(url + "coauthoring/CommandService.ashx returned error: " + str(response.json()["error"]))
+        except WidgetActionExecutionError:
+            raise
+        except Exception as e:
+            logger.error(e)
+            raise Invalid(_(u"Error when trying to check CommandService"))
 
 class OnlyofficeControlPanelForm(RegistryEditForm):
     schema = IOnlyofficeControlPanel

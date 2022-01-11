@@ -54,11 +54,14 @@ def getTokenFromRequest(request):
     return None
 
 def getTokenFromHeader(request):
-    jwtHeader = 'HTTP_' + os.getenv('ONLYOFFICE_JWT_HEADER').upper() if os.getenv('ONLYOFFICE_JWT_HEADER', None) else 'HTTP_AUTHORIZATION'
+    jwtHeader = 'HTTP_' + getJwtHeader().upper()
     token = request._orig_env.get(jwtHeader)
     if token:
         token = token[len('Bearer '):]
     return token
+
+def getJwtHeader(): 
+    return os.getenv('ONLYOFFICE_JWT_HEADER') if os.getenv('ONLYOFFICE_JWT_HEADER', None) else 'Authorization'
 
 def replaceDocUrlToInternal(url):
     docUrl = Config(getUtility(IRegistry)).docUrl
