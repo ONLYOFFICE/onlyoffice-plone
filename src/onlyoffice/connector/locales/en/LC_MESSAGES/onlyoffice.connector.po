@@ -83,7 +83,7 @@ msgid "Form template"
 msgstr ""
 
 #: ../browser/api.py
-msgid "Save copy file as"
+msgid "Save file copy as"
 msgstr ""
 
 #: ../browser/api.py

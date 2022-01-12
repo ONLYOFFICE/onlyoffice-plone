@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-24 16:11+0300\n"
+"PO-Revision-Date: 2021-12-27 14:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -35,6 +35,10 @@ msgstr "ONLYOFFICE Bearbeiten"
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
 msgstr "ONLYOFFICE Anzeigen"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "Formular in ONLYOFFICE ausfüllen"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
@@ -75,6 +79,35 @@ msgstr "Tabelle"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Präsentation"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "Formularvorlage"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "Dateikopie speichern als"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Lassen Sie das Feld leer, um im Stammverzeichnis der Site zu speicher"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as"
+msgstr "Die Datei wurde gespeichert als"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "Sie dürfen zu diesem Ordner keine Inhalte hinzufügen"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "Unbekannter Fehler beim Speichern"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Für Online-Arbeit mit Formularen ist Version 7.0 von ONLYOFFICE Docs erforderlich"
+
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
-msgstr "Notwendige Eingabe fehlt."
+msgstr "Erforderliche Eingabe fehlt."

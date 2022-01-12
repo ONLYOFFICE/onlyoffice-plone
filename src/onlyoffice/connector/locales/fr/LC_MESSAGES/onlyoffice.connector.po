@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-24 16:14+0300\n"
+"PO-Revision-Date: 2021-12-27 15:48+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -35,6 +35,10 @@ msgstr "ONLYOFFICE Éditer"
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
 msgstr "ONLYOFFICE Voir"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "Remplir le formulaire dans ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
@@ -75,6 +79,34 @@ msgstr "Feuille de calcul"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Présentation"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "Modèle de formulaire"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "Enregistrer une copie du fichier comme"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Laisser le champ vide pour enregistrer à la racine du site"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "Le fichier a été enregistré avec succès comme"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "Vous n'êtes pas autorisé à ajouter du contenu à ce dossier"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "Une erreur inconnue s'est produite lors de l'enregistrement du fichier"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Veuillez mettre à jour ONLYOFFICE Docs vers la version 7.0 pour travailler sur les formulaires à remplir en ligne"
 
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
