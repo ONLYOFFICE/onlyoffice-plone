@@ -4,4 +4,5 @@
     i18n:domain="onlyoffice.connector">
 
     <records prefix="plone.bundles/onlyoffice" interface='Products.CMFPlone.interfaces.IBundleRegistry' remove="true"/>
+    <records prefix="plone.bundles/onlyoffice-controlpanel" interface='Products.CMFPlone.interfaces.IBundleRegistry' remove="true"/>
 </registry>

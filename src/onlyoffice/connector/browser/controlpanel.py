@@ -38,6 +38,11 @@ class IOnlyofficeControlPanel(Interface):
         default=u'https://documentserver/',
     )
 
+    docUrlPublicValidation = schema.Bool(
+        required=True,
+        default=True
+    )
+
     jwtSecret = schema.TextLine(
         title=_(u'Secret key (leave blank to disable)'),
         required=False,
@@ -55,6 +60,12 @@ class IOnlyofficeControlPanel(Interface):
 
     @invariant
     def check_doc_serv_url(data):
+
+        if (not data.docUrlPublicValidation):
+            raise WidgetActionExecutionError(
+                "docUrl",
+                Invalid(_(u'ONLYOFFICE cannot be reached'))
+            )
 
         if data.docInnerUrl != None and data.docInnerUrl != "":
             nameField = "docInnerUrl"

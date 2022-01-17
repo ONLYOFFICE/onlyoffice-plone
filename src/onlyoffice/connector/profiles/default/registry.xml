@@ -17,4 +17,14 @@
         <value key="depends">plone</value>
     </records>
 
+    <records prefix="plone.bundles/onlyoffice-controlpanel"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="enabled">True</value>
+        <value key="jscompilation">++resource++onlyoffice-static/js/controlpanel.js</value>
+        <value key="last_compilation">2022-01-14 00:00:00</value>
+        <value key="expression">python: getattr(portal, 'REQUEST', None).URL == portal.absolute_url() + '/@@onlyoffice-controlpanel'</value>
+        <value key="compile">False</value>
+        <value key="depends">plone</value>
+    </records>
+
 </registry>
