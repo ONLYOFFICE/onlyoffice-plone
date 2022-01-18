@@ -11,4 +11,10 @@
       category="object"
       remove="true">
   </action>
+
+  <action
+      action_id="onlyoffice-fill-form"
+      category="object"
+      remove="true">
+  </action>
 </object>
