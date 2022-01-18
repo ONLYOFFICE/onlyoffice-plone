@@ -34,6 +34,10 @@ msgstr ""
 msgid "ONLYOFFICE View"
 msgstr ""
 
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr ""
+
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
 msgstr ""
@@ -72,6 +76,30 @@ msgstr ""
 
 #: ../core/fileUtils.py
 msgid "Presentation"
+msgstr ""
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr ""
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr ""
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr ""
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr ""
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr ""
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
 msgstr ""
 
 #: ../browser/templates/view.pt

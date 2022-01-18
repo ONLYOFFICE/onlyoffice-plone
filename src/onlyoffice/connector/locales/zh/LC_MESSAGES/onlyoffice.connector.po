@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-24 16:22+0300\n"
+"PO-Revision-Date: 2021-12-27 15:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -35,6 +35,10 @@ msgstr "ONLYOFFICE 编辑"
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
 msgstr "ONLYOFFICE视图"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "在ONLYOFFICE上填写表单"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
@@ -75,3 +79,35 @@ msgstr "电子表格"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "演示文稿"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "表单模板"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "文件副本另存为"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr " 请将该字段留空以保存到网站根目录下"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "文档已另存为"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "您无权将内容添加到此文件夹中"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "保存文件时出现未知错误"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "请将ONLYOFFICE Docs更新到7.0版本，以便在线编辑可填写的表单"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "缺失所需输入内容"
