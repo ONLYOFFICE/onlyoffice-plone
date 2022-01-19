@@ -21,6 +21,12 @@
             tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/controlpanel.js">
     </script>
 
+    <style type="text/css">
+      .unclickable {
+        opacity: 0.6;
+      }
+    </style>
+
 </metal:main>
 
 </body>

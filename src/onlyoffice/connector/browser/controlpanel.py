@@ -44,6 +44,13 @@ class IOnlyofficeControlPanel(Interface):
         default=True
     )
 
+    demoEnabled = schema.Bool(
+        title=_(u"Connect to demo ONLYOFFICE Document Server"),
+        description=_(u"This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."),
+        required=False,
+        default=False
+    )
+
     jwtSecret = schema.TextLine(
         title=_(u'Secret key (leave blank to disable)'),
         required=False,
