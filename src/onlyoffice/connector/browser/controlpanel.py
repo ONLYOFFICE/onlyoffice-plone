@@ -16,8 +16,8 @@
 
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form.interfaces import WidgetActionExecutionError
-from plone.z3cform import layout
 from zope import schema
 from zope.interface import Interface
 from zope.interface import Invalid
@@ -78,7 +78,6 @@ class IOnlyofficeControlPanel(Interface):
 
         logger.debug("Checking docserv url")
         try:
-            url = url if url.endswith("/") else url + "/"
             response = urlopen(url + "healthcheck")
             healthcheck = response.read()
             if not healthcheck:
@@ -121,9 +120,11 @@ class IOnlyofficeControlPanel(Interface):
 
 class OnlyofficeControlPanelForm(RegistryEditForm):
     schema = IOnlyofficeControlPanel
+    id = 'OnlyofficeControlPanelForm'
     schema_prefix = "onlyoffice.connector"
     label = _(u'ONLYOFFICE Configuration')
 
 
-OnlyofficeControlPanelView = layout.wrap_form(
-    OnlyofficeControlPanelForm, ControlPanelFormWrapper)
+class OnlyofficeControlPanelView(ControlPanelFormWrapper):
+    form = OnlyofficeControlPanelForm
+    index = ViewPageTemplateFile('templates/controlpanel.pt')
