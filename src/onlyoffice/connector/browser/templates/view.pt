@@ -131,6 +131,13 @@
            });
         };
 
+        var onRequestCompareFile = function() {
+            var insertFileDialog = baseModalDialog.createDialod(["File"]);
+            baseModalDialog.setSubmitRequest(insertFileDialog, function () {
+                requestInsert(insertFileDialog, docEditor.setRevisedFile);
+            });
+        };
+
         var onRequestSaveAs = function (event) {
             var url = event.data.url;
             var fileTitle = event.data.title.substring(0, event.data.title.lastIndexOf("."));
@@ -183,7 +190,8 @@
         };
 
         config.events = {
-            "onRequestInsertImage": onRequestInsertImage
+            "onRequestInsertImage": onRequestInsertImage,
+            "onRequestCompareFile": onRequestCompareFile
         };
 
 

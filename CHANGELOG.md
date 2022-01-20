@@ -1,6 +1,7 @@
 # Change Log
 
 ## Added
+- compare file from storage
 - advanced server settings for specifying internal addresses
 
 ## Changed
