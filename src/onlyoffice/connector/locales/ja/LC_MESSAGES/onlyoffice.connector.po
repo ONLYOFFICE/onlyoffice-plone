@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-24 17:07+0300\n"
+"PO-Revision-Date: 2021-12-27 18:15+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -35,6 +35,10 @@ msgstr "ONLYOFFICE 編集"
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
 msgstr "ONLYOFFICE 閲覧"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "ONLYOFFICEでフォームを記入する"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
@@ -76,6 +80,34 @@ msgstr "スプレッドシート"
 msgid "Presentation"
 msgstr "プレゼンテーション"
 
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "フォーム テンプレート"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "ファイルのコピーを保存する形は"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "サイトのルートに保存するには、フィールドを空白のままにしてください"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "正常に保存されたファイル形は"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "このフォルダにコンテンツを追加する権限がありません"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "ファイルの保存中に不明なエラーが発生しました"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "オンラインで入力可能なフォームを作成するには、ONLYOFFICE Docs 7.0版まで更新してください"
+
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
-msgstr "必須"
+msgstr "必要な入力がありません"

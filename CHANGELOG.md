@@ -2,7 +2,11 @@
 
 ## Added
 - mail merge from storage
+- compare file from storage
 - advanced server settings for specifying internal addresses
+
+## Changed
+- document server v6.0 and earlier is no longer supported
 
 ## 2.1.0
 ## Added
