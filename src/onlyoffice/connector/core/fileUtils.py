@@ -64,11 +64,11 @@ def getFileExt(str):
 def getFileType(str):
     ext = getFileExt(str)
     if ext in [ ".doc", ".docx", ".docm", ".dot", ".dotx", ".dotm", ".odt", ".fodt", ".ott", ".rtf", ".txt", ".html", ".htm", ".mht", ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".docxf", ".oform" ]:
-        return 'text'
+        return 'word'
     if ext in [ ".xls", ".xlsx", ".xlsm", ".xlt", ".xltx", ".xltm", ".ods", ".fods", ".ots", ".csv" ]:
-        return 'spreadsheet'
+        return 'cell'
     if ext in [ ".pps", ".ppsx", ".ppsm", ".ppt", ".pptx", ".pptm", ".pot", ".potx", ".potm", ".odp", ".fodp", ".otp"]:
-        return 'presentation'
+        return 'slide'
 
     return 'text'
 
