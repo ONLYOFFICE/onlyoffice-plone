@@ -178,3 +178,11 @@ class OnlyofficeControlPanelForm(RegistryEditForm):
 class OnlyofficeControlPanelView(ControlPanelFormWrapper):
     form = OnlyofficeControlPanelForm
     index = ViewPageTemplateFile("templates/controlpanel.pt")
+
+    def settings(self):
+        output = []
+
+        if utils.getDemoAvailable(True):
+            output.append('demo_available')
+
+        return ' '.join(output)

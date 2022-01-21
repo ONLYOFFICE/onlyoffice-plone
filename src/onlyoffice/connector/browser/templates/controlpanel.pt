@@ -13,7 +13,7 @@
       <h1 class="documentFirstHeading" tal:content="view/label">View Title</h1>
     </header>
 
-    <div id="content-core">
+    <div id="content-core" tal:attributes="class view/settings">
       <span tal:replace="structure view/contents" />
     </div>
 

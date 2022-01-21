@@ -1,6 +1,14 @@
 require([
-    "jquery"
-], function ($) {
+    "jquery",
+    "mockup-i18n"
+], function ($, I18N) {
+
+    $.I18N = function (msgid) {
+        var i18n = new I18N();
+        i18n.loadCatalog("onlyoffice.connector");
+        _t = i18n.MessageFactory("onlyoffice.connector");
+        return _t(msgid);
+    }
 
     /* Disable a control panel setting */
     $.disableSettings = function (settings) {
@@ -22,20 +30,30 @@ require([
 
     $.updateSettings = function () {
         var demoEnabled = $('#form-widgets-demoEnabled-0').prop('checked');
+        var demoAvailable = $('#content-core').hasClass('demo_available');
 
-        if (demoEnabled === true) {
+        if (demoEnabled === true && demoAvailable === true) {
             $.disableSettings([
                 $('#formfield-form-widgets-docUrl'),
                 $('#formfield-form-widgets-jwtSecret'),
                 $('#formfield-form-widgets-docInnerUrl')
             ]);
-        }
-        else {
+        } else {
             $.enableSettings([
                 $('#formfield-form-widgets-docUrl'),
                 $('#formfield-form-widgets-jwtSecret'),
                 $('#formfield-form-widgets-docInnerUrl')
             ]);
+        }
+
+        if (demoAvailable === false) {
+            $.disableSettings([
+                $('#formfield-form-widgets-demoEnabled')
+            ]);
+
+            $('#formfield-form-widgets-demoEnabled span.formHelp').text(
+                $.I18N("The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server.")
+            );
         }
     };
 
@@ -83,7 +101,11 @@ require([
         });
 
         $("#form-buttons-save").on("click", function(e) {
-            if (!$("#form-widgets-docUrlPublicValidation-0").hasClass("verified")) {
+            var demoEnabled = $('#form-widgets-demoEnabled-0').prop('checked');
+            var demoAvailable = $('#content-core').hasClass('demo_available');
+            var verifiedPublicUrl = $('#form-widgets-docUrlPublicValidation-0').hasClass('verified');
+
+            if (!verifiedPublicUrl && !(demoEnabled && demoAvailable)) {
                 e.preventDefault();
                 $.testDocServiceApi();
             }
