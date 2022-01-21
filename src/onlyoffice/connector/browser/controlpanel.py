@@ -23,10 +23,13 @@ from zope.interface import Interface
 from zope.interface import Invalid
 from zope.interface import invariant
 from plone import api
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 from urllib.request import urlopen
 from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.core import utils
+from onlyoffice.connector.core.config import Config
 
 import json
 import requests
@@ -67,79 +70,110 @@ class IOnlyofficeControlPanel(Interface):
     )
 
     @invariant
-    def check_doc_serv_url(data):
+    def settings_validation_demo(data):
+        if data.demoEnabled and utils.getDemoAvailable(True):
+            url = Config(getUtility(IRegistry)).demoDocUrl
 
-        if (not data.docUrlPublicValidation):
-            raise WidgetActionExecutionError(
-                "docUrl",
-                Invalid(_(u'ONLYOFFICE cannot be reached'))
-            )
+            check_doc_serv_url(url, "demoEnabled", True)
 
-        portalUrl = api.portal.get().absolute_url()
+            check_doc_serv_command_service(url, Config(getUtility(IRegistry)).demoJwtSecret, True)
 
-        if (portalUrl.startswith("https") and not data.docUrl.startswith("https")):
-            raise WidgetActionExecutionError(
-                "docUrl",
-                Invalid(_(u'Mixed Active Content is not allowed. HTTPS address for Document Server is required.'))
-            )
+            utils.setDemo()
 
-        if data.docInnerUrl != None and data.docInnerUrl != "":
-            nameField = "docInnerUrl"
-            url = data.docInnerUrl
-        else :
-            nameField = "docUrl"
-            url = data.docUrl
-
-        url = url if url.endswith("/") else url + "/"
-
-        logger.debug("Checking docserv url")
-        try:
-            response = urlopen(url + "healthcheck")
-            healthcheck = response.read()
-            if not healthcheck:
-                raise Exception(url + "healthcheck returned false.")
-        except Exception as e:
-            raise WidgetActionExecutionError(
-                    nameField,
+    @invariant
+    def settings_validation(data):
+        if not data.demoEnabled or not utils.getDemoAvailable(True): 
+            if (not data.docUrlPublicValidation):
+                raise WidgetActionExecutionError(
+                    "docUrl",
                     Invalid(_(u'ONLYOFFICE cannot be reached'))
                 )
 
-        logger.debug("Checking docserv commandservice")
-        try:
-            headers = { "Content-Type" : "application/json" }
-            bodyJson = { "c" : "version" }
+            portalUrl = api.portal.get().absolute_url()
 
-            if data.jwtSecret != None and data.jwtSecret != "":
-                payload = { "payload" :  bodyJson }
-                
-                headerToken = utils.createSecurityToken(payload, data.jwtSecret)
-                headers[utils.getJwtHeader()] = "Bearer " + headerToken
-
-                token = utils.createSecurityToken(bodyJson, data.jwtSecret)
-                bodyJson["token"] = token
-
-            response = requests.post(url + "coauthoring/CommandService.ashx", data = json.dumps(bodyJson), headers = headers)
-
-            if response.json()["error"] == 6:
+            if (portalUrl.startswith("https") and not data.docUrl.startswith("https")):
                 raise WidgetActionExecutionError(
-                    "jwtSecret",
-                    Invalid(_(u"Authorization error"))
+                    "docUrl",
+                    Invalid(_(u'Mixed Active Content is not allowed. HTTPS address for Document Server is required.'))
                 )
 
-            if response.json()["error"] != 0:
-                raise Exception(url + "coauthoring/CommandService.ashx returned error: " + str(response.json()["error"]))
-        except WidgetActionExecutionError:
-            raise
-        except Exception as e:
-            logger.error(e)
+            if data.docInnerUrl != None and data.docInnerUrl != "":
+                nameField = "docInnerUrl"
+                url = data.docInnerUrl
+            else :
+                nameField = "docUrl"
+                url = data.docUrl
+
+            url = url if url.endswith("/") else url + "/"
+
+            check_doc_serv_url(url, nameField, False)
+
+            check_doc_serv_command_service(url, data.jwtSecret, False)
+
+def check_doc_serv_url(url, nameField, demo):
+    logger.debug("Checking docserv url")
+    try:
+        response = urlopen(url + "healthcheck")
+        healthcheck = response.read()
+        if not healthcheck:
+            raise Exception(url + "healthcheck returned false.")
+    except Exception as e: 
+        raise WidgetActionExecutionError(
+                nameField,
+                Invalid(get_message_error(_(u'ONLYOFFICE cannot be reached'), demo))
+            )
+
+def check_doc_serv_command_service(url, jwtSecret, demo):
+    logger.debug("Checking docserv commandservice")
+    try:
+        headers = { "Content-Type" : "application/json" }
+        bodyJson = { "c" : "version" }
+
+        if jwtSecret != None and jwtSecret != "":
+            payload = { "payload" :  bodyJson }
+
+            headerToken = utils.createSecurityToken(payload, jwtSecret)
+            header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeader(True)
+            headers[header] = "Bearer " + headerToken
+
+            token = utils.createSecurityToken(bodyJson, jwtSecret)
+            bodyJson["token"] = token
+
+        response = requests.post(url + "coauthoring/CommandService.ashx", data = json.dumps(bodyJson), headers = headers)
+
+        if response.json()["error"] == 6:
+            nameField = "demoEnabled" if demo else "jwtSecret"
+
+            raise WidgetActionExecutionError(
+                nameField,
+                Invalid(get_message_error(_(u"Authorization error"), demo))
+            )
+
+        if response.json()["error"] != 0:
+            raise Exception(url + "coauthoring/CommandService.ashx returned error: " + str(response.json()["error"]))
+    except WidgetActionExecutionError:
+        raise
+    except Exception as e:
+        logger.error(e)
+        if demo:
+            raise WidgetActionExecutionError(
+                "demoEnabled",
+                Invalid(get_message_error(_(u"Error when trying to check CommandService"), demo))
+            )
+        else:
             raise Invalid(_(u"Error when trying to check CommandService"))
+
+def get_message_error(message, demo):
+    if demo:
+        return _(u'Error connecting to demo server') + " (" + message + ")"
+    else:
+        return message
 
 class OnlyofficeControlPanelForm(RegistryEditForm):
     schema = IOnlyofficeControlPanel
     id = "OnlyofficeControlPanelForm"
     schema_prefix = "onlyoffice.connector"
     label = _(u'ONLYOFFICE Configuration')
-
 
 class OnlyofficeControlPanelView(ControlPanelFormWrapper):
     form = OnlyofficeControlPanelForm
