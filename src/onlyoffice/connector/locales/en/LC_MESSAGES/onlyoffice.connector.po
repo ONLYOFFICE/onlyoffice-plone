@@ -109,3 +109,15 @@ msgstr ""
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
 msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr ""
