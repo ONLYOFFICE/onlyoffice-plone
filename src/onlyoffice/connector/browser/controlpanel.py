@@ -120,11 +120,11 @@ class IOnlyofficeControlPanel(Interface):
 
 class OnlyofficeControlPanelForm(RegistryEditForm):
     schema = IOnlyofficeControlPanel
-    id = 'OnlyofficeControlPanelForm'
+    id = "OnlyofficeControlPanelForm"
     schema_prefix = "onlyoffice.connector"
     label = _(u'ONLYOFFICE Configuration')
 
 
 class OnlyofficeControlPanelView(ControlPanelFormWrapper):
     form = OnlyofficeControlPanelForm
-    index = ViewPageTemplateFile('templates/controlpanel.pt')
+    index = ViewPageTemplateFile("templates/controlpanel.pt")

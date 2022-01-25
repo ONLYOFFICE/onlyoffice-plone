@@ -1,5 +1,5 @@
 require([
-    'jquery'
+    "jquery"
 ], function ($) {
 
     $.testDocServiceApi = function () {
@@ -39,7 +39,7 @@ require([
     $("#form-widgets-docUrlPublicValidation").hide();
 
     $(document).ready(function () {
-        $("#form-buttons-save").on('click', function(e) {
+        $("#form-buttons-save").on("click", function(e) {
             if (!$("#form-widgets-docUrlPublicValidation-0").hasClass("verified")) {
                 e.preventDefault();
                 $.testDocServiceApi();
