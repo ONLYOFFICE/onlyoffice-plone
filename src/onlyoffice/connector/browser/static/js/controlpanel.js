@@ -4,14 +4,12 @@ require([
 
     $.testDocServiceApi = function () {
         var testApiResult = function () {
-            $("#form-widgets-docUrlPublicValidation-0").addClass("verified");
+            var docUrlPublicValidation = $("#form-widgets-docUrlPublicValidation-0");
 
             var result = typeof DocsAPI != "undefined";
-            if (result) {
-                $('#form-widgets-docUrlPublicValidation-0').prop('checked', true);
-            } else {
-                $('#form-widgets-docUrlPublicValidation-0').prop('checked', false);
-            }
+
+            docUrlPublicValidation.addClass("verified");
+            docUrlPublicValidation.prop("checked", result);
 
             $("#form-buttons-save").click();
         };
