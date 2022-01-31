@@ -22,6 +22,7 @@ from zope import schema
 from zope.interface import Interface
 from zope.interface import Invalid
 from zope.interface import invariant
+from plone import api
 from urllib.request import urlopen
 from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.interfaces import logger
@@ -65,6 +66,14 @@ class IOnlyofficeControlPanel(Interface):
             raise WidgetActionExecutionError(
                 "docUrl",
                 Invalid(_(u'ONLYOFFICE cannot be reached'))
+            )
+
+        portalUrl = api.portal.get().absolute_url()
+
+        if (portalUrl.startswith("https") and data.docUrl.startswith("http")):
+            raise WidgetActionExecutionError(
+                "docUrl",
+                Invalid(_(u'Mixed Active Content is not allowed. HTTPS address for Document Server is required.'))
             )
 
         if data.docInnerUrl != None and data.docInnerUrl != "":

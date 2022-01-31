@@ -121,3 +121,7 @@ msgstr "Ошибка авторизации"
 #: ../browser/controlpanel.py
 msgid "Error when trying to check CommandService"
 msgstr "Ошибка во время проверки CommandService"
+
+#: ../browser/controlpanel.py
+msgid "Смешанное активное содержимое запрещено. Для Сервера документов необходимо использовать HTTPS-адрес."
+msgstr ""

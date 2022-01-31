@@ -121,3 +121,8 @@ msgstr ""
 #: ../browser/controlpanel.py
 msgid "Error when trying to check CommandService"
 msgstr ""
+
+
+#: ../browser/controlpanel.py
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr ""
