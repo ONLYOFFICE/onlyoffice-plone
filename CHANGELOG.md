@@ -1,6 +1,7 @@
 # Change Log
 
 ## Added
+- settings validation
 - mail merge from storage
 - compare file from storage
 - advanced server settings for specifying internal addresses

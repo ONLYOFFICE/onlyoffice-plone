@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<metal:main metal:fill-slot="prefs_configlet_main" i18n:domain="plone">
+
+    <header>
+      <h1 class="documentFirstHeading" tal:content="view/label">View Title</h1>
+    </header>
+
+    <div id="content-core">
+      <span tal:replace="structure view/contents" />
+    </div>
+
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/controlpanel.js">
+    </script>
+
+</metal:main>
+
+</body>
+</html>

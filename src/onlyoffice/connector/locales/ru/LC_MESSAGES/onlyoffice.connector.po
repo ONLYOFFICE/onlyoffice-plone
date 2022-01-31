@@ -109,3 +109,19 @@ msgstr "Обновите сервер документов ONLYOFFICE до ве�
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
 msgstr "Отсутствуют требуемые входные данные"
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr "Приложение ONLYOFFICE недоступно"
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr "Ошибка авторизации"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr "Ошибка во время проверки CommandService"
+
+#: ../browser/controlpanel.py
+msgid "Смешанное активное содержимое запрещено. Для Сервера документов необходимо использовать HTTPS-адрес."
+msgstr ""
