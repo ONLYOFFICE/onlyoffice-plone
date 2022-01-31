@@ -183,6 +183,6 @@ class OnlyofficeControlPanelView(ControlPanelFormWrapper):
         output = []
 
         if utils.getDemoAvailable(True):
-            output.append('demo_available')
+            output.append("demo_available")
 
-        return ' '.join(output)
+        return " ".join(output)

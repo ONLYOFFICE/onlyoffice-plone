@@ -60,10 +60,10 @@ def getTokenFromRequest(request):
     return None
 
 def getTokenFromHeader(request):
-    jwtHeader = 'HTTP_' + getJwtHeader(False).upper()
+    jwtHeader = "HTTP_" + getJwtHeader(False).upper()
     token = request._orig_env.get(jwtHeader)
     if token:
-        token = token[len('Bearer '):]
+        token = token[len("Bearer "):]
     return token
 
 def getJwtSecret():
@@ -76,7 +76,7 @@ def getJwtHeader(ignoreDemo):
     if getDemoActive() and not ignoreDemo:
         return Config(getUtility(IRegistry)).demoHeader
     else:
-        return os.getenv('ONLYOFFICE_JWT_HEADER') if os.getenv('ONLYOFFICE_JWT_HEADER', None) else 'Authorization'
+        return os.getenv("ONLYOFFICE_JWT_HEADER") if os.getenv("ONLYOFFICE_JWT_HEADER", None) else "Authorization"
 
 def replaceDocUrlToInternal(url):
     docUrl = Config(getUtility(IRegistry)).docUrl
@@ -101,14 +101,14 @@ def getPloneContextUrl(context):
 
 def setDemo():
     potralAnnotations = IAnnotations(api.portal.get())
-    if 'onlyoffice.connector.demoStart' not in potralAnnotations:
-        potralAnnotations['onlyoffice.connector.demoStart'] = int(DateTime())
+    if "onlyoffice.connector.demoStart" not in potralAnnotations:
+        potralAnnotations["onlyoffice.connector.demoStart"] = int(DateTime())
 
 def getDemoAvailable(forActive):
     potralAnnotations = IAnnotations(api.portal.get())
 
-    if 'onlyoffice.connector.demoStart' in potralAnnotations:
-        dateStart = potralAnnotations['onlyoffice.connector.demoStart']
+    if "onlyoffice.connector.demoStart" in potralAnnotations:
+        dateStart = potralAnnotations["onlyoffice.connector.demoStart"]
 
         try:
             dateEnd = dateStart + Config(getUtility(IRegistry)).demoTrial * 60 * 60 * 24

@@ -13,45 +13,45 @@ require([
     /* Disable a control panel setting */
     $.disableSettings = function (settings) {
         $.each(settings, function (intIndex, setting) {
-            setting.addClass('unclickable');
-            var setting_field = $(setting).find('input,select');
-            setting_field.attr('disabled', 'disabled');
+            setting.addClass("unclickable");
+            var setting_field = $(setting).find("input,select");
+            setting_field.attr("disabled", "disabled");
         });
     };
 
     /* Enable a control panel setting */
     $.enableSettings = function (settings) {
         $.each(settings, function (intIndex, setting) {
-            setting.removeClass('unclickable');
-            var setting_field = $(setting).find('input,select');
-            setting_field.removeAttr('disabled');
+            setting.removeClass("unclickable");
+            var setting_field = $(setting).find("input,select");
+            setting_field.removeAttr("disabled");
         });
     };
 
     $.updateSettings = function () {
-        var demoEnabled = $('#form-widgets-demoEnabled-0').prop('checked');
-        var demoAvailable = $('#content-core').hasClass('demo_available');
+        var demoEnabled = $("#form-widgets-demoEnabled-0").prop("checked");
+        var demoAvailable = $("#content-core").hasClass("demo_available");
 
         if (demoEnabled === true && demoAvailable === true) {
             $.disableSettings([
-                $('#formfield-form-widgets-docUrl'),
-                $('#formfield-form-widgets-jwtSecret'),
-                $('#formfield-form-widgets-docInnerUrl')
+                $("#formfield-form-widgets-docUrl"),
+                $("#formfield-form-widgets-jwtSecret"),
+                $("#formfield-form-widgets-docInnerUrl")
             ]);
         } else {
             $.enableSettings([
-                $('#formfield-form-widgets-docUrl'),
-                $('#formfield-form-widgets-jwtSecret'),
-                $('#formfield-form-widgets-docInnerUrl')
+                $("#formfield-form-widgets-docUrl"),
+                $("#formfield-form-widgets-jwtSecret"),
+                $("#formfield-form-widgets-docInnerUrl")
             ]);
         }
 
         if (demoAvailable === false) {
             $.disableSettings([
-                $('#formfield-form-widgets-demoEnabled')
+                $("#formfield-form-widgets-demoEnabled")
             ]);
 
-            $('#formfield-form-widgets-demoEnabled span.formHelp').text(
+            $("#formfield-form-widgets-demoEnabled span.formHelp").text(
                 $.I18N("The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server.")
             );
         }
@@ -96,14 +96,14 @@ require([
     $(document).ready(function () {
         $.updateSettings();
 
-        $('#form-widgets-demoEnabled-0').on('change', function(){
+        $("#form-widgets-demoEnabled-0").on("change", function(){
             $.updateSettings();
         });
 
         $("#form-buttons-save").on("click", function(e) {
-            var demoEnabled = $('#form-widgets-demoEnabled-0').prop('checked');
-            var demoAvailable = $('#content-core').hasClass('demo_available');
-            var verifiedPublicUrl = $('#form-widgets-docUrlPublicValidation-0').hasClass('verified');
+            var demoEnabled = $("#form-widgets-demoEnabled-0").prop("checked");
+            var demoAvailable = $("#content-core").hasClass("demo_available");
+            var verifiedPublicUrl = $("#form-widgets-docUrlPublicValidation-0").hasClass("verified");
 
             if (!verifiedPublicUrl && !(demoEnabled && demoAvailable)) {
                 e.preventDefault();
@@ -111,13 +111,13 @@ require([
             }
         });
 
-         /**********************************************************************
-         * Remove the disabled attribute from all form elements before
-         * submitting the form. Otherwise the z3c.form will raise errors on
-         * the required attributes.
-         **********************************************************************/
-         $('form#OnlyofficeControlPanelForm').bind('submit', function () {
-            $(this).find('input,select').removeAttr('disabled');
+        /**********************************************************************
+        * Remove the disabled attribute from all form elements before
+        * submitting the form. Otherwise the z3c.form will raise errors on
+        * the required attributes.
+        **********************************************************************/
+        $("form#OnlyofficeControlPanelForm").bind("submit", function () {
+            $(this).find("input,select").removeAttr("disabled");
         });
     });
 });
