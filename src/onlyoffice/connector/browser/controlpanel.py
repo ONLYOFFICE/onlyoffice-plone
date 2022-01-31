@@ -70,7 +70,7 @@ class IOnlyofficeControlPanel(Interface):
 
         portalUrl = api.portal.get().absolute_url()
 
-        if (portalUrl.startswith("https") and data.docUrl.startswith("http")):
+        if (portalUrl.startswith("https") and not data.docUrl.startswith("https")):
             raise WidgetActionExecutionError(
                 "docUrl",
                 Invalid(_(u'Mixed Active Content is not allowed. HTTPS address for Document Server is required.'))
