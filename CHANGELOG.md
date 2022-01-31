@@ -1,6 +1,7 @@
 # Change Log
 
 ## Added
+- connection to a demo document server
 - settings validation
 - mail merge from storage
 - compare file from storage
