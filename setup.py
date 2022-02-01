@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='onlyoffice.connector',
-    version='2.1.0',
+    version='2.1.1',
     description="Plone ONLYOFFICE integration plugin",
     long_description=long_description,
     long_description_content_type="text/markdown",
