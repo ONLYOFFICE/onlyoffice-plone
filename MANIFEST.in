@@ -15,3 +15,8 @@ recursive-include src *.sh
 recursive-include src *.txt
 recursive-include src *.xml
 recursive-include src *.zcml
+
+recursive-include src *.docx
+recursive-include src *.docxf
+recursive-include src *.pptx
+recursive-include src *.xlsx

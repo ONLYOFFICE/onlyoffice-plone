@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.1
+## Fixed
+- issue with packaging
+
 ## 2.1.0
 ## Added
 - support docxf and oform formats
