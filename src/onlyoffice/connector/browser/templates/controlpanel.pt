@@ -13,13 +13,19 @@
       <h1 class="documentFirstHeading" tal:content="view/label">View Title</h1>
     </header>
 
-    <div id="content-core">
+    <div id="content-core" tal:attributes="class view/settings">
       <span tal:replace="structure view/contents" />
     </div>
 
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/controlpanel.js">
     </script>
+
+    <style type="text/css">
+      .unclickable {
+        opacity: 0.6;
+      }
+    </style>
 
 </metal:main>
 

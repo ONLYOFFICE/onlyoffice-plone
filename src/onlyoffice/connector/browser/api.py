@@ -61,7 +61,7 @@ class Edit(form.EditForm):
     editorCfg = None
 
     def __call__(self):
-        self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.docUrl = utils.getPublicDocUrl()
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
@@ -81,7 +81,7 @@ class FillForm(form.EditForm):
     editorCfg = None
 
     def __call__(self):
-        self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.docUrl = utils.getPublicDocUrl()
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, True)
         self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
@@ -101,7 +101,7 @@ class View(BrowserView):
     editorCfg = None
 
     def __call__(self):
-        self.docUrl = Config(getUtility(IRegistry)).docUrl
+        self.docUrl = utils.getPublicDocUrl()
         self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
         self.saveAs = featureUtils.getSaveAsObject(self.context)
         self.editorCfg = get_config(self, False)

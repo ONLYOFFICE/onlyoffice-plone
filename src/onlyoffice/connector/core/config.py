@@ -20,9 +20,14 @@ class Config():
     docInnerUrl = None
     jwtSecret = None
 
+    demoDocUrl = "https://onlinedocs.onlyoffice.com/"
+    demoHeader = "AuthorizationJWT"
+    demoJwtSecret = "sn2puSUF7muF5Jas"
+    demoTrial = 30
 
     def __init__(self, registry):
         self.docUrl = registry.get('onlyoffice.connector.docUrl')
         self.ploneUrl = registry.get('onlyoffice.connector.ploneUrl')
         self.docInnerUrl = registry.get('onlyoffice.connector.docInnerUrl')
         self.jwtSecret = registry.get('onlyoffice.connector.jwtSecret')
+        self.demoEnabled = registry.get('onlyoffice.connector.demoEnabled')
