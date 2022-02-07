@@ -5,6 +5,7 @@
 - settings validation
 - mail merge from storage
 - compare file from storage
+- insert image from storage
 - advanced server settings for specifying internal addresses
 
 ## Changed
