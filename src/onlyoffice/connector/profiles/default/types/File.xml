@@ -29,4 +29,16 @@
       visible="True">
     <permission value="Modify portal content"/>
   </action>
+
+  <action
+      action_id="onlyoffice-conversion"
+      category="object"
+      condition_expr="object/@@onlyoffice-convert/isAvailable"
+      i18n:domain="onlyoffice.connector"
+      i18n:attributes="title"
+      title="Convert in ONLYOFFICE"
+      url_expr="string:${object_url}/onlyoffice-convert"
+      visible="True">
+    <permission value="View"/>
+  </action>
 </object>
