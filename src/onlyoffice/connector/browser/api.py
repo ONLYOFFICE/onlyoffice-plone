@@ -431,3 +431,51 @@ class OInsert(BrowserView):
         )
 
         return json.dumps(response)
+
+class Conversion(BrowserView):
+    def __call__(self):
+
+        key = utils.getDocumentKey(self.context)
+        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
+        fileType = fileUtils.getFileExt(self.context)
+        outputType = conversionUtils.getTargetExt(fileType)
+
+        data, error = conversionUtils.convert(key, url, fileType, outputType, True)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        if error != None:
+            return json_dumps({
+                "error": error
+            })
+
+        if data.get("endConvert") == True:
+            folder = aq_parent(aq_inner(self.context))
+
+            if not getSecurityManager().checkPermission(AddPortalContent, folder):
+                response = self.request.RESPONSE
+                response.setStatus(403)
+                return json_dumps({
+                    "error": "You are not authorized to add content to this folder."
+                })
+
+            fileName = fileUtils.getFileNameWithoutExt(self.context) + "." + outputType
+            contentType = mimetypes.guess_type(fileName)[0] or ''
+            fileData = urlopen(data.get("fileUrl")).read()
+
+            factory = IDXFileFactory(folder)
+            file = factory(fileName, contentType, fileData)
+
+            return json_dumps({
+                "endConvert": data.get("endConvert"),
+                "percent": data.get("percent"),
+                "fileUID": IUUID(file)
+            })
+
+        else:
+            return json_dumps({
+                "endConvert": data.get("endConvert"),
+                "percent": data.get("percent")
+            })

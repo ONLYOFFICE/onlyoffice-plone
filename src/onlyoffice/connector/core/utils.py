@@ -91,6 +91,13 @@ def getPublicDocUrl():
     else:
         return Config(getUtility(IRegistry)).docUrl
 
+def getInnerDocUrl():
+    docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
+    if getDemoActive() or docInnerUrl == None or docInnerUrl == "":
+        return getPublicDocUrl()
+    else:
+        return docInnerUrl
+
 def getPloneContextUrl(context):
     innerPloneUrl = Config(getUtility(IRegistry)).ploneUrl
 

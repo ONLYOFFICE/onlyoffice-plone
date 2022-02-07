@@ -17,6 +17,7 @@
 from plone.app.widgets.utils import get_relateditems_options
 from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.core import formatUtils
+from onlyoffice.connector.core import conversionUtils
 import re
 
 localePath = {
@@ -47,6 +48,11 @@ localePath = {
 
 def getCorrectFileName(str):
     return re.sub(r'[*?:\"<>/|\\\\]', '_', str)
+
+def getFileNameWithoutExt(context):
+    filename = context.file.filename
+    ind = context.file.filename.rfind('.')
+    return filename[:ind]
 
 def getFileExt(context):
     portal_type = context.portal_type
@@ -85,6 +91,9 @@ def canFillForm(context):
             return format.fillForm
 
     return False
+
+def canConvert(context):
+    return conversionUtils.getTargetExt(getFileExt(context)) != None
 
 def getDefaultExtByType(str):
     if (str == 'word'):
