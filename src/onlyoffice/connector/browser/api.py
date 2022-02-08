@@ -38,7 +38,8 @@ from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 from z3c.form import button, field, form
-from plone.uuid.interfaces import IUUID
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -393,6 +394,15 @@ class OInsert(BrowserView):
 class Conversion(BrowserView):
     def __call__(self):
 
+        folder = aq_parent(aq_inner(self.context))
+
+        if not getSecurityManager().checkPermission(AddPortalContent, folder):
+            response = self.request.RESPONSE
+            response.setStatus(403)
+            return json_dumps({
+                "error": "You are not authorized to add content to this folder."
+            })
+
         key = utils.getDocumentKey(self.context)
         url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
         fileType = fileUtils.getFileExt(self.context)
@@ -410,15 +420,6 @@ class Conversion(BrowserView):
             })
 
         if data.get("endConvert") == True:
-            folder = aq_parent(aq_inner(self.context))
-
-            if not getSecurityManager().checkPermission(AddPortalContent, folder):
-                response = self.request.RESPONSE
-                response.setStatus(403)
-                return json_dumps({
-                    "error": "You are not authorized to add content to this folder."
-                })
-
             fileName = fileUtils.getFileNameWithoutExt(self.context) + "." + outputType
             contentType = mimetypes.guess_type(fileName)[0] or ''
             fileData = urlopen(data.get("fileUrl")).read()
@@ -426,10 +427,17 @@ class Conversion(BrowserView):
             factory = IDXFileFactory(folder)
             file = factory(fileName, contentType, fileData)
 
+            title = self.request.form.get("title")
+
+            if title != None and title != "":
+                getSecurityManager().validate(file, file, "setTitle", file.setTitle)
+                file.setTitle(title)
+                notify(ObjectModifiedEvent(file))
+
             return json_dumps({
                 "endConvert": data.get("endConvert"),
                 "percent": data.get("percent"),
-                "fileUID": IUUID(file)
+                "fileURL": addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url()))
             })
 
         else:
