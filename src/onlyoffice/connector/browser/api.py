@@ -30,16 +30,12 @@ from plone.protect.utils import addTokenToUrl
 from Products.CMFCore import permissions
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from plone.app.dexterity.interfaces import IDXFileFactory
 from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
-from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 from z3c.form import button, field, form
-from zope.event import notify
-from zope.lifecycleevent import ObjectModifiedEvent
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -294,11 +290,11 @@ class Create(BrowserView):
     ):
         fileName = translate(fileUtils.getDefaultNameByType(documentType), context = self.request)
         fileExt = fileUtils.getDefaultExtByType(documentType)
+        template = 'new.' + fileExt
+        contentType = mimetypes.guess_type(template)[0] or ''
 
         if fileName is None or fileExt is None:
             raise NotFound(self, documentType, self.request)
-
-        template = 'new.' + fileExt
 
         state = portal_state(self)
         language = state.language()
@@ -313,14 +309,11 @@ class Create(BrowserView):
         file = open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app_data', localePath, template), 'rb')
 
         try:
-            data = file.read()
+            fileData = file.read()
         finally:
             file.close()
 
-        factory = IDXFileFactory(self.context)
-        contentType = mimetypes.guess_type(template)[0] or ''
-
-        file = factory(fileName + '.' + fileExt, contentType, data)
+        file = fileUtils.addNewFile(fileName, contentType, fileData, self.context)
 
         self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))
 
@@ -349,10 +342,9 @@ class SaveAs(BrowserView):
         fileName = fileUtils.getCorrectFileName(fileTitle + "." + fileType)
         contentType = mimetypes.guess_type(fileName)[0] or ''
 
-        data = urlopen(url).read()
+        fileData = urlopen(url).read()
 
-        factory = IDXFileFactory(folder)
-        file = factory(fileName, contentType, data)
+        fileUtils.addNewFile(fileName, contentType, fileData, folder)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
@@ -418,19 +410,13 @@ class Conversion(BrowserView):
             })
 
         if data.get("endConvert") == True:
+            title = self.request.form.get("title")
             fileName = fileUtils.getFileNameWithoutExt(self.context) + "." + outputType
             contentType = mimetypes.guess_type(fileName)[0] or ''
+
             fileData = urlopen(data.get("fileUrl")).read()
 
-            factory = IDXFileFactory(folder)
-            file = factory(fileName, contentType, fileData)
-
-            title = self.request.form.get("title")
-
-            if title != None and title != "":
-                getSecurityManager().validate(file, file, "setTitle", file.setTitle)
-                file.setTitle(title)
-                notify(ObjectModifiedEvent(file))
+            file = fileUtils.addNewFile(fileName, contentType, fileData, folder, title)
 
             return json_dumps({
                 "endConvert": data.get("endConvert"),
