@@ -110,7 +110,9 @@ class View(BrowserView):
 
 class ConverionForm(form.Form):
     def isAvailable(self):
-        return fileUtils.canConvert(self.context)
+        folder = aq_parent(aq_inner(self.context))
+        canAddContent = getSecurityManager().checkPermission(AddPortalContent, folder)
+        return canAddContent and fileUtils.canConvert(self.context)
 
     fields = field.Fields(IConverionForm)
     template = ViewPageTemplateFile("templates/convert.pt")
