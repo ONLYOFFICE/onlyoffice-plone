@@ -142,3 +142,11 @@ msgstr ""
 #: ../browser/controlpanel.py
 msgid "Error connecting to demo server (${error})"
 msgstr ""
+
+#: ../browser/convert.pt
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr ""
+
+#: ../browser/convert.pt
+msgid "Converting is finished"
+msgstr ""

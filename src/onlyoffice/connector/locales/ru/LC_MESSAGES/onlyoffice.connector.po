@@ -141,3 +141,11 @@ msgstr "30-дневный тестовый период закончен, вы �
 #: ../browser/controlpanel.py
 msgid "Error connecting to demo server (${error})"
 msgstr "Ошибка подключения к демонстрационному серверу (${error})"
+
+#: ../browser/convert.pt
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr "Выполняется преобразование ${currentType} в ${targetType}"
+
+#: ../browser/convert.pt
+msgid "Converting is finished"
+msgstr "Преобразование завершено"

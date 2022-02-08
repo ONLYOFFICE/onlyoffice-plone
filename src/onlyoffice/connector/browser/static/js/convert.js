@@ -1,53 +1,94 @@
 require([
     "jquery",
-], function ($) {
+    "mockup-i18n"
+], function ($, I18N) {
+
+    $.I18N = function (msgid, mapping = {}) {
+        var i18n = new I18N();
+        i18n.loadCatalog("onlyoffice.connector");
+        _t = i18n.MessageFactory("onlyoffice.connector");
+        return _t(msgid, mapping = mapping);
+    }
+
+    $.showMessage = function(message, type) {
+        var global_message = $("#global_statusmessage");
+        global_message.empty();
+
+        global_message.html(
+            "<div class='portalMessage " + type + "'>" +
+                "<strong>" + $("#" + type).text()  + "</strong>" +
+                message +
+            "</div>"
+        );
+
+    };
+
     $(document).ready(function () {
+        var form = $("form.view-name-onlyoffice-convert");
+        var titleInput = $("#form-widgets-title");
+        var currentType = $("#form-widgets-current_type");
+        var targetType = $("#form-widgets-target_type");
+        var buttonBlock = $("form .formControls");
+        var progressBar = $("#progressBar");
 
-         $.showMessage = function(message, type) {
-            var global_message = $("#global_statusmessage");
-            global_message.empty();
 
-            global_message.html(
-                "<div class='portalMessage " + type + "'>" +
-                    "<strong>" + $("#" + type).text()  + "</strong>" +
-                    message +
-                "</div>"
+        function onResponseSuccess(data) {
+            $("div.progress-bar").width(data.percent + "%")
+            if (data.endConvert === true) {
+                $.showMessage("Success", "info")
+                $("#messageProgress").text($.I18N("Converting is finished"));
+                setTimeout(function () {
+                    document.location.href = data.fileURL;
+                }, 2000);
+            } else {
+                setTimeout(requestConvert, 1000);
+            }
+        };
+
+        function onResponseError(message){
+            $.showMessage(message, "error")
+            titleInput.removeAttr("disabled");
+            buttonBlock.show();
+            progressBar.addClass("hide");
+        }
+
+        function requestConvert () {
+            titleInput.attr("disabled", "disabled");
+            buttonBlock.hide();
+            progressBar.removeClass("hide");
+            $("#messageProgress").text(
+                $.I18N("Converting ${currentType} to ${targetType} in progress..", {
+                    "currentType": currentType.text(),
+                    "targetType": targetType.text()
+                })
             );
 
+            form.ajaxSubmit({
+                type: "POST",
+                url: form.attr('action') + "-action",
+                data: {
+                    "title": titleInput.val()
+                },
+                success: function(data) {
+                    if (!data.hasOwnProperty("error")) {
+                        onResponseSuccess(data);
+                    } else {
+                        onResponseError(data.error);
+                    }
+                },
+                error: function(state, value, xhr) {
+                    onResponseError(xhr);
+                }
+            });
         };
 
         $("#form-buttons-Convert").on("click", function (event) {
+            $(window).off('beforeunload');
             event.preventDefault();
 
-            function requestConvert () {
-                url = "http://192.168.0.169:8080/Plone/spreadsheet.ods/onlyoffice-convert-action"
-
-                $("form.view-name-onlyoffice-convert").ajaxSubmit({
-                    type: "POST",
-                    url: url,
-                    success: function(value, state, xhr) {
-                       if (!value.hasOwnProperty("error")) {
-                            $("div.progress-bar").width(value.percent + "%")
-                            if (value.endConvert === true) {
-                                $("#form-buttons-Convert").addClass("hide")
-                                $("#form-buttons-Open").removeClass("hide")
-                                $.showMessage("Success", "info")
-                                $("form.view-name-onlyoffice-convert").append($("<input>", {
-                                    type: "hidden",
-                                    name: "_file_uid",
-                                    val: value.fileUID
-                                  }));
-                            } else {
-                                setTimeout(requestConvert, 1000);
-                            }
-                        } else {
-                            $.showMessage(value.error, "error")
-                        }
-                    }
-                });
-            };
-
-            requestConvert();
+            if ($("#form div.error").length == 0) {
+                requestConvert();
+            }
         });
     });
 });
