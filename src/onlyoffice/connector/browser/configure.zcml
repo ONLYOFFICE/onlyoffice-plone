@@ -118,8 +118,8 @@
       permission="zope2.View"
       />
 
-  <adapter factory=".api.default_title" name="default" />
-  <adapter factory=".api.default_current_type" name="default" />
-  <adapter factory=".api.default_target_type" name="default" />
+  <adapter factory=".interfaces.default_title" name="default" />
+  <adapter factory=".interfaces.default_current_type" name="default" />
+  <adapter factory=".interfaces.default_target_type" name="default" />
 
 </configure>

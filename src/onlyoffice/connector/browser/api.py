@@ -18,7 +18,6 @@ from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone import api
 from plone.namedfile.browser import Download
 from plone.namedfile.file import NamedBlobFile
 from plone.rfc822.interfaces import IPrimaryFieldInfo
@@ -39,15 +38,13 @@ from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 from z3c.form import button, field, form
-from zope import schema
-from z3c.form.widget import ComputedWidgetAttribute
-from zope.interface import Interface
 from plone.uuid.interfaces import IUUID
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import featureUtils
 from onlyoffice.connector.core import conversionUtils
+from onlyoffice.connector.browser.interfaces import IConverionForm
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
@@ -114,37 +111,6 @@ class View(BrowserView):
             return index(self)
         return self.index()
 
-class IConverionForm(Interface):
-    title = schema.TextLine(
-        title=_("Title"),
-        required = False,
-        readonly = True
-    )
-
-    current_type = schema.TextLine(
-        title=_("Current type"),
-        required = False,
-        readonly = True
-    )
-
-    target_type = schema.TextLine(
-        title=_("Target type"),
-        required = False,
-        readonly = True
-    )
-
-default_title = ComputedWidgetAttribute(
-    lambda form: form.context.Title(), field=IConverionForm["title"]
-)
-
-default_current_type = ComputedWidgetAttribute(
-    lambda form: fileUtils.getFileExt(form.context), field=IConverionForm["current_type"]
-)
-
-default_target_type = ComputedWidgetAttribute(
-    lambda form: conversionUtils.getTargetExt(fileUtils.getFileExt(form.context)), field=IConverionForm["target_type"]
-)
-
 class ConverionForm(form.Form):
     def isAvailable(self):
         return fileUtils.canConvert(self.context)
@@ -168,12 +134,6 @@ class ConverionForm(form.Form):
     def handle_convert(self, action):
         self.request.response.redirect(self.view_url())
 
-    @button.buttonAndHandler(_("Open file"), name="Open")
-    def handle_open(self, action):
-        fileUID = self.request.form.get("_file_uid")
-        file = uuidToObject(fileUID)
-        self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))
-
     @button.buttonAndHandler(_("label_cancel", default="Cancel"), name="Cancel")
     def handle_cancel(self, action):
         self.request.response.redirect(self.view_url())
@@ -182,8 +142,6 @@ class ConverionForm(form.Form):
         super().updateActions()
         if self.actions and "Convert" in self.actions:
             self.actions["Convert"].addClass("context")
-        if self.actions and "Open" in self.actions:
-            self.actions["Open"].addClass("context hide")
 
 def portal_state(self):
     context = aq_inner(self.context)
