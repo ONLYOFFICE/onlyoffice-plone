@@ -77,7 +77,11 @@ require([
                     }
                 },
                 error: function(state, value, xhr) {
-                    onResponseError(xhr);
+                    if (state.status == 403) {
+                        onResponseError($.I18N("You are not authorized to add content to this folder"));
+                    } else{
+                        onResponseError(xhr);
+                    }
                 }
             });
         };

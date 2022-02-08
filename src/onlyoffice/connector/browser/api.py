@@ -399,9 +399,7 @@ class Conversion(BrowserView):
         if not getSecurityManager().checkPermission(AddPortalContent, folder):
             response = self.request.RESPONSE
             response.setStatus(403)
-            return json_dumps({
-                "error": "You are not authorized to add content to this folder."
-            })
+            return "You are not authorized to add content to this folder."
 
         key = utils.getDocumentKey(self.context)
         url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
