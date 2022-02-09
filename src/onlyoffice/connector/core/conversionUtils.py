@@ -17,6 +17,7 @@
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import formatUtils
 from onlyoffice.connector.interfaces import logger
+from onlyoffice.connector.interfaces import _
 
 import requests
 import json
@@ -59,37 +60,47 @@ def convert(key, url, fileType, outputType, asyncType = False):
             response_json = response.json()
 
             if "error" in response_json:
-                error = getConverionErrorMessage(response_json.get("error"))
+                error = { 
+                    "type": 1,
+                    "message": getConverionErrorMessage(response_json.get("error"))
+                }
             else:
                 data = response_json
 
         else:
             logger.debug("ConvertService returned status: " + response.status_code)
-            error = "ConvertService returned status: " + response.status_code
+            error = {
+                "type": 2,
+                "message": _("Document conversion service returned status ${status_code}", mapping = {
+                                "status_code": response.status_code
+                            })
+            }
 
     except:
         logger.debug("ConvertService cannot be reached")
-        error = "ConvertService cannot be reached"
+        error =  {
+            "type": 2,
+            "message": _('Document conversion service cannot be reached')
+        }
 
     return data, error
 
 def getConverionErrorMessage(errorCode):
     errorDictionary = {
-        -1: "Unknown error",
-        -2: "Conversion timeout error.",
-        -3: "Conversion error.",
-        -4: "Error while downloading the document file to be converted.",
-        -5: "Incorrect password.",
-        -6: "Error while accessing the conversion result database.",
-        -7: "Input error.",
-        -8: "Invalid token."
+        -1: _("Unknown error"),
+        -2: _("Conversion timeout error"),
+        -3: _("Conversion error"),
+        -4: _("Error while downloading the document file to be converted"),
+        -5: _("Incorrect password"),
+        -6: _("Error while accessing the conversion result database"),
+        -7: _("Input error"),
+        -8: _("Invalid token")
     }
 
     try:
         return errorDictionary[errorCode]
     except:
-        return "Undefined error code"
-
+        return _("Undefined error code")
 
 def getTargetExt(ext):
     for format in formatUtils.getSupportedFormats():

@@ -35,7 +35,7 @@ require([
         function onResponseSuccess(data) {
             $("div.progress-bar").width(data.percent + "%")
             if (data.endConvert === true) {
-                $.showMessage("Success", "info")
+                $.showMessage($.I18N("Item converted"), "info")
                 $("#messageProgress").text($.I18N("Converting is finished"));
                 setTimeout(function () {
                     document.location.href = data.fileURL;

@@ -36,6 +36,7 @@ from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 from z3c.form import button, field, form
+from zope.i18n import translate
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -407,8 +408,18 @@ class Conversion(BrowserView):
         )
 
         if error != None:
+            errorMessage = translate(error["message"], context = self.request)
+
+            if error["type"] == 1:
+                errorMessage = translate(
+                    _("Document conversion service returned error (${error})", mapping = {
+                        "error": errorMessage
+                    }),
+                    context = self.request
+                )
+
             return json_dumps({
-                "error": error
+                "error": errorMessage
             })
 
         if data.get("endConvert") == True:

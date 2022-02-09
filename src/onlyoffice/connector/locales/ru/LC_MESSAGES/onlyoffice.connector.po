@@ -142,10 +142,82 @@ msgstr "30-дневный тестовый период закончен, вы �
 msgid "Error connecting to demo server (${error})"
 msgstr "Ошибка подключения к демонстрационному серверу (${error})"
 
-#: ../browser/convert.pt
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr "Конвертация в ONLYOFFICE"
+
+#: ../browser/api.py
+msgid "You can conversion you document in format OOXML"
+msgstr "Вы можете преобразовать документ в формат OOXML"
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr "Текущий тип:"
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr "Целевой тип:"
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr "Конвертировать"
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr "Элемент преобразован"
+
+#: ../browser/static/js/convert.js
 msgid "Converting ${currentType} to ${targetType} in progress.."
 msgstr "Выполняется преобразование ${currentType} в ${targetType}"
 
-#: ../browser/convert.pt
+#: ../browser/static/js/convert.js
 msgid "Converting is finished"
 msgstr "Преобразование завершено"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr "Служба преобразования документов вернула ошибку (${error})"
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr "Ошибка тайм-аута конвертации"
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr "Ошибка преобразования"
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr "Ошибка при загрузке файла документа для преобразования"
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr "Неверный пароль"
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr "Ошибка при доступе к базе данных результатов конвертации"
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr "Ошибка ввода"
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr "Неверный токен"
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr "Неопределенный код ошибки"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr "Служба преобразования документов вернула статус ${status_code}"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr "Служба преобразования документов недоступна"

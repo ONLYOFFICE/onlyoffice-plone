@@ -36,7 +36,7 @@
       condition_expr="object/@@onlyoffice-convert/isAvailable"
       i18n:domain="onlyoffice.connector"
       i18n:attributes="title"
-      title="Convert in ONLYOFFICE"
+      title="Conversion in ONLYOFFICE"
       url_expr="string:${object_url}/onlyoffice-convert"
       visible="True">
     <permission value="View"/>
