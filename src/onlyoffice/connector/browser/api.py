@@ -292,8 +292,9 @@ class Create(BrowserView):
         self,
         documentType
     ):
-        fileName = translate(fileUtils.getDefaultNameByType(documentType), context = self.request)
+
         fileExt = fileUtils.getDefaultExtByType(documentType)
+        fileName = translate(fileUtils.getDefaultNameByType(documentType), context = self.request) + "." + fileExt
         template = 'new.' + fileExt
         contentType = mimetypes.guess_type(template)[0] or ''
 
