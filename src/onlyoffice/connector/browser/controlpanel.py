@@ -133,7 +133,7 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
             payload = { "payload" :  bodyJson }
 
             headerToken = utils.createSecurityToken(payload, jwtSecret)
-            header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeader(True)
+            header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeaderEnv()
             headers[header] = "Bearer " + headerToken
 
             token = utils.createSecurityToken(bodyJson, jwtSecret)

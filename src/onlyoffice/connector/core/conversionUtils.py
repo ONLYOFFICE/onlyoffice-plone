@@ -41,7 +41,7 @@ def convert(key, url, fileType, outputType, region = None, asyncType = False):
         payload = { "payload" :  bodyJson }
 
         headerToken = utils.createSecurityToken(payload, utils.getJwtSecret())
-        header = utils.getJwtHeader(False)
+        header = utils.getJwtHeader()
         headers[header] = "Bearer " + headerToken
 
         token = utils.createSecurityToken(bodyJson, utils.getJwtSecret())

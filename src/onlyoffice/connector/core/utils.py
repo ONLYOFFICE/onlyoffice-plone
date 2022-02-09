@@ -60,7 +60,7 @@ def getTokenFromRequest(request):
     return None
 
 def getTokenFromHeader(request):
-    jwtHeader = "HTTP_" + getJwtHeader(False).upper()
+    jwtHeader = "HTTP_" + getJwtHeader().upper()
     token = request._orig_env.get(jwtHeader)
     if token:
         token = token[len("Bearer "):]
@@ -72,11 +72,14 @@ def getJwtSecret():
     else:
         return Config(getUtility(IRegistry)).jwtSecret
 
-def getJwtHeader(ignoreDemo):
-    if getDemoActive() and not ignoreDemo:
+def getJwtHeader():
+    if getDemoActive():
         return Config(getUtility(IRegistry)).demoHeader
     else:
-        return os.getenv("ONLYOFFICE_JWT_HEADER") if os.getenv("ONLYOFFICE_JWT_HEADER", None) else "Authorization"
+        return getJwtHeaderEnv()
+
+def getJwtHeaderEnv():
+    return os.getenv("ONLYOFFICE_JWT_HEADER") if os.getenv("ONLYOFFICE_JWT_HEADER", None) else "Authorization"
 
 def replaceDocUrlToInternal(url):
     docUrl = Config(getUtility(IRegistry)).docUrl
@@ -105,6 +108,9 @@ def getPloneContextUrl(context):
         return innerPloneUrl + "/".join(context.getPhysicalPath())
     else:
         return context.absolute_url()
+
+def getTestConvertDocUrl():
+    return api.portal.get().absolute_url() + "/onlyoffice-test-convert"
 
 def setDemo():
     potralAnnotations = IAnnotations(api.portal.get())
