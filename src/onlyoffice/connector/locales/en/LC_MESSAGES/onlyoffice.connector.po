@@ -126,7 +126,6 @@ msgstr ""
 #: ../browser/controlpanel.py
 msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
 msgstr ""
-msgstr ""
 
 #: ../browser/controlpanel.py
 msgid "Connect to demo ONLYOFFICE Document Server"
@@ -141,5 +140,5 @@ msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFF
 msgstr ""
 
 #: ../browser/controlpanel.py
-msgid "Error connecting to demo server"
+msgid "Error connecting to demo server (${error})"
 msgstr ""

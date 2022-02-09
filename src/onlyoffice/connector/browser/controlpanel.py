@@ -165,7 +165,9 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
 
 def get_message_error(message, demo):
     if demo:
-        return _(u'Error connecting to demo server') + " (" + message + ")"
+        return _(u'Error connecting to demo server (${error})', mapping = {
+            "error": message
+        })
     else:
         return message
 
