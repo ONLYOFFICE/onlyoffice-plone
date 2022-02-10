@@ -76,12 +76,13 @@ class IOnlyofficeControlPanel(Interface):
         if data.demoEnabled and utils.getDemoAvailable(True):
             demoUrl = Config(getUtility(IRegistry)).demoDocUrl
             demoSecret = Config(getUtility(IRegistry)).demoJwtSecret
+            ploneInnerUrl = data.ploneUrl
 
             check_doc_serv_url(demoUrl, "demoEnabled", True)
 
             check_doc_serv_command_service(demoUrl, demoSecret, True)
 
-            check_doc_serv_convert_service(demoUrl, demoSecret, True)
+            check_doc_serv_convert_service(demoUrl, ploneInnerUrl, demoSecret, True)
 
             utils.setDemo()
 
@@ -95,6 +96,7 @@ class IOnlyofficeControlPanel(Interface):
                 )
 
             portalUrl = api.portal.get().absolute_url()
+            ploneInnerUrl = data.ploneUrl
 
             if (portalUrl.startswith("https") and not data.docUrl.startswith("https")):
                 raise WidgetActionExecutionError(
@@ -115,7 +117,7 @@ class IOnlyofficeControlPanel(Interface):
 
             check_doc_serv_command_service(url, data.jwtSecret, False)
 
-            check_doc_serv_convert_service(url, data.jwtSecret, False)
+            check_doc_serv_convert_service(url, ploneInnerUrl, data.jwtSecret, False)
 
 def check_doc_serv_url(url, nameField, demo):
     logger.debug("Checking docserv url")
@@ -170,11 +172,11 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
         else:
             raise Invalid(_(u"Error when trying to check CommandService"))
 
-def check_doc_serv_convert_service(docUrl, jwtSecret, demo):
+def check_doc_serv_convert_service(docUrl, ploneInnerUrl, jwtSecret, demo):
     logger.debug("Checking docserv convertservice")
 
     key = int(DateTime())
-    url = utils.getTestConvertDocUrl()
+    url = utils.getTestConvertDocUrl(ploneInnerUrl)
     header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeaderEnv()
     jwtEnabled = bool(jwtSecret)
 

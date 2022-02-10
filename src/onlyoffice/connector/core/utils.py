@@ -109,8 +109,13 @@ def getPloneContextUrl(context):
     else:
         return context.absolute_url()
 
-def getTestConvertDocUrl():
-    return api.portal.get().absolute_url() + "/onlyoffice-test-convert"
+def getTestConvertDocUrl(innerPloneUrl):
+    portal = api.portal.get()
+
+    if innerPloneUrl:
+        return innerPloneUrl + "/".join(portal.getPhysicalPath()) + "/onlyoffice-test-convert"
+    else:
+        return portal.absolute_url() + "/onlyoffice-test-convert"
 
 def setDemo():
     potralAnnotations = IAnnotations(api.portal.get())
