@@ -22,7 +22,21 @@ from onlyoffice.connector.interfaces import _
 import requests
 import json
 
-def convert(key, url, fileType, outputType, region = None, asyncType = False):
+def convert(
+        key, url, fileType, outputType, region = None,
+        asyncType = False, docUrl = None, jwtEnabled = None,
+        jwtSecret = None, jwtHeader = None
+    ):
+
+    if docUrl == None: 
+        docUrl = utils.getInnerDocUrl()
+    if jwtEnabled == None:
+        jwtEnabled = utils.isJwtEnabled()
+    if jwtSecret == None:
+        jwtSecret = utils.getJwtSecret()
+    if jwtHeader == None:
+        jwtHeader = utils.getJwtHeader()
+
     bodyJson = {
         "key": key,
         "url": url,
@@ -37,14 +51,13 @@ def convert(key, url, fileType, outputType, region = None, asyncType = False):
         "Accept": "application/json",
     }
 
-    if utils.isJwtEnabled():
-        payload = { "payload" :  bodyJson }
+    if jwtEnabled:
+        payload = { "payload": bodyJson }
 
-        headerToken = utils.createSecurityToken(payload, utils.getJwtSecret())
-        header = utils.getJwtHeader()
-        headers[header] = "Bearer " + headerToken
+        headerToken = utils.createSecurityToken(payload, jwtSecret)
+        headers[jwtHeader] = "Bearer " + headerToken
 
-        token = utils.createSecurityToken(bodyJson, utils.getJwtSecret())
+        token = utils.createSecurityToken(bodyJson, jwtSecret)
         bodyJson["token"] = token
 
     data = {}
@@ -52,7 +65,7 @@ def convert(key, url, fileType, outputType, region = None, asyncType = False):
 
     try:
         response = requests.post(
-            utils.getInnerDocUrl() + "ConvertService.ashx",
+            docUrl + "ConvertService.ashx",
             data = json.dumps(bodyJson),
             headers = headers
         )

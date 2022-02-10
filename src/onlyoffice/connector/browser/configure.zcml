@@ -63,6 +63,13 @@
       permission="zope2.Public"
       />
 
+  <browser:page
+      name="onlyoffice-test-convert"
+      for="*"
+      class=".api.OTestConvert"
+      permission="zope2.Public"
+      />
+
   <browser:menuItem
       for="plone.app.contenttypes.interfaces.IFile"
       menu="plone_displayviews"
