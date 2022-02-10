@@ -14,19 +14,20 @@
 # limitations under the License.
 #
 
-from Products.CMFCore.utils import getToolByName 
+from Products.CMFCore.utils import getToolByName
+from zope.i18n import translate
 from onlyoffice.connector.interfaces import _
 
 import json
 
-def getSaveAsObject(context):
+def getSaveAsObject(self):
     return json.dumps({
-                'available': not getToolByName(context, 'portal_membership').isAnonymousUser(),
-                'title': _(u'Save copy file as'),
-                'helpTitle': _(u'Leave the field blank to save to the root of the site'),
+                'available': not getToolByName(self.context, 'portal_membership').isAnonymousUser(),
+                'title': translate(_(u'Save file copy as'), context = self.request),
+                'helpTitle':  translate(_(u'Leave the field blank to save to the root of the site'), context = self.request),
                 'messages': {
-                    'success': _(u'The file was successfully saved as '),
-                    'errorNotAuthorized': _(u'You are not authorized to add content to this folder'),
-                    'errorUnknown': _(u'Unknown error while saving file')
+                    'success':  translate(_(u'The file was successfully saved as '), context = self.request),
+                    'errorNotAuthorized':  translate(_(u'You are not authorized to add content to this folder'), context = self.request),
+                    'errorUnknown':  translate(_(u'Unknown error while saving file'), context = self.request)
                 }
             })
