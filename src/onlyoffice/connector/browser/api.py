@@ -38,6 +38,7 @@ from plone.app.content.utils import json_dumps
 from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
+from zope.i18n import translate
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -259,7 +260,7 @@ class Create(BrowserView):
         self,
         documentType
     ):
-        fileName = fileUtils.getDefaultNameByType(documentType)
+        fileName = translate(fileUtils.getDefaultNameByType(documentType), context = self.request)
         fileExt = fileUtils.getDefaultExtByType(documentType)
 
         if fileName is None or fileExt is None:
