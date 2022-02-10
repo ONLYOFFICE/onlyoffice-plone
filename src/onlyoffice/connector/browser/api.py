@@ -129,6 +129,7 @@ def get_config(self, forEdit):
 
     canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
 
+    fileTitle = self.context.Title()
     filename = self.context.file.filename
 
     logger.info("getting config for " + utils.getPloneContextUrl(self.context))
@@ -145,7 +146,7 @@ def get_config(self, forEdit):
         'type': 'desktop',
         'documentType': fileUtils.getFileType(filename),
         'document': {
-            'title': filename,
+            'title': fileTitle,
             'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
             'fileType': fileUtils.getFileExt(filename)[1:],
             'key': utils.getDocumentKey(self.context),

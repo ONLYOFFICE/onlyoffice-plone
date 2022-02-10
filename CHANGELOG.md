@@ -9,6 +9,7 @@
 - advanced server settings for specifying internal addresses
 
 ## Changed
+- parameter document.title for editor from file object title
 - document server v6.0 and earlier is no longer supported
 
 ## 2.1.1
