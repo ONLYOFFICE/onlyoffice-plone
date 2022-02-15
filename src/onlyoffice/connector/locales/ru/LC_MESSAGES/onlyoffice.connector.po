@@ -123,9 +123,8 @@ msgid "Error when trying to check CommandService"
 msgstr "Ошибка во время проверки CommandService"
 
 #: ../browser/controlpanel.py
-msgid "Смешанное активное содержимое запрещено. Для Сервера документов необходимо использовать HTTPS-адрес."
-msgstr ""
-msgstr "Отсутствуют требуемые входные данные"
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr "Смешанное активное содержимое запрещено. Для Сервера документов необходимо использовать HTTPS-адрес."
 
 #: ../browser/controlpanel.py
 msgid "Connect to demo ONLYOFFICE Document Server"
@@ -140,5 +139,5 @@ msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFF
 msgstr "30-дневный тестовый период закончен, вы больше не можете подключаться к демонстрационному Серверу Документов ONLYOFFICE"
 
 #: ../browser/controlpanel.py
-msgid "Error connecting to demo server"
-msgstr "Ошибка подключения к демонстрационному серверу"
+msgid "Error connecting to demo server (${error})"
+msgstr "Ошибка подключения к демонстрационному серверу (${error})"
