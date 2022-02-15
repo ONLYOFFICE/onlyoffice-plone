@@ -44,6 +44,7 @@ from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import featureUtils
 from onlyoffice.connector.core import conversionUtils
 from onlyoffice.connector.browser.interfaces import IConversionForm
+from onlyoffice.connector.browser.interfaces import IDownloadAsForm
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
@@ -144,6 +145,40 @@ class ConversionForm(form.Form):
         super().updateActions()
         if self.actions and "Convert" in self.actions:
             self.actions["Convert"].addClass("context")
+
+class DownloadAsForm(form.Form):
+    fields = field.Fields(IDownloadAsForm)
+    template = ViewPageTemplateFile("templates/download-as.pt")
+
+    enableCSRFProtection = True
+    ignoreContext = True
+
+    label = _("Download as")
+
+    def isAvailable(self):
+        ext = fileUtils.getFileExt(self.context)
+        return bool(conversionUtils.getConvertToExtArray(ext)) 
+
+    def view_url(self):
+        context_state = getMultiAdapter(
+            (self.context, self.request), name="plone_context_state"
+        )
+        return context_state.view_url()
+
+    @button.buttonAndHandler(_("Download"), name="Download")
+    def handle_rename(self, action):
+        self.request.response.redirect(self.view_url())
+
+    @button.buttonAndHandler(_plone_message("label_cancel", default="Cancel"), name="Cancel")
+    def handle_cancel(self, action):
+        self.request.response.redirect(self.view_url())
+
+    def updateActions(self):
+        super().updateActions()
+        if self.actions and "Download" in self.actions:
+            self.actions["Download"].addClass("btn-primary")
+        if self.actions and "Cancel" in self.actions:
+            self.actions["Cancel"].addClass("btn-secondary")
 
 def portal_state(self):
     context = aq_inner(self.context)

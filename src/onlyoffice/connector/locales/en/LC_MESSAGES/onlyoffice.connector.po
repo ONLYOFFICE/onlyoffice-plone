@@ -225,3 +225,15 @@ msgstr ""
 #: ../core/conversionUtils.py
 msgid "Document conversion service cannot be reached"
 msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Select file type you want to download"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Download as"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Download"
+msgstr ""

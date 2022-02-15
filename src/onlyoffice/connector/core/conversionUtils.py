@@ -127,3 +127,10 @@ def getTargetExt(ext):
                 if "pptx" in format.convertTo: return "pptx"
 
     return None
+
+def getConvertToExtArray(ext):
+    for format in formatUtils.getSupportedFormats():
+        if format.name == ext:
+            return format.convertTo
+
+    return None

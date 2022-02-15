@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<!--
+ *
+ * (c) Copyright Ascensio System SIA 2022
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ -->
+
+    <body>
+
+        <metal:main fill-slot="main">
+
+            <style type="text/css">
+                form div.fieldErrorBox {
+                    display: inline-block;
+                }
+                form .choice-field{
+                    width: 100%
+                }
+            </style>
+
+            <div id="content-core">
+                <h1 class="documentFirstHeading" tal:content="view/label">Download as</h1>
+
+                <div id="content-core">
+                    <form metal:use-macro="context/@@ploneform-macros/titlelessform"></form>
+                </div>
+            </div>
+
+        </metal:main>
+
+    </body>
+</html>
