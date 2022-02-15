@@ -54,8 +54,7 @@ import mimetypes
 
 class Edit(form.EditForm):
     def isAvailable(self):
-        filename = self.context.file.filename
-        return fileUtils.canEdit(filename)
+        return fileUtils.canEdit(self.context)
 
     docUrl = None
     docInnerUrl = None
@@ -75,8 +74,7 @@ class Edit(form.EditForm):
 
 class FillForm(form.EditForm):
     def isAvailable(self):
-        filename = self.context.file.filename
-        return fileUtils.canFillForm(filename)
+        return fileUtils.canFillForm(self.context)
 
     docUrl = None
     editorCfg = None
@@ -94,8 +92,7 @@ class FillForm(form.EditForm):
 
 class View(BrowserView):
     def isAvailable(self):
-        filename = self.context.file.filename
-        return fileUtils.canView(filename)
+        return fileUtils.canView(self.context)
 
     docUrl = None
     docInnerUrl = None
@@ -135,7 +132,7 @@ def get_config(self, forEdit):
 
     logger.info("getting config for " + utils.getPloneContextUrl(self.context))
 
-    if not fileUtils.canView(filename) or (forEdit and not fileUtils.canEdit(filename) and not fileUtils.canFillForm(filename)):
+    if not fileUtils.canView(self.context) or (forEdit and not fileUtils.canEdit(self.context) and not fileUtils.canFillForm(self.context)):
         # self.request.response.status = 500
         # self.request.response.setHeader('Location', self.viewURLFor(self.context))
         return None
@@ -145,11 +142,11 @@ def get_config(self, forEdit):
     securityToken = utils.createSecurityTokenFromContext(self.context)
     config = {
         'type': 'desktop',
-        'documentType': fileUtils.getFileType(filename),
+        'documentType': fileUtils.getFileType(self.context),
         'document': {
             'title': fileTitle,
             'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
-            'fileType': fileUtils.getFileExt(filename)[1:],
+            'fileType': fileUtils.getFileExt(self.context),
             'key': utils.getDocumentKey(self.context),
             'info': {
                 'author': self.context.creators[0],
@@ -344,19 +341,15 @@ class OInsert(BrowserView):
             obj = uuidToObject(UID)
 
             if getSecurityManager().checkPermission(permissions.View, obj):
-                portal_type = obj.portal_type
-                if  portal_type == "Image" or portal_type == "File" :
-                    filename = obj.image.filename if portal_type == "Image" else obj.file.filename
+                insertObject = {}
+                insertObject['command'] = command
+                insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(obj)
+                insertObject['fileType'] = fileUtils.getFileExt(obj)
 
-                    insertObject = {}
-                    insertObject['command'] = command
-                    insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(obj)
-                    insertObject['fileType'] = fileUtils.getFileExt(filename)[1:]
+                if utils.isJwtEnabled():
+                    insertObject['token'] = utils.createSecurityToken(insertObject)
 
-                    if utils.isJwtEnabled():
-                        insertObject['token'] = utils.createSecurityToken(insertObject)
-
-                    response.append(insertObject)
+                response.append(insertObject)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
