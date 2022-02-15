@@ -33,7 +33,7 @@ from Acquisition import aq_parent
 from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
 from Products.CMFPlone.permissions import AddPortalContent
-from Products.CMFPlone import PloneMessageFactory as PMF
+from Products.CMFPlone import PloneMessageFactory as _plone_message
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 from z3c.form import button, field, form
@@ -135,7 +135,7 @@ class ConverionForm(form.Form):
     def handle_convert(self, action):
         self.request.response.redirect(self.view_url())
 
-    @button.buttonAndHandler(PMF("label_cancel", default="Cancel"), name="Cancel")
+    @button.buttonAndHandler(_plone_message("label_cancel", default="Cancel"), name="Cancel")
     def handle_cancel(self, action):
         self.request.response.redirect(self.view_url())
 
