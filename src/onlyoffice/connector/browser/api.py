@@ -363,8 +363,11 @@ class SaveAs(BrowserView):
             folder = uuidToObject(folderUID)
 
         if not getSecurityManager().checkPermission(AddPortalContent, folder):
-            response = self.request.RESPONSE
-            response.setStatus(403)
+            pm = getToolByName(self.context, "portal_membership")
+            if bool(pm.isAnonymousUser()):
+                self.request.response.setStatus(401)
+            else:
+                self.request.response.setStatus(403)
             return "You are not authorized to add content to this folder."
 
         fileName = fileUtils.getCorrectFileName(fileTitle + "." + fileType)
@@ -385,6 +388,11 @@ class SaveAs(BrowserView):
 
 class OInsert(BrowserView):
     def __call__(self):
+
+        pm = getToolByName(self.context, "portal_membership")
+        if bool(pm.isAnonymousUser()):
+            self.request.response.setStatus(401)
+
         body = json.loads(self.request.get('BODY'))
         command = body.get('command')
         UIDs = body.get('UIDs')
@@ -417,8 +425,11 @@ class Conversion(BrowserView):
         folder = aq_parent(aq_inner(self.context))
 
         if not getSecurityManager().checkPermission(AddPortalContent, folder):
-            response = self.request.RESPONSE
-            response.setStatus(403)
+            pm = getToolByName(self.context, "portal_membership")
+            if bool(pm.isAnonymousUser()):
+                self.request.response.setStatus(401)
+            else:
+                self.request.response.setStatus(403)
             return "You are not authorized to add content to this folder."
 
         key = utils.getDocumentKey(self.context)
