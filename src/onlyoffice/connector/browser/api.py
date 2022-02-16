@@ -472,6 +472,11 @@ class Conversion(BrowserView):
 class DownloadAs(BrowserView):
     def __call__(self):
 
+        pm = getToolByName(self.context, "portal_membership")
+        if bool(pm.isAnonymousUser()):
+            self.request.response.setStatus(401)
+            return
+
         outputType = self.request.form.get("targetType")
         key = utils.getDocumentKey(self.context)
         url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
