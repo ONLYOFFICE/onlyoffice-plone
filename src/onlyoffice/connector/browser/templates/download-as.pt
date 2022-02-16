@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/download-as.js"></script>
+            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
             <script type="text/javascript">
                 var modalDialog = $("#plone-contentmenu-actions-download-as").patPloneModal().data("pattern-plone-modal");
                 var form = $("form.view-name-onlyoffice-download-as");
