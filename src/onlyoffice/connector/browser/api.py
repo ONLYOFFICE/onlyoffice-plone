@@ -17,13 +17,10 @@
 from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.namedfile.browser import Download
 from plone.namedfile.file import NamedBlobFile
 from plone.rfc822.interfaces import IPrimaryFieldInfo
-from plone.registry.interfaces import IRegistry
 from zope.component import getMultiAdapter
-from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
 from plone.app.uuid.utils import uuidToObject
 from plone.protect.utils import addTokenToUrl
@@ -33,18 +30,11 @@ from Acquisition import aq_parent
 from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
 from Products.CMFPlone.permissions import AddPortalContent
-from Products.CMFPlone import PloneMessageFactory as _plone_message
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
-from z3c.form import button, field, form
-from zope.i18n import translate
-from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
-from onlyoffice.connector.core import featureUtils
 from onlyoffice.connector.core import conversionUtils
-from onlyoffice.connector.browser.interfaces import IConversionForm
-from onlyoffice.connector.browser.interfaces import IDownloadAsForm
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
@@ -54,176 +44,10 @@ import os
 import mimetypes
 import io
 
-class Edit(form.EditForm):
-    def isAvailable(self):
-        return fileUtils.canEdit(self.context)
-
-    docUrl = None
-    docInnerUrl = None
-    editorCfg = None
-
-    def __call__(self):
-        self.docUrl = utils.getPublicDocUrl()
-        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
-        self.saveAs = featureUtils.getSaveAsObject(self)
-        self.editorCfg = get_config(self, True)
-        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
-        self.token = get_token(self)
-        if not self.editorCfg:
-            index = ViewPageTemplateFile("templates/error.pt")
-            return index(self)
-        return self.index()
-
-class FillForm(form.EditForm):
-    def isAvailable(self):
-        return fileUtils.canFillForm(self.context)
-
-    docUrl = None
-    editorCfg = None
-
-    def __call__(self):
-        self.docUrl = utils.getPublicDocUrl()
-        self.saveAs = featureUtils.getSaveAsObject(self)
-        self.editorCfg = get_config(self, True)
-        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
-        self.token = get_token(self)
-        if not self.editorCfg:
-            index = ViewPageTemplateFile("templates/error.pt")
-            return index(self)
-        return self.index()
-
-class View(BrowserView):
-    def isAvailable(self):
-        return fileUtils.canView(self.context)
-
-    docUrl = None
-    docInnerUrl = None
-    editorCfg = None
-
-    def __call__(self):
-        self.docUrl = utils.getPublicDocUrl()
-        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
-        self.saveAs = featureUtils.getSaveAsObject(self)
-        self.editorCfg = get_config(self, False)
-        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
-        self.token = get_token(self)
-        if not self.editorCfg:
-            index = ViewPageTemplateFile("templates/error.pt")
-            return index(self)
-        return self.index()
-
-class ConversionForm(form.Form):
-    def isAvailable(self):
-        folder = aq_parent(aq_inner(self.context))
-        canAddContent = getSecurityManager().checkPermission(AddPortalContent, folder)
-        return canAddContent and fileUtils.canConvert(self.context)
-
-    fields = field.Fields(IConversionForm)
-    template = ViewPageTemplateFile("templates/convert.pt")
-
-    enableCSRFProtection = True
-    ignoreContext = True
-
-    label = _(u'Conversion in ONLYOFFICE')
-    description = _(u'You can conversion you document in format OOXML')
-
-    def view_url(self):
-        context_state = getMultiAdapter(
-            (self.context, self.request), name="plone_context_state"
-        )
-        return context_state.view_url()
-
-    @button.buttonAndHandler(_("Convert"), name="Convert")
-    def handle_convert(self, action):
-        self.request.response.redirect(self.view_url())
-
-    @button.buttonAndHandler(_plone_message("label_cancel", default="Cancel"), name="Cancel")
-    def handle_cancel(self, action):
-        self.request.response.redirect(self.view_url())
-
-    def updateActions(self):
-        super().updateActions()
-        if self.actions and "Convert" in self.actions:
-            self.actions["Convert"].addClass("context")
-
-class DownloadAsForm(form.Form):
-    fields = field.Fields(IDownloadAsForm)
-    template = ViewPageTemplateFile("templates/download-as.pt")
-
-    enableCSRFProtection = True
-    ignoreContext = True
-
-    label = _("Download as")
-
-    def isAvailable(self):
-        ext = fileUtils.getFileExt(self.context)
-        return bool(conversionUtils.getConvertToExtArray(ext)) 
-
 def portal_state(self):
     context = aq_inner(self.context)
     portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
     return portal_state
-
-def get_token(self):
-        authenticator = getMultiAdapter((self.context, self.request), name="authenticator")
-
-        return authenticator.token()
-
-def get_config(self, forEdit):
-    # def viewURLFor(self, item):
-        # cstate = getMultiAdapter((item, item.REQUEST), name='plone_context_state')
-        # return cstate.view_url()
-
-    canEdit = forEdit and bool(getSecurityManager().checkPermission('Modify portal content', self.context))
-
-    fileTitle = self.context.Title()
-    filename = self.context.file.filename
-
-    logger.info("getting config for " + utils.getPloneContextUrl(self.context))
-
-    if not fileUtils.canView(self.context) or (forEdit and not fileUtils.canEdit(self.context) and not fileUtils.canFillForm(self.context)):
-        # self.request.response.status = 500
-        # self.request.response.setHeader('Location', self.viewURLFor(self.context))
-        return None
-
-    state = portal_state(self)
-    user = state.member()
-    securityToken = utils.createSecurityTokenFromContext(self.context)
-    config = {
-        'type': 'desktop',
-        'documentType': fileUtils.getFileType(self.context),
-        'document': {
-            'title': fileTitle,
-            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
-            'fileType': fileUtils.getFileExt(self.context),
-            'key': utils.getDocumentKey(self.context),
-            'info': {
-                'author': self.context.creators[0],
-                'created': str(self.context.creation_date)
-            },
-            'permissions': {
-                'edit': canEdit
-            }
-        },
-        'editorConfig': {
-            'mode': 'edit' if canEdit else 'view',
-            'lang': state.language(),
-            'user': {
-                'id': user.getId(),
-                'name': user.getUserName()
-            },
-            'customization': {
-                'feedback': True
-            }
-        }
-    }
-    if canEdit:
-        config['editorConfig']['callbackUrl'] = utils.getPloneContextUrl(self.context) + '/onlyoffice-callback?token=' + securityToken
-
-    if utils.isJwtEnabled():
-        config['token'] = utils.createSecurityToken(config)
-
-    return json.dumps(config)
 
 class Callback(BrowserView):
     def __call__(self):

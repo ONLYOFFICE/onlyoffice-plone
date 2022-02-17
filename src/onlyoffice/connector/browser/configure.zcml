@@ -28,7 +28,7 @@
   <browser:page
       name="onlyoffice-view"
       for="plone.app.contenttypes.interfaces.IFile"
-      class=".api.View"
+      class=".actions.View"
       permission="zope2.View"
       template="templates/view.pt"
       />
@@ -36,7 +36,7 @@
   <browser:page
       name="onlyoffice-edit"
       for="plone.app.contenttypes.interfaces.IFile"
-      class=".api.Edit"
+      class=".actions.Edit"
       permission="cmf.ModifyPortalContent"
       template="templates/view.pt"
       />
@@ -44,7 +44,7 @@
   <browser:page
       name="onlyoffice-fill-form"
       for="plone.app.contenttypes.interfaces.IFile"
-      class=".api.FillForm"
+      class=".actions.FillForm"
       permission="cmf.ModifyPortalContent"
       template="templates/view.pt"
       />
@@ -121,7 +121,7 @@
   <browser:page
       name="onlyoffice-convert"
       for="plone.app.contenttypes.interfaces.IFile"
-      class=".api.ConversionForm"
+      class=".actions.ConversionForm"
       permission="zope2.View"
       />
 
@@ -132,7 +132,7 @@
   <browser:page
       for="plone.app.contenttypes.interfaces.IFile"
       name="onlyoffice-download-as"
-      class=".api.DownloadAsForm"
+      class=".actions.DownloadAsForm"
       permission="zope2.View"
       />
 
