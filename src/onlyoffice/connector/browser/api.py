@@ -427,7 +427,7 @@ class Conversion(BrowserView):
         outputType = conversionUtils.getTargetExt(fileType)
         region = portal_state(self).language()
 
-        data, error = conversionUtils.convert(key, url, fileType, outputType, region, True)
+        data, error = conversionUtils.convert(key, url, fileType, outputType, None, region, True)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
@@ -478,7 +478,7 @@ class DownloadAs(BrowserView):
         fileType = fileUtils.getFileExt(self.context)
         region = portal_state(self).language()
 
-        data, error = conversionUtils.convert(key, url, fileType, outputType, region, False)
+        data, error = conversionUtils.convert(key, url, fileType, outputType, self.context.Title(), region, False)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
