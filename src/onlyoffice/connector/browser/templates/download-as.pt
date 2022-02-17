@@ -42,7 +42,7 @@
                 <div id="content-core">
                     <form metal:use-macro="context/@@ploneform-macros/titlelessform"></form>
                     <div class="formControls">
-                            <input id="download" type="submit" class="plone-btn plone-btn-primary context" name="Download" i18n:domain="onlyoffice.connector" i18n:attributes="value Download;" />
+                            <input id="download" type="submit" class="plone-btn plone-btn-primary context" name="Download" value="Download" i18n:domain="onlyoffice.connector" i18n:attributes="value Download;" />
                             <input id="cancel" type="submit" class="plone-btn" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
                         </div>
                 </div>
