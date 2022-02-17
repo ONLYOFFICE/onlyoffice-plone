@@ -144,4 +144,10 @@
   <adapter factory=".interfaces.download_as_title" name="default" />
   <adapter factory=".interfaces.download_as_current_type" name="default" />
 
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IFile"
+      name="onlyoffice-download-as-action"
+      class=".api.DownloadAs"
+      permission="zope2.View"
+      />
 </configure>

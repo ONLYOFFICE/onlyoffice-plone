@@ -159,27 +159,6 @@ class DownloadAsForm(form.Form):
         ext = fileUtils.getFileExt(self.context)
         return bool(conversionUtils.getConvertToExtArray(ext)) 
 
-    def view_url(self):
-        context_state = getMultiAdapter(
-            (self.context, self.request), name="plone_context_state"
-        )
-        return context_state.view_url()
-
-    @button.buttonAndHandler(_("Download"), name="Download")
-    def handle_rename(self, action):
-        self.request.response.redirect(self.view_url())
-
-    @button.buttonAndHandler(_plone_message("label_cancel", default="Cancel"), name="Cancel")
-    def handle_cancel(self, action):
-        self.request.response.redirect(self.view_url())
-
-    def updateActions(self):
-        super().updateActions()
-        if self.actions and "Download" in self.actions:
-            self.actions["Download"].addClass("btn-primary")
-        if self.actions and "Cancel" in self.actions:
-            self.actions["Cancel"].addClass("btn-secondary")
-
 def portal_state(self):
     context = aq_inner(self.context)
     portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
@@ -489,3 +468,37 @@ class Conversion(BrowserView):
                 "endConvert": data.get("endConvert"),
                 "percent": data.get("percent")
             })
+
+class DownloadAs(BrowserView):
+    def __call__(self):
+
+        outputType = self.request.form.get("targetType")
+        key = utils.getDocumentKey(self.context)
+        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
+        fileType = fileUtils.getFileExt(self.context)
+        region = portal_state(self).language()
+
+        data, error = conversionUtils.convert(key, url, fileType, outputType, region, False)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        if error != None:
+            errorMessage = translate(error["message"], context = self.request)
+
+            if error["type"] == 1:
+                errorMessage = translate(
+                    _("Document conversion service returned error (${error})", mapping = {
+                        "error": errorMessage
+                    }),
+                    context = self.request
+                )
+
+            return json_dumps({
+                "error": errorMessage
+            })
+
+        return json_dumps({
+            "fileUrl": data.get("fileUrl")
+        })
