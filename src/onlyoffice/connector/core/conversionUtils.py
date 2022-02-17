@@ -22,13 +22,14 @@ from onlyoffice.connector.interfaces import _
 import requests
 import json
 
-def convert(key, url, fileType, outputType, asyncType = False):
+def convert(key, url, fileType, outputType, region = None, asyncType = False):
     bodyJson = {
         "key": key,
         "url": url,
         "filetype": fileType,
         "outputtype": outputType,
-        "async": asyncType
+        "async": asyncType,
+        "region": region
     }
 
     headers = { 

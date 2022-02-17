@@ -402,8 +402,9 @@ class Conversion(BrowserView):
         url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
         fileType = fileUtils.getFileExt(self.context)
         outputType = conversionUtils.getTargetExt(fileType)
+        region = portal_state(self).language()
 
-        data, error = conversionUtils.convert(key, url, fileType, outputType, True)
+        data, error = conversionUtils.convert(key, url, fileType, outputType, region, True)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
