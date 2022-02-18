@@ -114,7 +114,7 @@
   <browser:page
       name="onlyoffice-convert"
       for="plone.app.contenttypes.interfaces.IFile"
-      class=".api.ConverionForm"
+      class=".api.ConversionForm"
       permission="zope2.View"
       />
 

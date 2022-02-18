@@ -43,7 +43,7 @@ from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import featureUtils
 from onlyoffice.connector.core import conversionUtils
-from onlyoffice.connector.browser.interfaces import IConverionForm
+from onlyoffice.connector.browser.interfaces import IConversionForm
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
@@ -110,13 +110,13 @@ class View(BrowserView):
             return index(self)
         return self.index()
 
-class ConverionForm(form.Form):
+class ConversionForm(form.Form):
     def isAvailable(self):
         folder = aq_parent(aq_inner(self.context))
         canAddContent = getSecurityManager().checkPermission(AddPortalContent, folder)
         return canAddContent and fileUtils.canConvert(self.context)
 
-    fields = field.Fields(IConverionForm)
+    fields = field.Fields(IConversionForm)
     template = ViewPageTemplateFile("templates/convert.pt")
 
     enableCSRFProtection = True

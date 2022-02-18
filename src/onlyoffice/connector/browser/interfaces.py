@@ -22,7 +22,7 @@ from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import conversionUtils
 
-class IConverionForm(Interface):
+class IConversionForm(Interface):
     title = schema.TextLine(
         title=_plone_message("label_title", default="Title"),
         required = True,
@@ -41,13 +41,13 @@ class IConverionForm(Interface):
     )
 
 default_title = ComputedWidgetAttribute(
-    lambda form: form.context.Title(), field=IConverionForm["title"]
+    lambda form: form.context.Title(), field=IConversionForm["title"]
 )
 
 default_current_type = ComputedWidgetAttribute(
-    lambda form: fileUtils.getFileExt(form.context), field=IConverionForm["current_type"]
+    lambda form: fileUtils.getFileExt(form.context), field=IConversionForm["current_type"]
 )
 
 default_target_type = ComputedWidgetAttribute(
-    lambda form: conversionUtils.getTargetExt(fileUtils.getFileExt(form.context)), field=IConverionForm["target_type"]
+    lambda form: conversionUtils.getTargetExt(fileUtils.getFileExt(form.context)), field=IConversionForm["target_type"]
 )

@@ -63,7 +63,7 @@ def convert(key, url, fileType, outputType, region = None, asyncType = False):
             if "error" in response_json:
                 error = { 
                     "type": 1,
-                    "message": getConverionErrorMessage(response_json.get("error"))
+                    "message": getConversionErrorMessage(response_json.get("error"))
                 }
             else:
                 data = response_json
@@ -86,7 +86,7 @@ def convert(key, url, fileType, outputType, region = None, asyncType = False):
 
     return data, error
 
-def getConverionErrorMessage(errorCode):
+def getConversionErrorMessage(errorCode):
     errorDictionary = {
         -1: _("Unknown error"),
         -2: _("Conversion timeout error"),
