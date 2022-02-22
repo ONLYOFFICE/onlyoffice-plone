@@ -15,8 +15,13 @@
 #
 
 from plone.app.widgets.utils import get_relateditems_options
+from plone.app.dexterity.interfaces import IDXFileFactory
+from AccessControl import getSecurityManager
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
 from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.core import formatUtils
+from onlyoffice.connector.core import conversionUtils
 import re
 
 localePath = {
@@ -47,6 +52,11 @@ localePath = {
 
 def getCorrectFileName(str):
     return re.sub(r'[*?:\"<>/|\\\\]', '_', str)
+
+def getFileNameWithoutExt(context):
+    filename = context.file.filename
+    ind = context.file.filename.rfind('.')
+    return filename[:ind]
 
 def getFileExt(context):
     portal_type = context.portal_type
@@ -86,6 +96,9 @@ def canFillForm(context):
 
     return False
 
+def canConvert(context):
+    return conversionUtils.getTargetExt(getFileExt(context)) != None
+
 def getDefaultExtByType(str):
     if (str == 'word'):
         return 'docx'
@@ -109,6 +122,17 @@ def getDefaultNameByType(str):
         return _(u'Form template')
 
     return None
+
+def addNewFile(fileName, contentType, fileData, folder, title = None):
+    factory = IDXFileFactory(folder)
+    file = factory(fileName, contentType, fileData)
+
+    if title != None and title != "":
+        getSecurityManager().validate(file, file, "setTitle", file.setTitle)
+        file.setTitle(title)
+        notify(ObjectModifiedEvent(file))
+
+    return file
 
 def getRelatedRtemsOptions(context):
     return get_relateditems_options(

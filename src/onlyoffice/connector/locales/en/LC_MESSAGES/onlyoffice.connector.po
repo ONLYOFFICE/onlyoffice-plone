@@ -142,3 +142,83 @@ msgstr ""
 #: ../browser/controlpanel.py
 msgid "Error connecting to demo server (${error})"
 msgstr ""
+
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr ""
+
+#: ../browser/api.py
+msgid "You can conversion you document in format OOXML"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr ""
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr ""
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr ""
+
+#: ../browser/static/js/convert.js
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr ""
+
+#: ../browser/static/js/convert.js
+msgid "Converting is finished"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr ""

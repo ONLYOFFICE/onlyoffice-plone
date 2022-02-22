@@ -18,12 +18,10 @@ from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone import api
 from plone.namedfile.browser import Download
 from plone.namedfile.file import NamedBlobFile
 from plone.rfc822.interfaces import IPrimaryFieldInfo
 from plone.registry.interfaces import IRegistry
-from z3c.form import form
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.interfaces import NotFound
@@ -32,21 +30,23 @@ from plone.protect.utils import addTokenToUrl
 from Products.CMFCore import permissions
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from plone.app.dexterity.interfaces import IDXFileFactory
 from zExceptions import BadRequest
 from plone.app.content.utils import json_dumps
-from AccessControl import getSecurityManager
 from Products.CMFPlone.permissions import AddPortalContent
+from Products.CMFPlone import PloneMessageFactory as _plone_message
 from Products.CMFCore.utils import getToolByName
+from zope.i18n import translate
+from z3c.form import button, field, form
 from zope.i18n import translate
 from onlyoffice.connector.core.config import Config
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import featureUtils
+from onlyoffice.connector.core import conversionUtils
+from onlyoffice.connector.browser.interfaces import IConversionForm
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
-from onlyoffice.connector.interfaces import _
 
 import json
 import os
@@ -109,6 +109,40 @@ class View(BrowserView):
             index = ViewPageTemplateFile("templates/error.pt")
             return index(self)
         return self.index()
+
+class ConversionForm(form.Form):
+    def isAvailable(self):
+        folder = aq_parent(aq_inner(self.context))
+        canAddContent = getSecurityManager().checkPermission(AddPortalContent, folder)
+        return canAddContent and fileUtils.canConvert(self.context)
+
+    fields = field.Fields(IConversionForm)
+    template = ViewPageTemplateFile("templates/convert.pt")
+
+    enableCSRFProtection = True
+    ignoreContext = True
+
+    label = _(u'Conversion in ONLYOFFICE')
+    description = _(u'You can conversion you document in format OOXML')
+
+    def view_url(self):
+        context_state = getMultiAdapter(
+            (self.context, self.request), name="plone_context_state"
+        )
+        return context_state.view_url()
+
+    @button.buttonAndHandler(_("Convert"), name="Convert")
+    def handle_convert(self, action):
+        self.request.response.redirect(self.view_url())
+
+    @button.buttonAndHandler(_plone_message("label_cancel", default="Cancel"), name="Cancel")
+    def handle_cancel(self, action):
+        self.request.response.redirect(self.view_url())
+
+    def updateActions(self):
+        super().updateActions()
+        if self.actions and "Convert" in self.actions:
+            self.actions["Convert"].addClass("context")
 
 def portal_state(self):
     context = aq_inner(self.context)
@@ -258,13 +292,14 @@ class Create(BrowserView):
         self,
         documentType
     ):
-        fileName = translate(fileUtils.getDefaultNameByType(documentType), context = self.request)
+
         fileExt = fileUtils.getDefaultExtByType(documentType)
+        fileName = translate(fileUtils.getDefaultNameByType(documentType), context = self.request) + "." + fileExt
+        template = 'new.' + fileExt
+        contentType = mimetypes.guess_type(template)[0] or ''
 
         if fileName is None or fileExt is None:
             raise NotFound(self, documentType, self.request)
-
-        template = 'new.' + fileExt
 
         state = portal_state(self)
         language = state.language()
@@ -279,14 +314,11 @@ class Create(BrowserView):
         file = open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app_data', localePath, template), 'rb')
 
         try:
-            data = file.read()
+            fileData = file.read()
         finally:
             file.close()
 
-        factory = IDXFileFactory(self.context)
-        contentType = mimetypes.guess_type(template)[0] or ''
-
-        file = factory(fileName + '.' + fileExt, contentType, data)
+        file = fileUtils.addNewFile(fileName, contentType, fileData, self.context)
 
         self.request.response.redirect(addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url())))
 
@@ -315,10 +347,9 @@ class SaveAs(BrowserView):
         fileName = fileUtils.getCorrectFileName(fileTitle + "." + fileType)
         contentType = mimetypes.guess_type(fileName)[0] or ''
 
-        data = urlopen(url).read()
+        fileData = urlopen(url).read()
 
-        factory = IDXFileFactory(folder)
-        file = factory(fileName, contentType, data)
+        fileUtils.addNewFile(fileName, contentType, fileData, folder)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
@@ -356,3 +387,61 @@ class OInsert(BrowserView):
         )
 
         return json.dumps(response)
+
+class Conversion(BrowserView):
+    def __call__(self):
+
+        folder = aq_parent(aq_inner(self.context))
+
+        if not getSecurityManager().checkPermission(AddPortalContent, folder):
+            response = self.request.RESPONSE
+            response.setStatus(403)
+            return "You are not authorized to add content to this folder."
+
+        key = utils.getDocumentKey(self.context)
+        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
+        fileType = fileUtils.getFileExt(self.context)
+        outputType = conversionUtils.getTargetExt(fileType)
+        region = portal_state(self).language()
+
+        data, error = conversionUtils.convert(key, url, fileType, outputType, region, True)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        if error != None:
+            errorMessage = translate(error["message"], context = self.request)
+
+            if error["type"] == 1:
+                errorMessage = translate(
+                    _("Document conversion service returned error (${error})", mapping = {
+                        "error": errorMessage
+                    }),
+                    context = self.request
+                )
+
+            return json_dumps({
+                "error": errorMessage
+            })
+
+        if data.get("endConvert") == True:
+            title = self.request.form.get("title")
+            fileName = fileUtils.getFileNameWithoutExt(self.context) + "." + outputType
+            contentType = mimetypes.guess_type(fileName)[0] or ''
+
+            fileData = urlopen(data.get("fileUrl")).read()
+
+            file = fileUtils.addNewFile(fileName, contentType, fileData, folder, title)
+
+            return json_dumps({
+                "endConvert": data.get("endConvert"),
+                "percent": data.get("percent"),
+                "fileURL": addTokenToUrl('{0}/onlyoffice-edit'.format(file.absolute_url()))
+            })
+
+        else:
+            return json_dumps({
+                "endConvert": data.get("endConvert"),
+                "percent": data.get("percent")
+            })
