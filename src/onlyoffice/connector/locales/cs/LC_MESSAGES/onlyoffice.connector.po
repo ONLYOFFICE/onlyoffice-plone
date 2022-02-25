@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-24 16:11+0300\n"
+"PO-Revision-Date: 2022-02-24 13:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -35,6 +35,10 @@ msgstr "Úprava ONLYOFFICE"
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
 msgstr "Náhled ONLYOFFICE"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "Vyplňte formulář v ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
@@ -75,3 +79,35 @@ msgstr "Tabulka"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Prezentace"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "Šablona formuláře"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "Uložit kopii souboru jako"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Pro uložení do kořenového adresáře webu ponechte pole prázdné"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "Soubor byl úspěšně uložen jako"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "Nejste oprávněni přidávat obsah do této složky"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "Neznámá chyba při ukládání souboru"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Aktualizujte prosím Dokumenty ONLYOFFICE na verzi 7.0, abyste mohli pracovat s vyplnitelnými formuláři online."
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Chybí požadovaný vstup."

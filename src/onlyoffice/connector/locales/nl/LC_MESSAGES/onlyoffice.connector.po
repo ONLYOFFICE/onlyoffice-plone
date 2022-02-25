@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-24 16:21+0300\n"
+"PO-Revision-Date: 2022-02-24 13:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -35,6 +35,10 @@ msgstr "ONLYOFFICE Bewerken"
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
 msgstr "ONLYOFFICE Bekijken"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "Formulier invullen in ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
@@ -75,6 +79,34 @@ msgstr "Spreadsheet"
 #: ../core/fileUtils.py
 msgid "Presentation"
 msgstr "Presentatie"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "Formulier sjabloon"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "Bestand opslaan als"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Laat het veld leeg om op te slaan in de hoofdmap van de site"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "Het bestand is succesvol opgeslagen als"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "U bent niet gemachtigd om materiaal aan deze map toe te voegen"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "Onbekende fout bij het opslaan van bestand de site"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Update ONLYOFFICE Docs naar versie 7.0 om online invulbare formulieren te kunnen gebruiken."
 
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
