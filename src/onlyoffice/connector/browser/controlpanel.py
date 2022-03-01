@@ -180,7 +180,7 @@ def check_doc_serv_convert_service(docUrl, ploneInnerUrl, jwtSecret, demo):
     header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeaderEnv()
     jwtEnabled = bool(jwtSecret)
 
-    data, error = conversionUtils.convert(key, url, "txt", "docx", None, False, docUrl, jwtEnabled, jwtSecret, header)
+    data, error = conversionUtils.convert(key, url, "txt", "txt", None, False, docUrl, jwtEnabled, jwtSecret, header)
 
     if error: 
         if demo:
