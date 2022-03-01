@@ -291,14 +291,10 @@ class ODownload(Download):
 class OTestConvert(BrowserView):
     def __call__(self):
 
-        buffer = io.BytesIO()
-        buffer.write("This is a test file to test the document conversion service.".encode("utf-8"))
-
         self.request.response.setHeader("Content-Disposition", "attachment; filename=test.txt")
         self.request.response.setHeader('Content-Type', "text/plain")
-        self.request.response.setHeader("Content-Length", len(buffer.getvalue()))
 
-        self.request.response.write(buffer.getvalue())
+        return "This is a test file to test the document conversion service."
 
 class Create(BrowserView):
     def __call__(
