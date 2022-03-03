@@ -51,6 +51,7 @@ from urllib.request import urlopen
 import json
 import os
 import mimetypes
+import io
 
 class Edit(form.EditForm):
     def isAvailable(self):
@@ -286,6 +287,14 @@ class ODownload(Download):
             raise NotFound(self, self.fieldname, self.request)
 
         return file
+
+class OTestConvert(BrowserView):
+    def __call__(self):
+
+        self.request.response.setHeader("Content-Disposition", "attachment; filename=test.txt")
+        self.request.response.setHeader('Content-Type', "text/plain")
+
+        return "This is a test file to test the document conversion service."
 
 class Create(BrowserView):
     def __call__(

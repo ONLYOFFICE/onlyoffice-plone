@@ -25,6 +25,8 @@ from zope.interface import invariant
 from plone import api
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+from DateTime import DateTime
+from onlyoffice.connector.core import conversionUtils
 from urllib.request import urlopen
 from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.interfaces import logger
@@ -72,11 +74,15 @@ class IOnlyofficeControlPanel(Interface):
     @invariant
     def settings_validation_demo(data):
         if data.demoEnabled and utils.getDemoAvailable(True):
-            url = Config(getUtility(IRegistry)).demoDocUrl
+            demoUrl = Config(getUtility(IRegistry)).demoDocUrl
+            demoSecret = Config(getUtility(IRegistry)).demoJwtSecret
+            ploneInnerUrl = data.ploneUrl
 
-            check_doc_serv_url(url, "demoEnabled", True)
+            check_doc_serv_url(demoUrl, "demoEnabled", True)
 
-            check_doc_serv_command_service(url, Config(getUtility(IRegistry)).demoJwtSecret, True)
+            check_doc_serv_command_service(demoUrl, demoSecret, True)
+
+            check_doc_serv_convert_service(demoUrl, ploneInnerUrl, demoSecret, True)
 
             utils.setDemo()
 
@@ -90,6 +96,7 @@ class IOnlyofficeControlPanel(Interface):
                 )
 
             portalUrl = api.portal.get().absolute_url()
+            ploneInnerUrl = data.ploneUrl
 
             if (portalUrl.startswith("https") and not data.docUrl.startswith("https")):
                 raise WidgetActionExecutionError(
@@ -109,6 +116,8 @@ class IOnlyofficeControlPanel(Interface):
             check_doc_serv_url(url, nameField, False)
 
             check_doc_serv_command_service(url, data.jwtSecret, False)
+
+            check_doc_serv_convert_service(url, ploneInnerUrl, data.jwtSecret, False)
 
 def check_doc_serv_url(url, nameField, demo):
     logger.debug("Checking docserv url")
@@ -133,7 +142,7 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
             payload = { "payload" :  bodyJson }
 
             headerToken = utils.createSecurityToken(payload, jwtSecret)
-            header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeader(True)
+            header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeaderEnv()
             headers[header] = "Bearer " + headerToken
 
             token = utils.createSecurityToken(bodyJson, jwtSecret)
@@ -162,6 +171,25 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
             )
         else:
             raise Invalid(_(u"Error when trying to check CommandService"))
+
+def check_doc_serv_convert_service(docUrl, ploneInnerUrl, jwtSecret, demo):
+    logger.debug("Checking docserv convertservice")
+
+    key = int(DateTime())
+    url = utils.getTestConvertDocUrl(ploneInnerUrl)
+    header = Config(getUtility(IRegistry)).demoHeader if demo else utils.getJwtHeaderEnv()
+    jwtEnabled = bool(jwtSecret)
+
+    data, error = conversionUtils.convert(key, url, "txt", "txt", None, False, docUrl, jwtEnabled, jwtSecret, header)
+
+    if error: 
+        if demo:
+            raise WidgetActionExecutionError(
+                "demoEnabled",
+                Invalid(get_message_error(_(u"Error when trying to check ConvertService"), demo))
+            )
+        else:
+            raise Invalid(_(u"Error when trying to check ConvertService"))
 
 def get_message_error(message, demo):
     if demo:

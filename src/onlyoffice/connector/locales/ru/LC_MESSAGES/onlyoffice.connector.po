@@ -123,6 +123,10 @@ msgid "Error when trying to check CommandService"
 msgstr "Ошибка во время проверки CommandService"
 
 #: ../browser/controlpanel.py
+msgid "Error when trying to check ConvertService"
+msgstr "Ошибка во время проверки ConvertService"
+
+#: ../browser/controlpanel.py
 msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
 msgstr "Смешанное активное содержимое запрещено. Для Сервера документов необходимо использовать HTTPS-адрес."
 
