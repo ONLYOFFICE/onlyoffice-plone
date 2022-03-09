@@ -23,7 +23,7 @@ import requests
 import json
 
 def convert(
-        key, url, fileType, outputType, region = None,
+        key, url, fileType, outputType, title = None, region = None,
         asyncType = False, docUrl = None, jwtEnabled = None,
         jwtSecret = None, jwtHeader = None
     ):
@@ -42,8 +42,9 @@ def convert(
         "url": url,
         "filetype": fileType,
         "outputtype": outputType,
-        "async": asyncType,
-        "region": region
+        "title": title,
+        "region": region,
+        "async": asyncType
     }
 
     headers = { 
@@ -125,5 +126,12 @@ def getTargetExt(ext):
                 if "xlsx" in format.convertTo: return "xlsx"
             if format.type == "slide":
                 if "pptx" in format.convertTo: return "pptx"
+
+    return None
+
+def getConvertToExtArray(ext):
+    for format in formatUtils.getSupportedFormats():
+        if format.name == ext:
+            return format.convertTo
 
     return None

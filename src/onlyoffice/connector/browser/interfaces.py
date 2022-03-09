@@ -18,6 +18,11 @@ from z3c.form.widget import ComputedWidgetAttribute
 from zope.interface import Interface
 from zope import schema
 from Products.CMFPlone import PloneMessageFactory as _plone_message
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
+from zope.interface import implementer
+
 from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import conversionUtils
@@ -40,14 +45,57 @@ class IConversionForm(Interface):
         readonly = True
     )
 
-default_title = ComputedWidgetAttribute(
+convert_title = ComputedWidgetAttribute(
     lambda form: form.context.Title(), field=IConversionForm["title"]
 )
 
-default_current_type = ComputedWidgetAttribute(
+convert_current_type = ComputedWidgetAttribute(
     lambda form: fileUtils.getFileExt(form.context), field=IConversionForm["current_type"]
 )
 
-default_target_type = ComputedWidgetAttribute(
+convert_target_type = ComputedWidgetAttribute(
     lambda form: conversionUtils.getTargetExt(fileUtils.getFileExt(form.context)), field=IConversionForm["target_type"]
+)
+
+
+@implementer(IVocabularyFactory)
+class OnlyofficeConvertTypeVocabulary(object):
+
+    def __call__(self, context):
+        ext = fileUtils.getFileExt(context)
+        supportedConvertTypes = conversionUtils.getConvertToExtArray(ext)
+
+        terms = []
+
+        for supportedConvertType in supportedConvertTypes:
+             terms.append(SimpleTerm(supportedConvertType, supportedConvertType))
+
+        return SimpleVocabulary(terms)
+
+OnlyofficeConvertTypeVocabularyFactory = OnlyofficeConvertTypeVocabulary()
+
+class IDownloadAsForm(Interface):
+    title = schema.TextLine(
+        title=_plone_message("label_title", default="Title"),
+        required = False,
+        readonly = True
+    )
+
+    current_type = schema.TextLine(
+        title=_("Current type:"),
+        required = False,
+        readonly = True
+    )
+
+    target_type = schema.Choice(
+        title=_("Select file type you want to download"),
+        vocabulary="onlyoffice.connector.OnlyofficeConvertType"
+    )
+
+download_as_title = ComputedWidgetAttribute(
+    lambda form: form.context.Title(), field=IDownloadAsForm["title"]
+)
+
+download_as_current_type = ComputedWidgetAttribute(
+    lambda form: fileUtils.getFileExt(form.context), field=IDownloadAsForm["current_type"]
 )

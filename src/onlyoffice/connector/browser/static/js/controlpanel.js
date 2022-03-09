@@ -1,14 +1,6 @@
 require([
-    "jquery",
-    "mockup-i18n"
-], function ($, I18N) {
-
-    $.I18N = function (msgid) {
-        var i18n = new I18N();
-        i18n.loadCatalog("onlyoffice.connector");
-        _t = i18n.MessageFactory("onlyoffice.connector");
-        return _t(msgid);
-    }
+    "jquery"
+], function ($) {
 
     /* Disable a control panel setting */
     $.disableSettings = function (settings) {

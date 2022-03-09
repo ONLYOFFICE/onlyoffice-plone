@@ -25,6 +25,7 @@
 
     <head>
         <tal:javascript metal:fill-slot="javascript_head_slot">
+            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
             <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/convert.js"></script>
         </tal:javascript>
         <metal:css fill-slot="style_slot">

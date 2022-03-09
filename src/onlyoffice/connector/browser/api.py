@@ -44,6 +44,7 @@ from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import featureUtils
 from onlyoffice.connector.core import conversionUtils
 from onlyoffice.connector.browser.interfaces import IConversionForm
+from onlyoffice.connector.browser.interfaces import IDownloadAsForm
 from onlyoffice.connector.interfaces import logger
 from onlyoffice.connector.interfaces import _
 from urllib.request import urlopen
@@ -144,6 +145,19 @@ class ConversionForm(form.Form):
         super().updateActions()
         if self.actions and "Convert" in self.actions:
             self.actions["Convert"].addClass("context")
+
+class DownloadAsForm(form.Form):
+    fields = field.Fields(IDownloadAsForm)
+    template = ViewPageTemplateFile("templates/download-as.pt")
+
+    enableCSRFProtection = True
+    ignoreContext = True
+
+    label = _("Download as")
+
+    def isAvailable(self):
+        ext = fileUtils.getFileExt(self.context)
+        return bool(conversionUtils.getConvertToExtArray(ext)) 
 
 def portal_state(self):
     context = aq_inner(self.context)
@@ -413,7 +427,7 @@ class Conversion(BrowserView):
         outputType = conversionUtils.getTargetExt(fileType)
         region = portal_state(self).language()
 
-        data, error = conversionUtils.convert(key, url, fileType, outputType, region, True)
+        data, error = conversionUtils.convert(key, url, fileType, outputType, None, region, True)
 
         self.request.response.setHeader(
             "Content-Type", "application/json; charset=utf-8"
@@ -454,3 +468,42 @@ class Conversion(BrowserView):
                 "endConvert": data.get("endConvert"),
                 "percent": data.get("percent")
             })
+
+class DownloadAs(BrowserView):
+    def __call__(self):
+
+        pm = getToolByName(self.context, "portal_membership")
+        if bool(pm.isAnonymousUser()):
+            self.request.response.setStatus(401)
+            return
+
+        outputType = self.request.form.get("targetType")
+        key = utils.getDocumentKey(self.context)
+        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
+        fileType = fileUtils.getFileExt(self.context)
+        region = portal_state(self).language()
+
+        data, error = conversionUtils.convert(key, url, fileType, outputType, self.context.Title(), region, False)
+
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        if error != None:
+            errorMessage = translate(error["message"], context = self.request)
+
+            if error["type"] == 1:
+                errorMessage = translate(
+                    _("Document conversion service returned error (${error})", mapping = {
+                        "error": errorMessage
+                    }),
+                    context = self.request
+                )
+
+            return json_dumps({
+                "error": errorMessage
+            })
+
+        return json_dumps({
+            "fileUrl": data.get("fileUrl")
+        })

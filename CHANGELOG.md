@@ -1,6 +1,7 @@
 # Change Log
 
 ## Added
+- download as
 - documents conversion
 - connection to a demo document server
 - settings validation
