@@ -24,7 +24,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 from z3c.form import button, field, form
 
-from onlyoffice.connector.browser.interfaces import IConverionForm
+from onlyoffice.connector.browser.interfaces import IConversionForm
 from onlyoffice.connector.browser.interfaces import IDownloadAsForm
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
@@ -39,61 +39,22 @@ class Edit(form.EditForm):
     def isAvailable(self):
         return fileUtils.canEdit(self.context)
 
-    docUrl = None
-    docInnerUrl = None
-    editorCfg = None
-
     def __call__(self):
-        self.docUrl = utils.getPublicDocUrl()
-        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
-        self.saveAs = featureUtils.getSaveAsObject(self)
-        self.editorCfg = get_config(self, True)
-        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
-        self.token = get_token(self)
-        if not self.editorCfg:
-            index = ViewPageTemplateFile("templates/error.pt")
-            return index(self)
-        return self.index()
+        return render_editor(self, True)
 
 class FillForm(form.EditForm):
     def isAvailable(self):
         return fileUtils.canFillForm(self.context)
 
-    docUrl = None
-    docInnerUrl = None
-    editorCfg = None
-
     def __call__(self):
-        self.docUrl = utils.getPublicDocUrl()
-        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
-        self.saveAs = featureUtils.getSaveAsObject(self)
-        self.editorCfg = get_config(self, True)
-        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
-        self.token = get_token(self)
-        if not self.editorCfg:
-            index = ViewPageTemplateFile("templates/error.pt")
-            return index(self)
-        return self.index()
+        return render_editor(self, True)
 
 class View(BrowserView):
     def isAvailable(self):
         return fileUtils.canView(self.context)
 
-    docUrl = None
-    docInnerUrl = None
-    editorCfg = None
-
     def __call__(self):
-        self.docUrl = utils.getPublicDocUrl()
-        self.docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
-        self.saveAs = featureUtils.getSaveAsObject(self)
-        self.editorCfg = get_config(self, True)
-        self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
-        self.token = get_token(self)
-        if not self.editorCfg:
-            index = ViewPageTemplateFile("templates/error.pt")
-            return index(self)
-        return self.index()
+        return render_editor(self, False)
 
 class ConversionForm(form.Form):
     def isAvailable(self):
@@ -141,6 +102,17 @@ class DownloadAsForm(form.Form):
     def isAvailable(self):
         ext = fileUtils.getFileExt(self.context)
         return bool(conversionUtils.getConvertToExtArray(ext)) 
+
+def render_editor(self, forEdit):
+    self.docUrl = utils.getPublicDocUrl()
+    self.saveAs = featureUtils.getSaveAsObject(self) 
+    self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
+    self.token = get_token(self)
+    self.editorCfg = get_config(self, forEdit)
+    if not self.editorCfg:
+        index = ViewPageTemplateFile("templates/error.pt")
+        return index(self)
+    return self.index()
 
 def get_token(self):
         authenticator = getMultiAdapter((self.context, self.request), name="authenticator")
