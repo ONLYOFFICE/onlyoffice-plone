@@ -103,6 +103,10 @@ msgid "Unknown error while saving file"
 msgstr "Неизвестная ошибка при сохранении файла"
 
 #: ../browser/templates/view.pt
+msgid "Not supported version DocumentServer."
+msgstr "Неподдерживаемая версия Сервера документов."
+
+#: ../browser/templates/view.pt
 msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
 msgstr "Обновите сервер документов ONLYOFFICE до версии 7.0, чтобы работать с заполняемыми формами."
 
