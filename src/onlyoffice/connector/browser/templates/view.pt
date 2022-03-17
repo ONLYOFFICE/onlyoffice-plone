@@ -26,8 +26,9 @@
 
 <metal:block fill-slot="content-core">
     <div id="onlyofficeEditor"></div>
-    <div id="onlyofficeError" i18n:translate="" style="display:none;">DocumentServer not accessible.</div>
-    <div id="onlyofficeErrorVersion" i18n:translate="" style="display:none;">Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online.</div>
+    <div id="onlyofficeErrorNotAccessible" i18n:translate="" style="display:none;">DocumentServer not accessible.</div>
+    <div id="onlyofficeErrorNotSupportedVersion" i18n:translate="" style="display:none;">Not supported version DocumentServer.</div>
+    <div id="onlyofficeErrorNotSupportedVersionForm" i18n:translate="" style="display:none;">Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online.</div>
 
     <a id="insert-dialog-onlyoffice-triger"
         href="#insert-dialog-onlyoffice"
@@ -207,14 +208,29 @@
             config.events.onRequestSaveAs = onRequestSaveAs
         }
 
-        if (typeof DocsAPI === "undefined") {
-            document.getElementById("onlyofficeError").style.display = "block";
-        } else if ((config.document.fileType === "docxf" || config.document.fileType === "oform")
-            && DocsAPI.DocEditor.version().split(".")[0] < 7) {
-            document.getElementById("onlyofficeErrorVersion").style.display = "block";
-        } else {
+        function initDocEditor (){
+            if (typeof DocsAPI === "undefined") {
+                document.getElementById("onlyofficeErrorNotAccessible").style.display = "block";
+                return;
+            }
+
+            var docsVersion = DocsAPI.DocEditor.version().split(".");
+
+            if (docsVersion[0] < 6 || docsVersion[0] == 6 && docsVersion[1] == 0) {
+                document.getElementById("onlyofficeErrorNotSupportedVersion").style.display = "block";
+                return;
+            }
+
+            if ((config.document.fileType === "docxf" || config.document.fileType === "oform")
+                && docsVersion[0] < 7) {
+                document.getElementById("onlyofficeErrorNotSupportedVersionForm").style.display = "block";
+                return;
+            }
+
             docEditor = new DocsAPI.DocEditor("onlyofficeEditor", config);
         }
+
+        initDocEditor();
     </script>
 </metal:block>
 
