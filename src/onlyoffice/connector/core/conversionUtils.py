@@ -21,6 +21,7 @@ from onlyoffice.connector.interfaces import _
 
 import requests
 import json
+import os
 
 def convert(
         key, url, fileType, outputType, title = None, region = None,
@@ -66,7 +67,7 @@ def convert(
 
     try:
         response = requests.post(
-            docUrl + "ConvertService.ashx",
+            os.path.join(docUrl, "ConvertService.ashx"),
             data = json.dumps(bodyJson),
             headers = headers
         )

@@ -24,6 +24,7 @@ from zope.annotation.interfaces import IAnnotations
 from plone import api
 from DateTime import DateTime
 from onlyoffice.connector.core.config import Config
+from onlyoffice.connector.interfaces import logger
 
 import base64
 import jwt
@@ -90,22 +91,22 @@ def replaceDocUrlToInternal(url):
 
 def getPublicDocUrl():
     if getDemoActive():
-        return Config(getUtility(IRegistry)).demoDocUrl
+        return os.path.join(Config(getUtility(IRegistry)).demoDocUrl, "")
     else:
-        return Config(getUtility(IRegistry)).docUrl
+        return os.path.join(Config(getUtility(IRegistry)).docUrl, "")
 
 def getInnerDocUrl():
     docInnerUrl = Config(getUtility(IRegistry)).docInnerUrl
     if getDemoActive() or docInnerUrl == None or docInnerUrl == "":
-        return getPublicDocUrl()
+        return os.path.join(getPublicDocUrl(), "") 
     else:
-        return docInnerUrl
+        return os.path.join(docInnerUrl, "")
 
 def getPloneContextUrl(context):
     innerPloneUrl = Config(getUtility(IRegistry)).ploneUrl
 
     if innerPloneUrl:
-        return innerPloneUrl + "/".join(context.getPhysicalPath())
+        return os.path.join(innerPloneUrl, "/".join(context.getPhysicalPath())[1:])
     else:
         return context.absolute_url()
 
@@ -113,9 +114,9 @@ def getTestConvertDocUrl(innerPloneUrl):
     portal = api.portal.get()
 
     if innerPloneUrl:
-        return innerPloneUrl + "/".join(portal.getPhysicalPath()) + "/onlyoffice-test-convert"
+        return os.path.join(innerPloneUrl, "/".join(portal.getPhysicalPath()[1:]), "onlyoffice-test-convert")
     else:
-        return portal.absolute_url() + "/onlyoffice-test-convert"
+        return os.path.join(portal.absolute_url(), "onlyoffice-test-convert")
 
 def setDemo():
     potralAnnotations = IAnnotations(api.portal.get())

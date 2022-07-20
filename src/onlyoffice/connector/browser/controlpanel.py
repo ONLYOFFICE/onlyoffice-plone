@@ -35,6 +35,7 @@ from onlyoffice.connector.core.config import Config
 
 import json
 import requests
+import os
 
 class IOnlyofficeControlPanel(Interface):
 
@@ -122,10 +123,10 @@ class IOnlyofficeControlPanel(Interface):
 def check_doc_serv_url(url, nameField, demo):
     logger.debug("Checking docserv url")
     try:
-        response = urlopen(url + "healthcheck")
+        response = urlopen(os.path.join(url, "healthcheck"))
         healthcheck = response.read()
         if not healthcheck:
-            raise Exception(url + "healthcheck returned false.")
+            raise Exception(os.path.join(url, "healthcheck") + " returned false.")
     except Exception as e: 
         raise WidgetActionExecutionError(
                 nameField,
@@ -148,7 +149,7 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
             token = utils.createSecurityToken(bodyJson, jwtSecret)
             bodyJson["token"] = token
 
-        response = requests.post(url + "coauthoring/CommandService.ashx", data = json.dumps(bodyJson), headers = headers)
+        response = requests.post(os.path.join(url, "coauthoring/CommandService.ashx"), data = json.dumps(bodyJson), headers = headers)
 
         if response.json()["error"] == 6:
             nameField = "demoEnabled" if demo else "jwtSecret"
@@ -159,7 +160,7 @@ def check_doc_serv_command_service(url, jwtSecret, demo):
             )
 
         if response.json()["error"] != 0:
-            raise Exception(url + "coauthoring/CommandService.ashx returned error: " + str(response.json()["error"]))
+            raise Exception(os.path.join(url, "coauthoring/CommandService.ashx") + " returned error: " + str(response.json()["error"]))
     except WidgetActionExecutionError:
         raise
     except Exception as e:
