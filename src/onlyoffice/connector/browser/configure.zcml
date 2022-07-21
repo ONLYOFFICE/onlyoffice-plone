@@ -112,15 +112,29 @@
       />
 
   <browser:page
-      name="onlyoffice-convert-action"
+      name="onlyoffice-convert-file-action"
       for="plone.app.contenttypes.interfaces.IFile"
       class=".api.Conversion"
       permission="zope2.View"
       />
 
   <browser:page
-      name="onlyoffice-convert"
+      name="onlyoffice-convert-document-action"
+      for="plone.app.contenttypes.interfaces.IDocument"
+      class=".api.Conversion"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-convert-file"
       for="plone.app.contenttypes.interfaces.IFile"
+      class=".actions.ConversionForm"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-convert-document"
+      for="plone.app.contenttypes.interfaces.IDocument"
       class=".actions.ConversionForm"
       permission="zope2.View"
       />

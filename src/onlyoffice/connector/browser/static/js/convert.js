@@ -2,7 +2,7 @@ require([
     "jquery"
 ], function ($) {
     $(document).ready(function () {
-        var form = $("form.view-name-onlyoffice-convert");
+        var form = $("form[class*='view-name-onlyoffice-convert']");
         var titleInput = $("#form-widgets-title");
         var currentType = $("#form-widgets-current_type");
         var targetType = $("#form-widgets-target_type");

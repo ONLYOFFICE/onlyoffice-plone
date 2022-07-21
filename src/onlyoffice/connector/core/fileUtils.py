@@ -23,6 +23,7 @@ from onlyoffice.connector.interfaces import _
 from onlyoffice.connector.core import formatUtils
 from onlyoffice.connector.core import conversionUtils
 import re
+from onlyoffice.connector.interfaces import logger
 
 localePath = {
         'az': 'az-Latn-AZ',
@@ -60,11 +61,15 @@ def getFileNameWithoutExt(context):
 
 def getFileExt(context):
     portal_type = context.portal_type
-    if  portal_type == "Image" or portal_type == "File" :
-        filename = context.image.filename if portal_type == "Image" else context.file.filename
 
-        ind = filename.rfind('.') + 1
-        return filename[ind:].lower()
+    if portal_type == "Image" : 
+        filename = context.image.filename if hasattr(context, "image") else None
+
+    if portal_type == "File" or portal_type == "Document" :
+        filename = context.file.filename if hasattr(context, "file") else None
+
+    if filename :
+        return filename[filename.rfind('.') + 1:].lower()
 
     return None
 

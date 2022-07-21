@@ -32,6 +32,7 @@ from plone.app.content.utils import json_dumps
 from Products.CMFPlone.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
+from AccessControl.ZopeGuards import guarded_getattr
 from onlyoffice.connector.core import fileUtils
 from onlyoffice.connector.core import utils
 from onlyoffice.connector.core import conversionUtils
@@ -116,10 +117,17 @@ class ODownload(Download):
             info = IPrimaryFieldInfo(self.context, None)
             if info is None:
                 # Ensure that we have at least a fieldname
-                raise NotFound(self, '', self.request)
+                raise NotFound(self, "", self.request)
             self.fieldname = info.fieldname
 
+            # respect field level security as defined in plone.autoform
+            # check if attribute access would be allowed!
+            guarded_getattr(self.context, self.fieldname, None)
+
             file = info.value
+        else:
+            context = getattr(self.context, "aq_explicit", self.context)
+            file = guarded_getattr(context, self.fieldname, None)
 
         if file is None:
             raise NotFound(self, self.fieldname, self.request)
