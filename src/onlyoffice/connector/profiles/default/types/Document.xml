@@ -7,7 +7,7 @@
   </property>
 
   <action
-      action_id="onlyoffice-conversion"
+      action_id="onlyoffice-conversion-document"
       category="object"
       condition_expr="object/@@onlyoffice-convert-document/isAvailable"
       i18n:domain="onlyoffice.connector"
