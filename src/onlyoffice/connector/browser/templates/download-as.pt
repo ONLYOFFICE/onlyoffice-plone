@@ -50,8 +50,8 @@
 
             <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
             <script type="text/javascript">
-                var modalDialog = $("#plone-contentmenu-actions-download-as").patPloneModal().data("pattern-plone-modal");
-                var form = $("form.view-name-onlyoffice-download-as");
+                var modalDialog = $("a[id*='plone-contentmenu-actions-download-as']").patPloneModal().data("pattern-plone-modal");
+                var form = $("form[class*='view-name-onlyoffice-download-as']");
                 var targetType = $("#form-widgets-target_type");
 
                 function onResponseSuccess(data) {

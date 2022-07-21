@@ -162,7 +162,14 @@
 
   <browser:page
       for="plone.app.contenttypes.interfaces.IFile"
-      name="onlyoffice-download-as"
+      name="onlyoffice-download-as-file"
+      class=".actions.DownloadAsForm"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IDocument"
+      name="onlyoffice-download-as-document"
       class=".actions.DownloadAsForm"
       permission="zope2.View"
       />
@@ -177,7 +184,14 @@
 
   <browser:page
       for="plone.app.contenttypes.interfaces.IFile"
-      name="onlyoffice-download-as-action"
+      name="onlyoffice-download-as-file-action"
+      class=".api.DownloadAs"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IDocument"
+      name="onlyoffice-download-as-document-action"
       class=".api.DownloadAs"
       permission="zope2.View"
       />
