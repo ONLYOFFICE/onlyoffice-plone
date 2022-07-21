@@ -26,8 +26,16 @@
       />
 
   <browser:page
-      name="onlyoffice-view"
+      name="onlyoffice-view-file"
       for="plone.app.contenttypes.interfaces.IFile"
+      class=".actions.View"
+      permission="zope2.View"
+      template="templates/view.pt"
+      />
+
+   <browser:page
+      name="onlyoffice-view-document"
+      for="plone.app.contenttypes.interfaces.IDocument"
       class=".actions.View"
       permission="zope2.View"
       template="templates/view.pt"
@@ -74,7 +82,16 @@
       for="plone.app.contenttypes.interfaces.IFile"
       menu="plone_displayviews"
       title="ONLYOFFICE View"
-      action="onlyoffice-view"
+      action="onlyoffice-view-file"
+      description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IDocument"
+      menu="plone_displayviews"
+      title="ONLYOFFICE View"
+      action="onlyoffice-view-document"
       description="ONLYOFFICE View page"
       permission="zope2.View"
       />
