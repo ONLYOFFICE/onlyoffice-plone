@@ -54,6 +54,11 @@ localePath = {
 def getCorrectFileName(str):
     return re.sub(r'[*?:\"<>/|\\\\]', '_', str)
 
+def getFileTitleWithoutExt(context):
+    title = context.Title()
+    ind = context.Title().rfind('.')
+    return title[:ind]
+
 def getFileNameWithoutExt(context):
     filename = context.file.filename
     ind = context.file.filename.rfind('.')

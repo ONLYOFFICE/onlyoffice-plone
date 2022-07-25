@@ -293,12 +293,12 @@ class Conversion(BrowserView):
 
         if data.get("endConvert") == True:
             title = self.request.form.get("title")
-            fileName = fileUtils.getFileNameWithoutExt(self.context) + "." + outputType
+            fileName = fileUtils.getCorrectFileName(title + "." + outputType)
             contentType = mimetypes.guess_type(fileName)[0] or ''
 
             fileData = urlopen(data.get("fileUrl")).read()
 
-            file = fileUtils.addNewFile(fileName, contentType, fileData, folder, title)
+            file = fileUtils.addNewFile(fileName, contentType, fileData, folder)
 
             return json_dumps({
                 "endConvert": data.get("endConvert"),

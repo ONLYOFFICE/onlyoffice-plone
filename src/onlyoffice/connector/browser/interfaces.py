@@ -46,7 +46,7 @@ class IConversionForm(Interface):
     )
 
 convert_title = ComputedWidgetAttribute(
-    lambda form: form.context.Title(), field=IConversionForm["title"]
+    lambda form: fileUtils.getFileTitleWithoutExt(form.context), field=IConversionForm["title"]
 )
 
 convert_current_type = ComputedWidgetAttribute(
