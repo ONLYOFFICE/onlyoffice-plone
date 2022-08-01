@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<object name="Document"
+   meta_type="Factory-based Type Information with dynamic views"
+   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <property name="view_methods" purge="False">
+    <element value="onlyoffice-view-document"/>
+  </property>
+
+  <action
+      action_id="onlyoffice-conversion-document"
+      category="object"
+      condition_expr="object/@@onlyoffice-convert-document/isAvailable"
+      i18n:domain="onlyoffice.plone"
+      i18n:attributes="title"
+      title="Conversion in ONLYOFFICE"
+      url_expr="string:${object_url}/onlyoffice-convert-document"
+      visible="True">
+    <permission value="View"/>
+  </action>
+</object>

@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<!--
+ *
+ * (c) Copyright Ascensio System SIA 2022
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ -->
+
+    <body>
+
+        <metal:main fill-slot="main">
+
+            <style type="text/css">
+                form div.fieldErrorBox {
+                    display: inline-block;
+                }
+                form .choice-field{
+                    width: 100%
+                }
+            </style>
+
+            <div id="content-core">
+                <h1 class="documentFirstHeading" tal:content="view/label">Download as</h1>
+
+                <div id="content-core">
+                    <form metal:use-macro="context/@@ploneform-macros/titlelessform"></form>
+                    <div class="formControls">
+                            <input id="download" type="submit" class="plone-btn plone-btn-primary context" name="Download" value="Download" i18n:domain="onlyoffice.plone" i18n:attributes="value Download;" />
+                            <input id="cancel" type="submit" class="plone-btn" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
+                        </div>
+                </div>
+            </div>
+
+            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
+            <script type="text/javascript">
+                var modalDialog = $("a[id*='plone-contentmenu-actions-download-as']").patPloneModal().data("pattern-plone-modal");
+                var form = $("form[class*='view-name-onlyoffice-download-as']");
+                var targetType = $("#form-widgets-target_type");
+
+                function onResponseSuccess(data) {
+                    $("#onlyoffice-download-as").remove()
+                    $("body").append("<iframe id='onlyoffice-download-as' style='display:none;'></iframe>");
+                    $("#onlyoffice-download-as").attr("src", data.fileUrl);
+                    form.data().patternFormunloadalert._changed = false;
+                    modalDialog.hide();
+                };
+
+                function onResponseError(message) {
+                    modalDialog.loading.hide();
+                    $(".pattern-modal-buttons input").removeAttr("disabled");
+                    $.showMessage(message, "error", true);
+                }
+
+                function requestConvert () {
+                    $(".pattern-modal-buttons input").attr("disabled", "disabled");
+
+                    form.ajaxSubmit({
+                        type: "POST",
+                        url: form.attr('action') + "-action",
+                        data: {
+                            "targetType": targetType.val()
+                        },
+                        success: function(data) {
+                            if (!data.hasOwnProperty("error")) {
+                                onResponseSuccess(data);
+                            } else {
+                                onResponseError(data.error);
+                            }
+                        },
+                        error: function(state, value, xhr) {
+                            if (state.status == 403) {
+                                onResponseError($.I18N("You are not authorized to add content to this folder"));
+                            } else{
+                                onResponseError(xhr);
+                            }
+                        }
+                    });
+                };
+
+                $("#download").on("click", function (event) {
+                    requestConvert();
+                });
+
+                $("#cancel").on("click", function (event) {
+                    form.data().patternFormunloadalert._changed = false;
+                    modalDialog.hide();
+                });
+            </script>
+
+            <label id="error" class="hide" i18n:translate="Error">Error</label>
+
+        </metal:main>
+
+    </body>
+</html>
