@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.2.0
+- moved to onlyoffice.plone
+
 ## 2.1.1
 ## Fixed
 - issue with packaging

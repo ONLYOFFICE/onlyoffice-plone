@@ -14,8 +14,8 @@ long_description = '\n\n'.join([
 
 setup(
     name='onlyoffice.connector',
-    version='2.1.1',
-    description="Plone ONLYOFFICE integration plugin",
+    version='2.2.0',
+    description="Plone ONLYOFFICE integration plugin (deprecated). Moved to https://pypi.org/project/onlyoffice.plone/",
     long_description=long_description,
     long_description_content_type="text/markdown",
     # Get more from https://pypi.org/classifiers/
