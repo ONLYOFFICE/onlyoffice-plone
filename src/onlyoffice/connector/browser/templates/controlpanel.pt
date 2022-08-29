@@ -17,6 +17,10 @@
             .unclickable {
                 opacity: 0.6;
             }
+            
+            #form-widgets-docUrlPublicValidation {
+              display: none;
+            }
         </style>
     </metal:css>
 </head>
