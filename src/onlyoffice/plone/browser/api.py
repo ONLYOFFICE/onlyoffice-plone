@@ -122,12 +122,12 @@ class ODownload(Download):
 
             # respect field level security as defined in plone.autoform
             # check if attribute access would be allowed!
-            guarded_getattr(self.context, self.fieldname, None)
+            getattr(self.context, self.fieldname, None)
 
             file = info.value
         else:
             context = getattr(self.context, "aq_explicit", self.context)
-            file = guarded_getattr(context, self.fieldname, None)
+            file = getattr(context, self.fieldname, None)
 
         if file is None:
             raise NotFound(self, self.fieldname, self.request)
