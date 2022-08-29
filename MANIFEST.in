@@ -15,6 +15,12 @@ recursive-include src *.sh
 recursive-include src *.txt
 recursive-include src *.xml
 recursive-include src *.zcml
+recursive-include src *.eot
+recursive-include src *.svg
+recursive-include src *.ttf
+recursive-include src *.woff
+recursive-include src *.woff2
+recursive-include src *.json
 
 recursive-include src *.docx
 recursive-include src *.docxf
