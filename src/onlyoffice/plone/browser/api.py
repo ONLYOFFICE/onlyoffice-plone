@@ -120,10 +120,6 @@ class ODownload(Download):
                 raise NotFound(self, "", self.request)
             self.fieldname = info.fieldname
 
-            # respect field level security as defined in plone.autoform
-            # check if attribute access would be allowed!
-            getattr(self.context, self.fieldname, None)
-
             file = info.value
         else:
             context = getattr(self.context, "aq_explicit", self.context)
@@ -237,7 +233,7 @@ class OInsert(BrowserView):
             if getSecurityManager().checkPermission(permissions.View, obj):
                 insertObject = {}
                 insertObject['command'] = command
-                insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(obj)
+                insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl/file?token=' + utils.createSecurityTokenFromContext(obj)
                 insertObject['fileType'] = fileUtils.getFileExt(obj)
 
                 if utils.isJwtEnabled():
@@ -265,7 +261,7 @@ class Conversion(BrowserView):
             return "You are not authorized to add content to this folder."
 
         key = utils.getDocumentKey(self.context)
-        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
+        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl/file?token=' + utils.createSecurityTokenFromContext(self.context)
         fileType = fileUtils.getFileExt(self.context)
         outputType = conversionUtils.getTargetExt(fileType)
         region = portal_state(self).language()
@@ -322,7 +318,7 @@ class DownloadAs(BrowserView):
 
         outputType = self.request.form.get("targetType")
         key = utils.getDocumentKey(self.context)
-        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + utils.createSecurityTokenFromContext(self.context)
+        url = utils.getPloneContextUrl(self.context) + '/onlyoffice-dl/file?token=' + utils.createSecurityTokenFromContext(self.context)
         fileType = fileUtils.getFileExt(self.context)
         region = portal_state(self).language()
 

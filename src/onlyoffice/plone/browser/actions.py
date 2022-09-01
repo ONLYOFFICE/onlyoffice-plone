@@ -149,7 +149,7 @@ def get_config(self, forEdit):
         'documentType': fileUtils.getFileType(self.context),
         'document': {
             'title': fileTitle,
-            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
+            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl/file?token=' + securityToken,
             'fileType': fileUtils.getFileExt(self.context),
             'key': utils.getDocumentKey(self.context),
             'info': {
