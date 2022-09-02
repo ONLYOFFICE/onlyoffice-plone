@@ -21,11 +21,14 @@ from z3c.form.interfaces import WidgetActionExecutionError
 from zope import schema
 from zope.interface import Interface
 from zope.interface import Invalid
-from zope.interface import invariant
 from plone import api
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from DateTime import DateTime
+from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form import button
+from zope.component.hooks import getSite
+from zope.i18nmessageid import MessageFactory
 from onlyoffice.plone.core import conversionUtils
 from urllib.request import urlopen
 from onlyoffice.plone.interfaces import _
@@ -37,11 +40,13 @@ import json
 import requests
 import os
 
+_Plone = MessageFactory("plone")
+
 class IOnlyofficeControlPanel(Interface):
 
     docUrl = schema.TextLine(
         title=_(u'Document Editing service'),
-        required=True,
+        required=False,
         default=u'https://documentserver/',
     )
 
@@ -72,53 +77,49 @@ class IOnlyofficeControlPanel(Interface):
         required=False
     )
 
-    @invariant
-    def settings_validation_demo(data):
-        if data.demoEnabled and utils.getDemoAvailable(True):
-            demoUrl = Config(getUtility(IRegistry)).demoDocUrl
-            demoSecret = Config(getUtility(IRegistry)).demoJwtSecret
-            ploneInnerUrl = data.ploneUrl
+def settings_validation_demo(data):
+    demoUrl = Config(getUtility(IRegistry)).demoDocUrl
+    demoSecret = Config(getUtility(IRegistry)).demoJwtSecret
+    ploneInnerUrl = data["ploneUrl"]
 
-            check_doc_serv_url(demoUrl, "demoEnabled", True)
+    check_doc_serv_url(demoUrl, "demoEnabled", True)
 
-            check_doc_serv_command_service(demoUrl, demoSecret, True)
+    check_doc_serv_command_service(demoUrl, demoSecret, True)
 
-            check_doc_serv_convert_service(demoUrl, ploneInnerUrl, demoSecret, True)
+    check_doc_serv_convert_service(demoUrl, ploneInnerUrl, demoSecret, True)
 
-            utils.setDemo()
+    utils.setDemo()
 
-    @invariant
-    def settings_validation(data):
-        if not data.demoEnabled or not utils.getDemoAvailable(True): 
-            if (not data.docUrlPublicValidation):
-                raise WidgetActionExecutionError(
-                    "docUrl",
-                    Invalid(_(u'ONLYOFFICE cannot be reached'))
-                )
+def settings_validation(data):
+    if (not data["docUrlPublicValidation"]):
+        raise WidgetActionExecutionError(
+            "docUrl",
+            Invalid(_(u'ONLYOFFICE cannot be reached'))
+        )
 
-            portalUrl = api.portal.get().absolute_url()
-            ploneInnerUrl = data.ploneUrl
+    portalUrl = api.portal.get().absolute_url()
+    ploneInnerUrl = data["ploneUrl"]
 
-            if (portalUrl.startswith("https") and not data.docUrl.startswith("https")):
-                raise WidgetActionExecutionError(
-                    "docUrl",
-                    Invalid(_(u'Mixed Active Content is not allowed. HTTPS address for Document Server is required.'))
-                )
+    if (portalUrl.startswith("https") and not data["docUrl"].startswith("https")):
+        raise WidgetActionExecutionError(
+            "docUrl",
+            Invalid(_(u'Mixed Active Content is not allowed. HTTPS address for Document Server is required.'))
+        )
 
-            if data.docInnerUrl != None and data.docInnerUrl != "":
-                nameField = "docInnerUrl"
-                url = data.docInnerUrl
-            else :
-                nameField = "docUrl"
-                url = data.docUrl
+    if data["docInnerUrl"] != None and data["docInnerUrl"] != "":
+        nameField = "docInnerUrl"
+        url = data["docInnerUrl"]
+    else :
+        nameField = "docUrl"
+        url = data["docUrl"]
 
-            url = url if url.endswith("/") else url + "/"
+    url = url if url.endswith("/") else url + "/"
 
-            check_doc_serv_url(url, nameField, False)
+    check_doc_serv_url(url, nameField, False)
 
-            check_doc_serv_command_service(url, data.jwtSecret, False)
+    check_doc_serv_command_service(url, data["jwtSecret"], False)
 
-            check_doc_serv_convert_service(url, ploneInnerUrl, data.jwtSecret, False)
+    check_doc_serv_convert_service(url, ploneInnerUrl, data["jwtSecret"], False)
 
 def check_doc_serv_url(url, nameField, demo):
     logger.debug("Checking docserv url")
@@ -210,6 +211,30 @@ class OnlyofficeControlPanelForm(RegistryEditForm):
     id = "OnlyofficeControlPanelForm"
     schema_prefix = "onlyoffice.plone"
     label = _(u'ONLYOFFICE Configuration')
+
+    @button.buttonAndHandler(_Plone("Save"), name="save")
+    def handleSave(self, action):
+        logger.error("SAdfasdf")
+        data, errors = self.extractData()
+
+        if data["demoEnabled"] and utils.getDemoAvailable(True): 
+            settings_validation_demo(data)
+        else:
+            settings_validation(data)
+
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        self.applyChanges(data)
+        IStatusMessage(self.request).addStatusMessage(_Plone("Changes saved."), "info")
+        self.request.response.redirect(self.request.getURL())
+
+    @button.buttonAndHandler(_Plone("Cancel"), name="cancel")
+    def handleCancel(self, action):
+        IStatusMessage(self.request).addStatusMessage(_Plone("Changes canceled."), "info")
+        self.request.response.redirect(
+            f"{getSite().absolute_url()}/{self.control_panel_view}"
+        )
 
 class OnlyofficeControlPanelView(ControlPanelFormWrapper):
     form = OnlyofficeControlPanelForm
