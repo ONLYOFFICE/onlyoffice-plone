@@ -116,7 +116,7 @@
 
   <browser:page
       name="onlyoffice-save-as"
-      for="plone.app.contenttypes.interfaces.IFile"
+      for="*"
       class=".api.SaveAs"
       permission="zope2.View"
       />
