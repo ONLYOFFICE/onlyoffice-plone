@@ -105,7 +105,8 @@ class DownloadAsForm(form.Form):
 
 def render_editor(self, forEdit):
     self.docUrl = utils.getPublicDocUrl()
-    self.saveAs = featureUtils.getSaveAsObject(self) 
+    self.saveAs = featureUtils.getSaveAsObject(self)
+    self.demo = featureUtils.getDemoAsObject(self)
     self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
     self.token = get_token(self)
     self.editorCfg = get_config(self, forEdit)

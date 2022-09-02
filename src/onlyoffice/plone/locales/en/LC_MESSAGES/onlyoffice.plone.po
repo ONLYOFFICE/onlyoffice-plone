@@ -150,6 +150,10 @@ msgstr ""
 msgid "Error connecting to demo server (${error})"
 msgstr ""
 
+#: ../browser/actions.py
+msgid "You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data."
+msgstr ""
+
 #: ../browser/api.py
 msgid "Conversion in ONLYOFFICE"
 msgstr ""
