@@ -159,7 +159,7 @@ msgid "Conversion in ONLYOFFICE"
 msgstr ""
 
 #: ../browser/api.py
-msgid "You can conversion you document in format OOXML"
+msgid "You can convert you document in format OOXML"
 msgstr ""
 
 #: ../browser/interfaces.py
@@ -179,7 +179,7 @@ msgid "Item converted"
 msgstr ""
 
 #: ../browser/static/js/convert.js
-msgid "Converting ${currentType} to ${targetType} in progress.."
+msgid "Converting ${currentType} to ${targetType} in progress."
 msgstr ""
 
 #: ../browser/static/js/convert.js

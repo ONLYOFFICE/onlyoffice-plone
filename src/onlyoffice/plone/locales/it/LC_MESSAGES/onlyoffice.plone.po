@@ -105,9 +105,145 @@ msgid "Unknown error while saving file"
 msgstr "Errore sconosciuto durante il salvataggio del documento"
 
 #: ../browser/templates/view.pt
+msgid "Not supported version DocumentServer."
+msgstr ""
+
+#: ../browser/templates/view.pt
 msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
 msgstr "Si prega di aggiornare ONLYOFFICE Docs alla versione 7.0 per lavorare su moduli compilabili online"
 
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
 msgstr "Un campo richiesto è mancante."
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check ConvertService"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Connect to demo ONLYOFFICE Document Server"
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."
+msgstr ""
+
+#: ../browser/static/js/controlpanel.js
+msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server."
+msgstr ""
+
+#: ../browser/controlpanel.py
+msgid "Error connecting to demo server (${error})"
+msgstr ""
+
+#: ../browser/actions.py
+msgid "You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data."
+msgstr ""
+
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr ""
+
+#: ../browser/api.py
+msgid "You can convert you document in format OOXML"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr ""
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr ""
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr ""
+
+#: ../browser/static/js/convert.js
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr ""
+
+#: ../browser/static/js/convert.js
+msgid "Converting is finished"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr ""
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Select file type you want to download"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Download as"
+msgstr ""
+
+#: ../browser/interfaces.py
+msgid "Download"
+msgstr ""
