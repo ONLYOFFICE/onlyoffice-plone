@@ -47,6 +47,8 @@ docker run --rm -p 8080:8080 -e ADDONS="onlyoffice.plone" plone
 ```
 Both options will automatically install plugin from [PyPi](https://pypi.org/project/onlyoffice.plone/).
 
+**Please note:** if you have the previous plugin version installed (earlier plugin versions with the previous name onlyoffice.connector), please remove it before installing the new version. 
+
 ## Configuring Plone ONLYOFFICE integration plugin
 
 To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
