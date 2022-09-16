@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Installer for the onlyoffice.connector package."""
+"""Installer for the onlyoffice.plone package."""
 
 from setuptools import find_packages
 from setuptools import setup
@@ -13,7 +13,7 @@ long_description = '\n\n'.join([
 
 
 setup(
-    name='onlyoffice.connector',
+    name='onlyoffice.plone',
     version='2.1.1',
     description="Plone ONLYOFFICE integration plugin",
     long_description=long_description,
@@ -38,10 +38,10 @@ setup(
     author_email='integration@onlyoffice.com',
     url='https://github.com/ONLYOFFICE/onlyoffice-plone',
     project_urls={
-        'PyPI': 'https://pypi.python.org/pypi/onlyoffice.connector',
+        'PyPI': 'https://pypi.python.org/pypi/onlyoffice.plone',
         'Source': 'https://github.com/ONLYOFFICE/onlyoffice-plone',
         'Tracker': 'https://github.com/ONLYOFFICE/onlyoffice-plone/issues',
-        # 'Documentation': 'https://onlyoffice.connector.readthedocs.io/en/latest/',
+        # 'Documentation': 'https://onlyoffice.plone.readthedocs.io/en/latest/',
     },
     license='Apache-2.0 License',
     packages=find_packages('src', exclude=['ez_setup']),
@@ -73,6 +73,6 @@ setup(
     [z3c.autoinclude.plugin]
     target = plone
     [console_scripts]
-    update_locale = onlyoffice.connector.locales.update:update_locale
+    update_locale = onlyoffice.plone.locales.update:update_locale
     """,
 )

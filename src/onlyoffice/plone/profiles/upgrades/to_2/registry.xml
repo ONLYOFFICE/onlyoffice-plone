@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<registry>
+   <!-- register new bundle -->
+   <records interface="onlyoffice.plone.browser.controlpanel.IOnlyofficeControlPanel" prefix="onlyoffice.plone">
+      <value key="jwtSecret"></value>
+   </records>
+</registry>
