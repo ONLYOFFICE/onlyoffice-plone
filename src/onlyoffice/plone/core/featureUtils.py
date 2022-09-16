@@ -17,6 +17,7 @@
 from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 from onlyoffice.plone.interfaces import _
+from onlyoffice.plone.core import utils
 
 import json
 
@@ -31,3 +32,8 @@ def getSaveAsObject(self):
                     'errorUnknown':  translate(_(u'Unknown error while saving file'), context = self.request)
                 }
             })
+
+def getDemoAsObject(self):
+    return json.dumps({
+                'message':  translate(_(u'You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data.'), context = self.request),
+            }) if utils.getDemoActive() else None

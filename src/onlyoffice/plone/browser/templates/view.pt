@@ -59,6 +59,7 @@
         var docEditor;
         var config = ${view/editorCfg}
         var saveAs = ${view/saveAs}
+        var demo = ${view/demo}
         config.width = "100%";
         config.height = "600px";
 
@@ -122,6 +123,12 @@
 
                 docEditorEvent(insertObjects[0]);
                 modalDialog.hide();
+            }
+        };
+
+        var onAppReady = function () {
+            if (demo) {
+                docEditor.showMessage(demo.message);
             }
         };
 
@@ -198,6 +205,7 @@
         };
 
         config.events = {
+            "onAppReady": onAppReady,
             "onRequestInsertImage": onRequestInsertImage,
             "onRequestCompareFile": onRequestCompareFile,
             "onRequestMailMergeRecipients": onRequestMailMergeRecipients

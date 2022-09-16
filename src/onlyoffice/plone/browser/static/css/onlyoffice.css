@@ -26,7 +26,8 @@
 .icon-onlyoffice-create:before { content: '\e801' !important; } /* '' */
 .icon-onlyoffice-edit:before { content: '\e801' !important; } /* '' */
 .icon-onlyoffice-fill-form:before { content: '\e801' !important; } /* '' */
-.icon-onlyoffice-conversion:before { content: '\e801' !important; } /* '' */
+.icon-onlyoffice-conversion-file:before { content: '\e801' !important; } /* '' */
+.icon-onlyoffice-conversion-document:before { content: '\e801' !important; } /* '' */
 .icon-onlyoffice-file-word:before { content: '\e800' !important; } /* '' */
 .icon-onlyoffice-file-cell:before { content: '\e802' !important; } /* '' */
 .icon-onlyoffice-file-slide:before { content: '\e803' !important; } /* '' */

@@ -105,7 +105,8 @@ class DownloadAsForm(form.Form):
 
 def render_editor(self, forEdit):
     self.docUrl = utils.getPublicDocUrl()
-    self.saveAs = featureUtils.getSaveAsObject(self) 
+    self.saveAs = featureUtils.getSaveAsObject(self)
+    self.demo = featureUtils.getDemoAsObject(self)
     self.relatedItemsOptions = json.dumps(fileUtils.getRelatedRtemsOptions(self.context))
     self.token = get_token(self)
     self.editorCfg = get_config(self, forEdit)
@@ -149,7 +150,7 @@ def get_config(self, forEdit):
         'documentType': fileUtils.getFileType(self.context),
         'document': {
             'title': fileTitle,
-            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl?token=' + securityToken,
+            'url': utils.getPloneContextUrl(self.context) + '/onlyoffice-dl/file?token=' + securityToken,
             'fileType': fileUtils.getFileExt(self.context),
             'key': utils.getDocumentKey(self.context),
             'info': {
