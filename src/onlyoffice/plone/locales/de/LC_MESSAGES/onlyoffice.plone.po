@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2021-12-27 14:21+0300\n"
+"PO-Revision-Date: 2022-09-05 17:01+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../browser/controlpanel.py:12
 msgid "Document Editing service"
@@ -105,9 +105,145 @@ msgid "Unknown error while saving file"
 msgstr "Unbekannter Fehler beim Speichern"
 
 #: ../browser/templates/view.pt
+msgid "Not supported version DocumentServer."
+msgstr "Die Version des Document Servers ist nicht unterstützt."
+
+#: ../browser/templates/view.pt
 msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
 msgstr "Für Online-Arbeit mit Formularen ist Version 7.0 von ONLYOFFICE Docs erforderlich"
 
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
 msgstr "Erforderliche Eingabe fehlt."
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr "ONLYOFFICE ist zurzeit nicht erreichbar"
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr "Fehler bei der Autorisierung"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr "Fehler beim Versuch, CommandService zu überprüfen"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check ConvertService"
+msgstr "Fehler beim Versuch, ConvertService zu überprüfen"
+
+#: ../browser/controlpanel.py
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr "Mixed Active Content ist nicht möglich. HTTPS-Adresse für Document Server ist erforderlich."
+
+#: ../browser/controlpanel.py
+msgid "Connect to demo ONLYOFFICE Document Server"
+msgstr "Demo-Verbindung zum ONLYOFFICE Document Server herstellen"
+
+#: ../browser/controlpanel.py
+msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."
+msgstr "Dies ist ein öffentlicher Testserver. Bitte verwende beim Testen keine privaten sensiblen Daten. Der Server ist 30 Tage lang verfügbar."
+
+#: ../browser/static/js/controlpanel.js
+msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server."
+msgstr "Der 30-tägige Testzeitraum ist abgelaufen. Du kannst keine Verbindung mehr zu Demo ONLYOFFICE Document Server herstellen."
+
+#: ../browser/controlpanel.py
+msgid "Error connecting to demo server (${error})"
+msgstr "Fehler beim Verbindung zum Demo-Server: (${error})"
+
+#: ../browser/actions.py
+msgid "You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data."
+msgstr "Du verwendest den öffentlichen Demo ONLYOFFICE Document Server. Bitte benutze ihn nicht zum Speichern von Deinen privaten sensiblen Daten."
+
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr "Konvertierung in ONLYOFFICE"
+
+#: ../browser/api.py
+msgid "You can convert you document in format OOXML"
+msgstr "Sie können Ihr Dokument ins OOXML-Format konvertieren"
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr "Derzeitiges Format:"
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr "Zielformat:"
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr "Konvertieren"
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr "Datei wurde konvertiert"
+
+#: ../browser/static/js/convert.js
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr "Umwandlung von ${currentType} in ${targetType} wird durchgeführt."
+
+#: ../browser/static/js/convert.js
+msgid "Converting is finished"
+msgstr "Die Konvertierung ist abgeschlossen"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr "Der Dienst für die Dokumentenkonvertierung hat einen Fehler gemeldet: (${error})"
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr "Unbekannter Fehler"
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr "Fehler bei der Konvertierung: Timeout"
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr "Fehler bei der Umwandlung"
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr "Fehler beim Herunterladen der Datei, die konvertiert werden muss"
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr "Ungültiges Passwort"
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr "Fehler beim Zugriff auf die Datenbank der Ergebnisse der Konvertierung"
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr "Eingabefehler"
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr "Ungültiges Token"
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr "Unbekannter Fehlercode"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr "Der Dienst für die Dokumentenkonvertierung hat den Status ${status_code} zurückgegeben"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr "Der Dienst für die Dokumentenkonvertierung ist nicht erreichbar"
+
+#: ../browser/interfaces.py
+msgid "Select file type you want to download"
+msgstr "Wählen Sie den Dateityp aus, den Sie herunterladen möchten"
+
+#: ../browser/interfaces.py
+msgid "Download as"
+msgstr "Herunterladen als"
+
+#: ../browser/interfaces.py
+msgid "Download"
+msgstr "Herunterladen"
