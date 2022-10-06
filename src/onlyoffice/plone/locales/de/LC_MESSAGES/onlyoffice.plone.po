@@ -64,6 +64,14 @@ msgstr "onlyoffice.plone (deinstallieren)"
 msgid "Secret key (leave blank to disable)"
 msgstr "Geheimer Schlüssel (freilassen, um zu deaktivieren)"
 
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr ""
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr ""
+
 #: ../browser/menu.py
 msgid "Create in ONLYOFFICE"
 msgstr "In ONLYOFFICE erstellen"

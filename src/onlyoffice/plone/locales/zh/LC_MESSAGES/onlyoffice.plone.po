@@ -64,6 +64,14 @@ msgstr "onlyoffice.plone (卸载)"
 msgid "Secret key (leave blank to disable)"
 msgstr "秘钥(留空为关闭)"
 
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr ""
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr ""
+
 #: ../browser/menu.py
 msgid "Create in ONLYOFFICE"
 msgstr "在ONLYOFFICE中创建"
