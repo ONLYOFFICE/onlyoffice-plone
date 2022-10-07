@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-09-06 11:31+0300\n"
+"PO-Revision-Date: 2022-10-07 18:55+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -66,11 +66,11 @@ msgstr "Chiave segreta (lasciare vuoto per disabilitare)"
 
 #: ../browser/controlpanel.py:34
 msgid "Server address for internal requests from the Document Editing Service"
-msgstr ""
+msgstr "Indirizzo del server per richieste interne dal Document Editing Service"
 
 #: ../browser/controlpanel.py:34
 msgid "Document Editing Service address for internal requests from the server"
-msgstr ""
+msgstr "Indirizzo di Document Editing Service per richieste interne dal server"
 
 #: ../browser/menu.py
 msgid "Create in ONLYOFFICE"
