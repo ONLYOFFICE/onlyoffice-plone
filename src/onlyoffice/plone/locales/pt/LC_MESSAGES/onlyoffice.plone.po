@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-09-30 18:22+0300\n"
+"PO-Revision-Date: 2022-10-10 14:07+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -63,6 +63,14 @@ msgstr "onlyoffice.plone (desinstalar)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "Chave secreta (deixe em branco para desativar)"
+
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr "Endereço do servidor para solicitações internas do Serviço de Edição de Documentos"
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr "Endereço do serviço de edição de documentos para solicitações internas do servidor"
 
 #: ../browser/menu.py
 msgid "Create in ONLYOFFICE"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-09-05 16:57+0300\n"
+"PO-Revision-Date: 2022-10-10 14:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -63,6 +63,14 @@ msgstr "onlyoffice.plone (卸载)"
 #: ../browser/controlpanel.py:34
 msgid "Secret key (leave blank to disable)"
 msgstr "秘钥(留空为关闭)"
+
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr "来自文档编辑服务用于内部请求的服务器地址"
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr "来自服务器用于内部请求的文档编辑服务"
 
 #: ../browser/menu.py
 msgid "Create in ONLYOFFICE"
