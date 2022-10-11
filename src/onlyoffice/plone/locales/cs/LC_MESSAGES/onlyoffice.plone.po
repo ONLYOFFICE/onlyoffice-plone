@@ -182,7 +182,7 @@ msgstr "Cílový typ:"
 
 #: ../browser/apy.py
 msgid "Convert"
-msgstr "Převod:"
+msgstr "Převod"
 
 #: ../browser/static/js/convert.js
 msgid "Item converted"
