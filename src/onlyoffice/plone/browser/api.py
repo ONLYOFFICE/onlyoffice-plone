@@ -230,10 +230,14 @@ class OInsert(BrowserView):
         for UID in UIDs:
             obj = uuidToObject(UID)
 
+            type ='file'
+            if obj.portal_type == "Image" :
+                type = 'image'
+
             if getSecurityManager().checkPermission(permissions.View, obj):
                 insertObject = {}
                 insertObject['command'] = command
-                insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl/file?token=' + utils.createSecurityTokenFromContext(obj)
+                insertObject['url'] = utils.getPloneContextUrl(obj) + '/onlyoffice-dl/' + type + '?token=' + utils.createSecurityTokenFromContext(obj)
                 insertObject['fileType'] = fileUtils.getFileExt(obj)
 
                 if utils.isJwtEnabled():
