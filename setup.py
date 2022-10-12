@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Installer for the onlyoffice.connector package."""
+"""Installer for the onlyoffice.plone package."""
 
 from setuptools import find_packages
 from setuptools import setup
@@ -13,8 +13,8 @@ long_description = '\n\n'.join([
 
 
 setup(
-    name='onlyoffice.connector',
-    version='2.1.1',
+    name='onlyoffice.plone',
+    version='3.0.0',
     description="Plone ONLYOFFICE integration plugin",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -31,19 +31,19 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Operating System :: OS Independent",
-        "License :: OSI Approved :: GNU Affero General Public License v3",
+        "License :: OSI Approved :: Apache Software License",
     ],
     keywords='Python Plone',
     author='Ascensio System SIA',
     author_email='integration@onlyoffice.com',
     url='https://github.com/ONLYOFFICE/onlyoffice-plone',
     project_urls={
-        'PyPI': 'https://pypi.python.org/pypi/onlyoffice.connector',
+        'PyPI': 'https://pypi.python.org/pypi/onlyoffice.plone',
         'Source': 'https://github.com/ONLYOFFICE/onlyoffice-plone',
         'Tracker': 'https://github.com/ONLYOFFICE/onlyoffice-plone/issues',
-        # 'Documentation': 'https://onlyoffice.connector.readthedocs.io/en/latest/',
+        # 'Documentation': 'https://onlyoffice.plone.readthedocs.io/en/latest/',
     },
-    license='AGPL version 3',
+    license='Apache-2.0 License',
     packages=find_packages('src', exclude=['ez_setup']),
     namespace_packages=['onlyoffice'],
     package_dir={'': 'src'},
@@ -73,6 +73,6 @@ setup(
     [z3c.autoinclude.plugin]
     target = plone
     [console_scripts]
-    update_locale = onlyoffice.connector.locales.update:update_locale
+    update_locale = onlyoffice.plone.locales.update:update_locale
     """,
 )

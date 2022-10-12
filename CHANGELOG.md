@@ -1,5 +1,20 @@
 # Change Log
 
+## 3.0.0
+## Added
+- download as
+- documents conversion
+- connection to a demo document server
+- settings validation
+- mail merge from storage
+- compare file from storage
+- insert image from storage
+- advanced server settings for specifying internal addresses
+
+## Changed
+- parameter document.title for editor from file object title
+- document server v6.0 and earlier is no longer supported
+
 ## 2.1.1
 ## Fixed
 - issue with packaging

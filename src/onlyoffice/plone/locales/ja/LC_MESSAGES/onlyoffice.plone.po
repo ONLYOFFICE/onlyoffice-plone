@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-02-14 10:33+0000\n"
+"PO-Revision-Date: 2022-10-10 14:08+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: ../browser/controlpanel.py:12
+msgid "Document Editing service"
+msgstr "ドキュメント編集サービス"
+
+#: ../configure.zcml:28
+msgid "Installs the ONLYOFFICE connector add-on."
+msgstr "ONLYOFFICE コネクターアドオンをインストールします"
+
+#: ../browser/controlpanel.py:21
+msgid "ONLYOFFICE Configuration"
+msgstr "ONLYOFFICE コンフィギュレーション"
+
+#: ../profiles/default/types/File.xml
+msgid "ONLYOFFICE Edit"
+msgstr "ONLYOFFICE 編集"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View"
+msgstr "ONLYOFFICE 閲覧"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "ONLYOFFICEでフォームを記入する"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View page"
+msgstr "ONLYOFFICE 閲覧ページ"
+
+#: ../browser/templates/error.pt:10
+msgid "ONLYOFFICE can't open this file."
+msgstr "このファイルを開くことができません"
+
+#: ../configure.zcml:37
+msgid "Uninstalls the ONLYOFFICE connector add-on."
+msgstr "ONLYOFFICE コネクターアドオンをアンインストールします"
+
+#: ../configure.zcml:28
+msgid "onlyoffice.plone"
+msgstr "onlyoffice.plone"
+
+#: ../configure.zcml:37
+msgid "onlyoffice.plone (uninstall)"
+msgstr "onlyoffice.plone (アンインストールする)"
+
+#: ../browser/controlpanel.py:34
+msgid "Secret key (leave blank to disable)"
+msgstr "シークレットキー (ブランクで無効)"
+
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr "ドキュメント編集サービスからの内部リクエスト用サーバーアドレス"
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr "サーバーからの内部リクエスト用ドキュメント編集サービスアドレス"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr "ONLYOFFICEで作成"
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "ドキュメント"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "スプレッドシート"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "プレゼンテーション"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "フォーム テンプレート"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "ファイルのコピーを保存する形は"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "サイトのルートに保存するには、フィールドを空白のままにしてください"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "正常に保存されたファイル形は"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "このフォルダにコンテンツを追加する権限がありません"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "ファイルの保存中に不明なエラーが発生しました"
+
+#: ../browser/templates/view.pt
+msgid "Not supported version DocumentServer."
+msgstr "この DocumentServerのバージョンはサポートされていません。"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "オンラインで入力可能なフォームを作成するには、ONLYOFFICE Docs 7.0版まで更新してください"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "必要な入力がありません"
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr "ONLYOFFICEに接続できません。"
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr "認識エラー"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr "CommandServiceをチェック中にエラーが出ました"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check ConvertService"
+msgstr "ConvertServiceをチェック中にエラーが出ました"
+
+#: ../browser/controlpanel.py
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr "アクティブコンテンツの混在は許可されていません。Document ServerにはHTTPSアドレスが必要です"
+
+#: ../browser/controlpanel.py
+msgid "Connect to demo ONLYOFFICE Document Server"
+msgstr "ONLYOFFICE Document Serverのデモ版へ接続します。"
+
+#: ../browser/controlpanel.py
+msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."
+msgstr "このサーバーは公開テストサーバーであり、個人の機密データには使用しないでください。サーバーは30日間利用可能です。"
+
+#: ../browser/static/js/controlpanel.js
+msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server."
+msgstr "30日間のテスト期間が終了したら、ONLYOFFICE Document Server デモサーバーには繋がらなくなります"
+
+#: ../browser/controlpanel.py
+msgid "Error connecting to demo server (${error})"
+msgstr "デモサーバへの接続エラー (${error})"
+
+#: ../browser/actions.py
+msgid "You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data."
+msgstr "パブリック ONLYOFFICE Docs サーバーを使っているので、プライベートな機密データを利用しないようにしてください。"
+
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr "ONLYOFFICEでのファイル変換"
+
+#: ../browser/api.py
+msgid "You can convert you document in format OOXML"
+msgstr "OOXMLへの変換が可能です"
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr "現在のタイプ："
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr "ターゲットのタイプ："
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr "変換"
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr "変換されたアイテム"
+
+#: ../browser/static/js/convert.js
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr "${currentType}から${targetType}への変換中"
+
+#: ../browser/static/js/convert.js
+msgid "Converting is finished"
+msgstr "変換終了"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr "文書変換サービスが(${error})エラーを返しました"
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr "不明なエラー"
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr "変換のタイムアウトエラー"
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr "変換エラー"
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr "変換したいファイルのアップロード中にエラーが出ました"
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr "パスワードが正しくありません"
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr "変換結果のデータベースへのアクセス中にエラーが出ました"
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr "入力エラー"
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr "トークンが無効です"
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr "エラーコードが定義されていません"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr "文書変換サービスが${status_code}ステータスを返しました。"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr "文書変換サービスがアクセスできません"
+
+#: ../browser/interfaces.py
+msgid "Select file type you want to download"
+msgstr "ダウンロードしたいファイルを選択してください"
+
+#: ../browser/interfaces.py
+msgid "Download as"
+msgstr "別の形式でダウンロード"
+
+#: ../browser/interfaces.py
+msgid "Download"
+msgstr "ダウンロード"

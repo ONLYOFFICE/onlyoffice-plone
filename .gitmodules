@@ -1,4 +1,4 @@
-[submodule "src/onlyoffice/connector/browser/app_data"]
-	path = src/onlyoffice/connector/browser/app_data
+[submodule "src/onlyoffice/plone/browser/app_data"]
+	path = src/onlyoffice/plone/browser/app_data
 	url = https://github.com/ONLYOFFICE/document-templates
 	branch = main/new

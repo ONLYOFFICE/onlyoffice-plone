@@ -1,0 +1,245 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="onlyoffice.plone">
+
+<!--
+ *
+ * (c) Copyright Ascensio System SIA 2022
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ -->
+
+<metal:block fill-slot="content-core">
+    <div id="onlyofficeEditor"></div>
+    <div id="onlyofficeErrorNotAccessible" i18n:translate="" style="display:none;">DocumentServer not accessible.</div>
+    <div id="onlyofficeErrorNotSupportedVersion" i18n:translate="" style="display:none;">Not supported version DocumentServer.</div>
+    <div id="onlyofficeErrorNotSupportedVersionForm" i18n:translate="" style="display:none;">Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online.</div>
+
+    <a id="insert-dialog-onlyoffice-triger"
+        href="#insert-dialog-onlyoffice"
+        class="pat-plone-modal" 
+        data-pat-plone-modal="width: 600px;"
+        style="display: none;">
+    </a>
+    <div id="insert-dialog-onlyoffice" style="display: none" i18n:domain="plone">
+        <div class="linkModal">
+            <h1 i18n:translate="label_select_content_item">Select a content item</h1>
+            <div id="fileTitle" class="field" style="display: none">
+                <label for="onlyoffice-file-title" class="horizontal" i18n:translate="label_title">Title</label>
+                <div class="fieldErrorBox" i18n:domain="onlyoffice.plone" style="display: none">
+                    <div class="error" i18n:translate="">Required input is missing.</div>
+                </div>
+                <input id="onlyoffice-file-title" name="onlyoffice.file.title" type="text">
+            </div>
+            <div id="relatedItems"></div>
+            <div class="formControls">
+                <input type="submit" class="plone-btn" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
+                <input type="submit" class="plone-btn plone-btn-primary context" name="ok" value="Ok" i18n:attributes="value label_ok;" />
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="${view/docUrl}web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript" language="javascript">
+        var docEditor;
+        var config = ${view/editorCfg}
+        var saveAs = ${view/saveAs}
+        var demo = ${view/demo}
+        config.width = "100%";
+        config.height = "600px";
+
+        var baseModalDialog = {
+            createDialod: function (selectableTypes, titleValue = null) {
+                var modalDialog = $("#insert-dialog-onlyoffice-triger").patPloneModal().data("pattern-plone-modal");
+
+                var relatedItemsOptions = ${view/relatedItemsOptions}
+                relatedItemsOptions.selectableTypes = selectableTypes;
+                relatedItemsOptions.maximumSelectionSize = 1;
+
+                var relatedItems = document.createElement("input");
+                relatedItems.type = "text";
+                relatedItems.className = "pat-relateditems";
+                relatedItems.setAttribute("data-pat-relateditems", JSON.stringify(relatedItemsOptions));
+
+                document.getElementById('relatedItems').innerHTML = "";
+                document.getElementById('relatedItems').append(relatedItems);
+
+                modalDialog.show();
+
+                if (titleValue) {
+                    modalDialog.$modal.find("div#fileTitle").show();
+                    modalDialog.$modal.find("input#onlyoffice-file-title").val(titleValue);
+                }
+
+                modalDialog.$modal.find("div.pattern-modal-buttons input[name='cancel']").on("click", function () {
+                    modalDialog.hide();
+                });
+
+                return modalDialog;
+            },
+            setSubmitRequest: function (modalDialog, submitRequest) {
+                modalDialog.$modal.find("div.pattern-modal-buttons input[name='ok']").on("click", submitRequest);
+            }
+        };
+
+        var requestInsert = function (modalDialog, docEditorEvent, command = null) {
+            var selectedItems = modalDialog.$modal.find("div.pat-relateditems").select2("data");
+            var selectedUIDs = (selectedItems || []).map(
+                function (el) {
+                    return el.UID;
+                }
+            );
+
+            var request = new XMLHttpRequest();
+            request.open("POST", "${context/absolute_url}/onlyoffice-insert", false);
+            request.setRequestHeader("x-csrf-token", "${view/token}");
+            request.send(JSON.stringify({
+                command: command,
+                UIDs: selectedUIDs
+            }));
+
+            if (request.status == 200) {
+                var insertObjects = JSON.parse(request.responseText);
+
+                // bug https://bugzilla.onlyoffice.com/show_bug.cgi?id=50683
+                // insertObjects.forEach((insertObject) => {
+                //    docEditorEvent(insertObject);
+                // });
+
+                docEditorEvent(insertObjects[0]);
+                modalDialog.hide();
+            }
+        };
+
+        var onAppReady = function () {
+            if (demo) {
+                docEditor.showMessage(demo.message);
+            }
+        };
+
+        var onRequestInsertImage = function(event) {
+           var insertImageDialog = baseModalDialog.createDialod(["Image"]);
+           baseModalDialog.setSubmitRequest(insertImageDialog, function () {
+               requestInsert(insertImageDialog, docEditor.insertImage, event.data.c);
+           });
+        };
+
+        var onRequestCompareFile = function() {
+            var insertFileDialog = baseModalDialog.createDialod(["File"]);
+            baseModalDialog.setSubmitRequest(insertFileDialog, function () {
+                requestInsert(insertFileDialog, docEditor.setRevisedFile);
+            });
+        };
+
+        var onRequestMailMergeRecipients = function() {
+            var insertFileDialog = baseModalDialog.createDialod(["File"]);
+            baseModalDialog.setSubmitRequest(insertFileDialog, function () {
+                requestInsert(insertFileDialog, docEditor.setMailMergeRecipients);
+            });
+        };
+
+        var onRequestSaveAs = function (event) {
+            var url = event.data.url;
+            var fileTitle = event.data.title.substring(0, event.data.title.lastIndexOf("."));
+            var fileType = event.data.fileType ? event.data.fileType : event.data.title.split(".").pop();
+
+            var saveAsDialog = baseModalDialog.createDialod(["Folder"], fileTitle);
+            saveAsDialog.$modal.find(".plone-modal-title").text(saveAs.title);
+            saveAsDialog.$modal.find("div.pat-relateditems").append("<div class='formHelp'>" + saveAs.helpTitle + " </div>");
+
+            baseModalDialog.setSubmitRequest(saveAsDialog, function () {
+                var selectedItems = saveAsDialog.$modal.find("div.pat-relateditems").select2("data");
+                var selectedUIDs = (selectedItems || []).map(
+                    function (el) {
+                        return el.UID;
+                    }
+                );
+
+                var fileTitle = saveAsDialog.$modal.find("input#onlyoffice-file-title").val();
+
+                if (!fileTitle) {
+                    saveAsDialog.loading.hide();
+                    saveAsDialog.$modal.find("div#fileTitle").addClass("error");
+                    saveAsDialog.$modal.find("div#fileTitle div.fieldErrorBox").show();
+                    return;
+                } else {
+                    saveAsDialog.$modal.find("div#fileTitle div.fieldErrorBox").hide();
+                }
+
+                var request = new XMLHttpRequest();
+                request.open("POST", "${context/absolute_url}/onlyoffice-save-as", false);
+                request.setRequestHeader("x-csrf-token", "${view/token}");
+                request.send(JSON.stringify({
+                    url: url,
+                    fileType: fileType,
+                    fileTitle: fileTitle,
+                    folderUID: selectedUIDs[0]
+                }));
+
+                if (request.status == 200) {
+                    var response = JSON.parse(request.response);
+                    docEditor.showMessage(saveAs.messages.success + response.fileName);
+                } else if (request.status == 403) {
+                    docEditor.showMessage(saveAs.messages.errorNotAuthorized);
+                } else {
+                    docEditor.showMessage(saveAs.messages.errorUnknown);
+                }
+
+                saveAsDialog.hide();
+            });
+        };
+
+        config.events = {
+            "onAppReady": onAppReady,
+            "onRequestInsertImage": onRequestInsertImage,
+            "onRequestCompareFile": onRequestCompareFile,
+            "onRequestMailMergeRecipients": onRequestMailMergeRecipients
+        };
+
+
+        if (saveAs.available) {
+            config.events.onRequestSaveAs = onRequestSaveAs
+        }
+
+        function initDocEditor (){
+            if (typeof DocsAPI === "undefined") {
+                document.getElementById("onlyofficeErrorNotAccessible").style.display = "block";
+                return;
+            }
+
+            var docsVersion = DocsAPI.DocEditor.version().split(".");
+
+            if (docsVersion[0] < 6 || docsVersion[0] == 6 && docsVersion[1] == 0) {
+                document.getElementById("onlyofficeErrorNotSupportedVersion").style.display = "block";
+                return;
+            }
+
+            if ((config.document.fileType === "docxf" || config.document.fileType === "oform")
+                && docsVersion[0] < 7) {
+                document.getElementById("onlyofficeErrorNotSupportedVersionForm").style.display = "block";
+                return;
+            }
+
+            docEditor = new DocsAPI.DocEditor("onlyofficeEditor", config);
+        }
+
+        initDocEditor();
+    </script>
+</metal:block>
+
+</html>

@@ -1,0 +1,198 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="onlyoffice.plone">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+
+  <!--
+  <browser:jbot
+      directory="overrides"
+      layer="onlyoffice.plone.interfaces.IOnlyofficePloneLayer"
+      />
+  -->
+
+  <browser:resourceDirectory
+      name="onlyoffice-static"
+      directory="static" />
+
+  <browser:page
+      name="onlyoffice-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.OnlyofficeControlPanelView"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="onlyoffice-view-file"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".actions.View"
+      permission="zope2.View"
+      template="templates/view.pt"
+      />
+
+   <browser:page
+      name="onlyoffice-view-document"
+      for="plone.app.contenttypes.interfaces.IDocument"
+      class=".actions.View"
+      permission="zope2.View"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-edit"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".actions.Edit"
+      permission="cmf.ModifyPortalContent"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-fill-form"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".actions.FillForm"
+      permission="cmf.ModifyPortalContent"
+      template="templates/view.pt"
+      />
+
+  <browser:page
+      name="onlyoffice-callback"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.Callback"
+      permission="zope2.Public"
+      />
+
+  <browser:page
+      name="onlyoffice-dl"
+      for="*"
+      class=".api.ODownload"
+      permission="zope2.Public"
+      />
+
+  <browser:page
+      name="onlyoffice-test-convert"
+      for="*"
+      class=".api.OTestConvert"
+      permission="zope2.Public"
+      />
+
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IFile"
+      menu="plone_displayviews"
+      title="ONLYOFFICE View"
+      action="onlyoffice-view-file"
+      description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IDocument"
+      menu="plone_displayviews"
+      title="ONLYOFFICE View"
+      action="onlyoffice-view-document"
+      description="ONLYOFFICE View page"
+      permission="zope2.View"
+      />
+
+  <adapter for="* *"
+      name="plone.contentmenu.onlyoffice.create"
+      factory=".menu.OnlyofficeCreateSubMenuItem"
+      provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
+  <browser:menu
+      id="plone_contentmenu_onlyoffice_create"
+      title="The 'Create in ONLYOFFICE' menu - allows the user to add new document, spredsheet or presentation"
+      class=".menu.OnlyofficeCreateMenu"
+      />
+
+  <browser:page
+      for="*"
+      name="onlyoffice-create"
+      class=".api.Create"
+      permission="cmf.AddPortalContent"
+      />
+
+  <browser:page
+      name="onlyoffice-save-as"
+      for="*"
+      class=".api.SaveAs"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-insert"
+      for="*"
+      class=".api.OInsert"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-convert-file-action"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".api.Conversion"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-convert-document-action"
+      for="plone.app.contenttypes.interfaces.IDocument"
+      class=".api.Conversion"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-convert-file"
+      for="plone.app.contenttypes.interfaces.IFile"
+      class=".actions.ConversionForm"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="onlyoffice-convert-document"
+      for="plone.app.contenttypes.interfaces.IDocument"
+      class=".actions.ConversionForm"
+      permission="zope2.View"
+      />
+
+  <adapter factory=".interfaces.convert_title" name="default" />
+  <adapter factory=".interfaces.convert_current_type" name="default" />
+  <adapter factory=".interfaces.convert_target_type" name="default" />
+
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IFile"
+      name="onlyoffice-download-as-file"
+      class=".actions.DownloadAsForm"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IDocument"
+      name="onlyoffice-download-as-document"
+      class=".actions.DownloadAsForm"
+      permission="zope2.View"
+      />
+
+  <utility
+      component=".interfaces.OnlyofficeConvertTypeVocabularyFactory"
+      name="onlyoffice.plone.OnlyofficeConvertType"
+      />
+
+  <adapter factory=".interfaces.download_as_title" name="default" />
+  <adapter factory=".interfaces.download_as_current_type" name="default" />
+
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IFile"
+      name="onlyoffice-download-as-file-action"
+      class=".api.DownloadAs"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="plone.app.contenttypes.interfaces.IDocument"
+      name="onlyoffice-download-as-document-action"
+      class=".api.DownloadAs"
+      permission="zope2.View"
+      />
+</configure>

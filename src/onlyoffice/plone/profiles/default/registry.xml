@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<registry
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="onlyoffice.plone">
+
+<!-- -*- extra stuff goes here -*- -->
+
+    <records interface="onlyoffice.plone.browser.controlpanel.IOnlyofficeControlPanel" prefix="onlyoffice.plone" />
+
+
+    <records prefix="plone.bundles/onlyoffice"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="enabled">True</value>
+        <value key="csscompilation">++resource++onlyoffice-static/css/onlyoffice.css</value>
+        <value key="last_compilation">2021-11-16 00:00:00</value>
+        <value key="compile">False</value>
+        <value key="depends">plone</value>
+    </records>
+
+</registry>

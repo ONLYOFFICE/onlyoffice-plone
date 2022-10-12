@@ -21,9 +21,9 @@ You will need an instance of ONLYOFFICE Docs (Document Server) that is resolvabl
 
 You can install free Community version of ONLYOFFICE Docs or scalable Enterprise Edition with pro features.
 
-To install free Community version, use [Docker](https://github.com/onlyoffice/Docker-DocumentServer) (recommended) or follow [these instructions](https://helpcenter.onlyoffice.com/server/linux/document/linux-installation.aspx) for Debian, Ubuntu, or derivatives.  
+To install free Community version, use [Docker](https://github.com/onlyoffice/Docker-DocumentServer) (recommended) or follow [these instructions](https://helpcenter.onlyoffice.com/installation/docs-community-install-ubuntu.aspx) for Debian, Ubuntu, or derivatives.  
 
-To install Enterprise Edition, follow instructions [here](https://helpcenter.onlyoffice.com/server/integration-edition/index.aspx).
+To install Enterprise Edition, follow instructions [here](https://helpcenter.onlyoffice.com/installation/docs-enterprise-index.aspx).
 
 Community Edition vs Enterprise Edition comparison can be found [here](#onlyoffice-docs-editions).
 
@@ -36,16 +36,18 @@ Community Edition vs Enterprise Edition comparison can be found [here](#onlyoffi
     ...
 
     eggs =
-        onlyoffice.connector
+        onlyoffice.plone
     ```
 2. Run `bin/buildout`.
 3. Go to `Site Setup` -> `Add-ons`and press the `Install` button to enable plugin.
 
 You could also install plugin via Docker
 ```
-docker run --rm -p 8080:8080 -e ADDONS="onlyoffice.connector" plone
+docker run --rm -p 8080:8080 -e ADDONS="onlyoffice.plone" plone
 ```
-Both options will automatically install plugin from [PyPi](https://pypi.org/project/onlyoffice.connector/).
+Both options will automatically install plugin from [PyPi](https://pypi.org/project/onlyoffice.plone/).
+
+**Please note:** if you have the previous plugin version installed (earlier plugin versions with the previous name onlyoffice.connector), please remove it before installing the new version. 
 
 ## Configuring Plone ONLYOFFICE integration plugin
 
@@ -71,8 +73,8 @@ To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` s
     ./bin/instance fg
     ```
 If you have a working Plone instance, you can install plugin by adding the project files to the src directory:
-1. In the src directory create the onlyoffice.connector directory.
-2. Put your project files received by git into the onlyoffice.connector directory.
+1. In the src directory create the onlyoffice.plone directory.
+2. Put your project files received by git into the onlyoffice.plone directory.
 3. Edit the buildout.cfg file:
      ```
      [buildout]
@@ -80,10 +82,10 @@ If you have a working Plone instance, you can install plugin by adding the proje
      ...
 
      eggs =
-         onlyoffice.connector
+         onlyoffice.plone
 
     develop =
-        src/onlyoffice.connector
+        src/onlyoffice.plone
      ```
 4. Rerun buildout for the changes to take effect:
     ```
@@ -95,18 +97,18 @@ Note that Plone is based on Zope server and will not run as `root` user. If you 
 
 ## Upgrade Plone ONLYOFFICE integration plugin
 1. If you specified a concrete plugin version in your buildout.cfg file (so-called “pinning”, and a recommended practice), 
- like onlyoffice.connector = 1.0.0, update this reference to point to the newer version. If the plugin version is not 
+ like onlyoffice.plone = 1.0.0, update this reference to point to the newer version. If the plugin version is not 
  specified, then the latest version will be automatically loaded:
     ```
     [versions]
 
      ...
 
-    onlyoffice.connector = 1.0.1
+    onlyoffice.plone = 1.0.1
     ```
 2. Run bin/buildout. Wait until the new version is downloaded and installed.
 3. Restart Plone - your site may look weird, or even be inaccessible until you have performed the next step.
-4. Navigate to the Add-on screen (add /prefs_install_products_form to your site URL) and in the Upgrades list select onlyoffice.connector and click "Upgrade onlyoffice.connector".
+4. Navigate to the Add-on screen (add /prefs_install_products_form to your site URL) and in the Upgrades list select onlyoffice.plone and click "Upgrade onlyoffice.plone".
 
 ## How it works
 

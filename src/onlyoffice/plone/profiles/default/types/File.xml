@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<object name="File"
+   meta_type="Factory-based Type Information with dynamic views"
+   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <property name="view_methods" purge="False">
+    <element value="onlyoffice-view-file"/>
+  </property>
+
+  <action
+      action_id="onlyoffice-edit"
+      category="object"
+      condition_expr="object/@@onlyoffice-edit/isAvailable"
+      i18n:domain="onlyoffice.plone"
+      i18n:attributes="title"
+      title="ONLYOFFICE Edit"
+      url_expr="string:${object_url}/onlyoffice-edit"
+      visible="True">
+    <permission value="Modify portal content"/>
+  </action>
+
+  <action
+      action_id="onlyoffice-fill-form"
+      category="object"
+      condition_expr="object/@@onlyoffice-fill-form/isAvailable"
+      i18n:domain="onlyoffice.plone"
+      i18n:attributes="title"
+      title="Fill in form in ONLYOFFICE"
+      url_expr="string:${object_url}/onlyoffice-fill-form"
+      visible="True">
+    <permission value="Modify portal content"/>
+  </action>
+
+  <action
+      action_id="onlyoffice-conversion-file"
+      category="object"
+      condition_expr="object/@@onlyoffice-convert-file/isAvailable"
+      i18n:domain="onlyoffice.plone"
+      i18n:attributes="title"
+      title="Conversion in ONLYOFFICE"
+      url_expr="string:${object_url}/onlyoffice-convert-file"
+      visible="True">
+    <permission value="View"/>
+  </action>
+</object>

@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-02-14 10:33+0000\n"
+"PO-Revision-Date: 2022-10-07 18:55+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: ../browser/controlpanel.py:12
+msgid "Document Editing service"
+msgstr "Servizio Documenti Editing"
+
+#: ../configure.zcml:28
+msgid "Installs the ONLYOFFICE connector add-on."
+msgstr "Installa il componente aggiuntivo ONLYOFFICE"
+
+#: ../browser/controlpanel.py:21
+msgid "ONLYOFFICE Configuration"
+msgstr "ONLYOFFICE Configurazione"
+
+#: ../profiles/default/types/File.xml
+msgid "ONLYOFFICE Edit"
+msgstr "ONLYOFFICE Modifica"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View"
+msgstr "ONLYOFFICE Visualizza"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "Compilare il modulo in ONLYOFFICE"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View page"
+msgstr "ONLYOFFICE Visualizza pagina"
+
+#: ../browser/templates/error.pt:10
+msgid "ONLYOFFICE can't open this file."
+msgstr "ONLYOFFICE non può aprire questo file."
+
+#: ../configure.zcml:37
+msgid "Uninstalls the ONLYOFFICE connector add-on."
+msgstr "Disinstalla il componente aggiuntivo ONLYOFFICE."
+
+#: ../configure.zcml:28
+msgid "onlyoffice.plone"
+msgstr "onlyoffice.plone"
+
+#: ../configure.zcml:37
+msgid "onlyoffice.plone (uninstall)"
+msgstr "onlyoffice.plone (disinstalla)"
+
+#: ../browser/controlpanel.py:34
+msgid "Secret key (leave blank to disable)"
+msgstr "Chiave segreta (lasciare vuoto per disabilitare)"
+
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr "Indirizzo del server per richieste interne dal Document Editing Service"
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr "Indirizzo di Document Editing Service per richieste interne dal server"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr "Creare in ONLYOFFICE"
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "Documento"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "Foglio di calcolo"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "Presentazione"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "Modello di modulo"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "Salvare la copia del file come"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr "Lasciare il campo vuoto per salvare nella radice del sito"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "Il file è stato salvato con successo come"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "Non sei autorizzato ad aggiungere contenuti a questa cartella"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "Errore sconosciuto durante il salvataggio del documento"
+
+#: ../browser/templates/view.pt
+msgid "Not supported version DocumentServer."
+msgstr "Versione di DocumentServer non supportata."
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "Si prega di aggiornare ONLYOFFICE Docs alla versione 7.0 per lavorare su moduli compilabili online"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "Un campo richiesto è mancante."
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr "Impossibile raggiungere ONLYOFFICE"
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr "Errore di autorizzazione"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr "Errore durante il tentativo di controllare CommandService"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check ConvertService"
+msgstr "Errore durante il tentativo di controllare ConvertService"
+
+#: ../browser/controlpanel.py
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr "Il contenuto attivo misto non è consentito. L'indirizzo HTTPS per Document Server è obbligatorio."
+
+#: ../browser/controlpanel.py
+msgid "Connect to demo ONLYOFFICE Document Server"
+msgstr "Connettiti alla demo ONLYOFFICE Document Server"
+
+#: ../browser/controlpanel.py
+msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."
+msgstr "Questo è un server di prova pubblico, non utilizzarlo per dati sensibili privati. Il server sarà disponibile per un periodo di 30 giorni."
+
+#: ../browser/static/js/controlpanel.js
+msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server."
+msgstr "Il periodo di prova di 30 giorni è scaduto, non puoi più connetterti alla demo di ONLYOFFICE Document Server."
+
+#: ../browser/controlpanel.py
+msgid "Error connecting to demo server (${error})"
+msgstr "Errore di connessione al server demo (${error})"
+
+#: ../browser/actions.py
+msgid "You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data."
+msgstr "Stai usando la demo pubblica di ONLYOFFICE Document Server. Ti preghiamo di non archiviare dati sensibili privati."
+
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr "Conversione in ONLYOFFICE"
+
+#: ../browser/api.py
+msgid "You can convert you document in format OOXML"
+msgstr "Puoi convertire il tuo documento in formato OOXML"
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr "Tipo presente:"
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr "Tipo di obiettivo:"
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr "Convertire"
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr "Elemento convertito"
+
+#: ../browser/static/js/convert.js
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr "Conversione ${currentType} in ${targetType} in corso."
+
+#: ../browser/static/js/convert.js
+msgid "Converting is finished"
+msgstr "La conversione è compiuta"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr "Il servizio di conversione dei documenti ha restituito un errore (${error})"
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr "Errore sconosciuto"
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr "Errore di timeout di conversione"
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr "Errore di conversione"
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr "Errore di download del documento da convertire"
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr "Password errata"
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr "Errore durante l'accesso al database dei risultati della conversione"
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr "Errore di input"
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr "Token non valido"
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr "Codice di errore non definito"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr "Il servizio di conversione dei documenti ha restituito lo stato ${status_code}"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr "Impossibile raggiungere il servizio di conversione di documenti"
+
+#: ../browser/interfaces.py
+msgid "Select file type you want to download"
+msgstr "Scegli il tipo di file che vuoi scaricare"
+
+#: ../browser/interfaces.py
+msgid "Download as"
+msgstr "Scaricare come"
+
+#: ../browser/interfaces.py
+msgid "Download"
+msgstr "Scaricare"

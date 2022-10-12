@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<!--
+ *
+ * (c) Copyright Ascensio System SIA 2022
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ -->
+
+    <head>
+        <tal:javascript metal:fill-slot="javascript_head_slot">
+            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
+            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/convert.js"></script>
+        </tal:javascript>
+        <metal:css fill-slot="style_slot">
+            <style type="text/css">
+                .field:not(.error) div.fieldErrorBox {
+                    display: inline-block;
+                }
+
+                .padding-none {
+                    padding: 0px !important;
+                }
+
+            </style>
+        </metal:css>
+    </head>
+
+    <body>
+
+        <metal:main fill-slot="main">
+
+            <div id="content-core">
+                <h1 class="documentFirstHeading" tal:content="view/label">Conversion in ONLYOFFICE</h1>
+
+                <div id="content-core">
+                    <form metal:use-macro="context/@@ploneform-macros/titlelessform"></form>
+                </div>
+
+                <div id="progressBar"  class="formControls padding-none hide">
+                    <div class="upload-container">
+                        <div class="upload-queue">
+                            <div class="controls">
+                                <span id="messageProgress"></span>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                        <span class="sr-only">100% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <label id="info" class="hide" i18n:translate="Info">Info</label>
+                <label id="error" class="hide" i18n:translate="Error">Error</label>
+            </div>
+        </metal:main>
+
+    </body>
+</html>

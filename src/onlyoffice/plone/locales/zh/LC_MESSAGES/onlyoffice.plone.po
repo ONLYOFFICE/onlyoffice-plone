@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-02-14 10:33+0000\n"
+"PO-Revision-Date: 2022-10-10 14:08+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: ../browser/controlpanel.py:12
+msgid "Document Editing service"
+msgstr "文档编辑服务"
+
+#: ../configure.zcml:28
+msgid "Installs the ONLYOFFICE connector add-on."
+msgstr "安装ONLYOFFICE连接器附加组件"
+
+#: ../browser/controlpanel.py:21
+msgid "ONLYOFFICE Configuration"
+msgstr "ONLYOFFICE配置"
+
+#: ../profiles/default/types/File.xml
+msgid "ONLYOFFICE Edit"
+msgstr "ONLYOFFICE 编辑"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View"
+msgstr "ONLYOFFICE视图"
+
+#: ../browser/configure.zcml
+msgid "Fill in form in ONLYOFFICE"
+msgstr "在ONLYOFFICE上填写表单"
+
+#: ../browser/configure.zcml:52
+msgid "ONLYOFFICE View page"
+msgstr "ONLYOFFICE视图页"
+
+#: ../browser/templates/error.pt:10
+msgid "ONLYOFFICE can't open this file."
+msgstr "ONLYOFFICE无法打开该文件"
+
+#: ../configure.zcml:37
+msgid "Uninstalls the ONLYOFFICE connector add-on."
+msgstr "卸载ONLYOFFICE连接器附加组件"
+
+#: ../configure.zcml:28
+msgid "onlyoffice.plone"
+msgstr "onlyoffice.plone"
+
+#: ../configure.zcml:37
+msgid "onlyoffice.plone (uninstall)"
+msgstr "onlyoffice.plone (卸载)"
+
+#: ../browser/controlpanel.py:34
+msgid "Secret key (leave blank to disable)"
+msgstr "秘钥(留空为关闭)"
+
+#: ../browser/controlpanel.py:34
+msgid "Server address for internal requests from the Document Editing Service"
+msgstr "来自文档编辑服务用于内部请求的服务器地址"
+
+#: ../browser/controlpanel.py:34
+msgid "Document Editing Service address for internal requests from the server"
+msgstr "来自服务器用于内部请求的文档编辑服务"
+
+#: ../browser/menu.py
+msgid "Create in ONLYOFFICE"
+msgstr "在ONLYOFFICE中创建"
+
+#: ../core/fileUtils.py
+msgid "Document"
+msgstr "文档"
+
+#: ../core/fileUtils.py
+msgid "Spreadsheet"
+msgstr "电子表格"
+
+#: ../core/fileUtils.py
+msgid "Presentation"
+msgstr "演示文稿"
+
+#: ../core/fileUtils.py
+msgid "Form template"
+msgstr "表单模板"
+
+#: ../browser/api.py
+msgid "Save file copy as"
+msgstr "文件副本另存为"
+
+#: ../browser/api.py
+msgid "Leave the field blank to save to the root of the site"
+msgstr " 请将该字段留空以保存到网站根目录下"
+
+#: ../browser/api.py
+msgid "The file was successfully saved as "
+msgstr "文档已另存为"
+
+#: ../browser/api.py
+msgid "You are not authorized to add content to this folder"
+msgstr "您无权将内容添加到此文件夹中"
+
+#: ../browser/api.py
+msgid "Unknown error while saving file"
+msgstr "保存文件时出现未知错误"
+
+#: ../browser/templates/view.pt
+msgid "Not supported version DocumentServer."
+msgstr "不支持的DocumentServer 版本"
+
+#: ../browser/templates/view.pt
+msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
+msgstr "请将ONLYOFFICE Docs更新到7.0版本，以便在线编辑可填写的表单"
+
+#: ../browser/templates/view.pt
+msgid "Required input is missing."
+msgstr "缺失所需输入内容"
+
+#: ../browser/controlpanel.py
+msgid "ONLYOFFICE cannot be reached"
+msgstr "ONLYOFFICE服务器无法连接"
+
+#: ../browser/controlpanel.py
+msgid "Authorization error"
+msgstr "授权错误"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check CommandService"
+msgstr "在尝试检查CommandService时出错"
+
+#: ../browser/controlpanel.py
+msgid "Error when trying to check ConvertService"
+msgstr "在尝试检查ConvertService时出错"
+
+#: ../browser/controlpanel.py
+msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is required."
+msgstr "不允许混合活动内容，请使用HTTPS连接Document Server"
+
+#: ../browser/controlpanel.py
+msgid "Connect to demo ONLYOFFICE Document Server"
+msgstr "连接到演示ONLYOFFICE文件服务器"
+
+#: ../browser/controlpanel.py
+msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."
+msgstr "这是公开的测试服务器，请勿用于隐私数据。服务器试用期限为30天。"
+
+#: ../browser/static/js/controlpanel.js
+msgid "The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Document Server."
+msgstr "30天试用期已结束，无法连接演示ONLYOFFICE 文档服务器。"
+
+#: ../browser/controlpanel.py
+msgid "Error connecting to demo server (${error})"
+msgstr "连接到演示服务器出错（${error}）"
+
+#: ../browser/actions.py
+msgid "You are using public demo ONLYOFFICE Document Server. Please do not store private sensitive data."
+msgstr "您正在使用公开的演示ONLYOFFICE 文档服务器，请勿存储隐私数据"
+
+#: ../browser/api.py
+msgid "Conversion in ONLYOFFICE"
+msgstr "在ONLYOFFICE中进行转换"
+
+#: ../browser/api.py
+msgid "You can convert you document in format OOXML"
+msgstr "您可以将您的文件转换为OOXML格式"
+
+#: ../browser/interfaces.py
+msgid "Current type:"
+msgstr "目前类型："
+
+#: ../browser/interfaces.py
+msgid "Target type:"
+msgstr "目标类型："
+
+#: ../browser/apy.py
+msgid "Convert"
+msgstr "转换"
+
+#: ../browser/static/js/convert.js
+msgid "Item converted"
+msgstr "项目已转换"
+
+#: ../browser/static/js/convert.js
+msgid "Converting ${currentType} to ${targetType} in progress.."
+msgstr "正在将${currentType}转换为${targetType}"
+
+#: ../browser/static/js/convert.js
+msgid "Converting is finished"
+msgstr "转换完成"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned error (${error})"
+msgstr "文件转换服务返回（${error}）错误"
+
+#: ../core/conversionUtils.py
+msgid "Unknown error"
+msgstr "未知错误"
+
+#: ../core/conversionUtils.py
+msgid "Conversion timeout error"
+msgstr "转换超时错误"
+
+#: ../core/conversionUtils.py
+msgid "Conversion error"
+msgstr "转换错误"
+
+#: ../core/conversionUtils.py
+msgid "Error while downloading the document file to be converted"
+msgstr "下载要转换的文件时出错"
+
+#: ../core/conversionUtils.py
+msgid "Incorrect password"
+msgstr "密码不正确"
+
+#: ../core/conversionUtils.py
+msgid "Error while accessing the conversion result database"
+msgstr "访问转换结果数据库时出错"
+
+#: ../core/conversionUtils.py
+msgid "Input error"
+msgstr "输入错误"
+
+#: ../core/conversionUtils.py
+msgid "Invalid token"
+msgstr "令牌无效"
+
+#: ../core/conversionUtils.py
+msgid "Undefined error code"
+msgstr "未定义的错误代码"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service returned status ${status_code}"
+msgstr "文件转换服务返回 ${status_code} 状态"
+
+#: ../core/conversionUtils.py
+msgid "Document conversion service cannot be reached"
+msgstr "无法链接到文件转换服务"
+
+#: ../browser/interfaces.py
+msgid "Select file type you want to download"
+msgstr "选择需要下载的文件类型"
+
+#: ../browser/interfaces.py
+msgid "Download as"
+msgstr "下载为"
+
+#: ../browser/interfaces.py
+msgid "Download"
+msgstr "下载"
