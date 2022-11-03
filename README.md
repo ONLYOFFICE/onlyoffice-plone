@@ -53,6 +53,10 @@ Both options will automatically install plugin from [PyPi](https://pypi.org/proj
 
 To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
 
+Starting from version 7.2, JWT is enabled by default and the secret key is generated automatically to restrict the access to ONLYOFFICE Docs and for security reasons and data integrity. 
+Specify your own **Secret key** on the Plone configuration page. 
+In the ONLYOFFICE Docs [config file](https://api.onlyoffice.com/editors/signature/), specify the same secret key and enable the validation.
+
 ## Developing Plone ONLYOFFICE plugin
 
 1. Clone repository and change directory:
