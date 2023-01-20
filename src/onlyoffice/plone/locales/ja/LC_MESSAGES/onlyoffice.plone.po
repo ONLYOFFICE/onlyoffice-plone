@@ -101,7 +101,7 @@ msgid "Leave the field blank to save to the root of the site"
 msgstr "サイトのルートに保存するには、フィールドを空白のままにしてください"
 
 #: ../browser/api.py
-msgid "The file was successfully saved as "
+msgid "The file was successfully saved as"
 msgstr "正常に保存されたファイル形は"
 
 #: ../browser/api.py

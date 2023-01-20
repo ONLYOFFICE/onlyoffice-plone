@@ -101,7 +101,7 @@ msgid "Leave the field blank to save to the root of the site"
 msgstr "Pro uložení do kořenového adresáře webu ponechte pole prázdné"
 
 #: ../browser/api.py
-msgid "The file was successfully saved as "
+msgid "The file was successfully saved as"
 msgstr "Soubor byl úspěšně uložen jako"
 
 #: ../browser/api.py
