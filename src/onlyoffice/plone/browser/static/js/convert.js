@@ -1,6 +1,4 @@
-require([
-    "jquery"
-], function ($) {
+jQuery(function($){
     $(document).ready(function () {
         var form = $("form[class*='view-name-onlyoffice-convert']");
         var titleInput = $("#form-widgets-title");

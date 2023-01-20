@@ -14,7 +14,7 @@
                 <element value="View"/>
             </property>
             <property name="visible">True</property>
-            <property name="modal" type="text">{"width": "300"}</property>
+            <property name="modal" type="text">{}</property>
         </object>
         <object name="download-as-document" meta_type="CMF Action" i18n:domain="onlyoffice.plone">
             <property name="title" i18n:translate="">Download as</property>
@@ -28,7 +28,7 @@
                 <element value="View"/>
             </property>
             <property name="visible">True</property>
-            <property name="modal" type="text">{"width": "300"}</property>
+            <property name="modal" type="text">{}</property>
         </object>
     </object>
 </object>
