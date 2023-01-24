@@ -18,6 +18,12 @@
       name="onlyoffice-static"
       directory="static" />
 
+  <plone:static
+    directory="static/icons"
+    type="plone"
+    name="onlyoffice-icons"
+    />
+
   <browser:page
       name="onlyoffice-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"

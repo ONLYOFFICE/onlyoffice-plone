@@ -7,7 +7,7 @@
             <property name="description" i18n:translate=""></property>
             <property
                 name="url_expr">string:$object_url/onlyoffice-download-as-file</property>
-            <property name="icon_expr"></property>
+            <property name="icon_expr">string:onlyoffice-logo</property>
             <property
                 name="available_expr">object/@@onlyoffice-download-as-file/isAvailable|nothing</property>
             <property name="permissions">
@@ -21,7 +21,7 @@
             <property name="description" i18n:translate=""></property>
             <property
                 name="url_expr">string:$object_url/onlyoffice-download-as-document</property>
-            <property name="icon_expr"></property>
+            <property name="icon_expr">string:onlyoffice-logo</property>
             <property
                 name="available_expr">object/@@onlyoffice-download-as-document/isAvailable|nothing</property>
             <property name="permissions">
