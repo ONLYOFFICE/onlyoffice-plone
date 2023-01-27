@@ -14,7 +14,8 @@
       i18n:attributes="title"
       title="Conversion in ONLYOFFICE"
       url_expr="string:${object_url}/onlyoffice-convert-document"
-      visible="True">
+      visible="True"
+      icon_expr="string:onlyoffice-logo">
     <permission value="View"/>
   </action>
 </object>

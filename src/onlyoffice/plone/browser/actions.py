@@ -88,7 +88,7 @@ class ConversionForm(form.Form):
     def updateActions(self):
         super().updateActions()
         if self.actions and "Convert" in self.actions:
-            self.actions["Convert"].addClass("context")
+            self.actions["Convert"].addClass("btn-primary")
 
 class DownloadAsForm(form.Form):
     fields = field.Fields(IDownloadAsForm)

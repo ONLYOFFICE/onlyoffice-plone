@@ -28,6 +28,7 @@ from onlyoffice.plone.core import fileUtils
 class OnlyofficeCreateSubMenuItem(BrowserSubMenuItem):
 
     title = _(u'Create in ONLYOFFICE')
+    icon = "onlyoffice-logo"
     submenuId = 'plone_contentmenu_onlyoffice_create'
 
     def __init__(self, context, request):
@@ -71,11 +72,10 @@ class OnlyofficeCreateMenu(BrowserMenu):
                 'description': '',
                 'action': addTokenToUrl('{0}/onlyoffice-create?documentType={1}'.format(currentUrl, documentType), request),
                 'selected': False,
-                'icon': None,
+                'icon': 'onlyoffice-file-' + documentType,
                 'extra': {
                     'id': 'document',
-                    'separator': None,
-                    'class': 'contenttype-onlyoffice icon-onlyoffice-file-' + documentType
+                    'separator': None
                 },
                 'submenu': None
             })

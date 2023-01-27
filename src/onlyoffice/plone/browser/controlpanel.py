@@ -51,7 +51,7 @@ class IOnlyofficeControlPanel(Interface):
     )
 
     docUrlPublicValidation = schema.Bool(
-        required=True,
+        required=False,
         default=True
     )
 

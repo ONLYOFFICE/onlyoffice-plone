@@ -18,6 +18,12 @@
       name="onlyoffice-static"
       directory="static" />
 
+  <plone:static
+    directory="static/icons"
+    type="plone"
+    name="onlyoffice-icons"
+    />
+
   <browser:page
       name="onlyoffice-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
@@ -31,6 +37,7 @@
       class=".actions.View"
       permission="zope2.View"
       template="templates/view.pt"
+      allowed_attributes="isAvailable"
       />
 
    <browser:page
@@ -39,6 +46,7 @@
       class=".actions.View"
       permission="zope2.View"
       template="templates/view.pt"
+      allowed_attributes="isAvailable"
       />
 
   <browser:page
@@ -47,6 +55,7 @@
       class=".actions.Edit"
       permission="cmf.ModifyPortalContent"
       template="templates/view.pt"
+      allowed_attributes="isAvailable"
       />
 
   <browser:page
@@ -55,6 +64,7 @@
       class=".actions.FillForm"
       permission="cmf.ModifyPortalContent"
       template="templates/view.pt"
+      allowed_attributes="isAvailable"
       />
 
   <browser:page
@@ -147,6 +157,7 @@
       for="plone.app.contenttypes.interfaces.IFile"
       class=".actions.ConversionForm"
       permission="zope2.View"
+      allowed_attributes="isAvailable"
       />
 
   <browser:page
@@ -154,6 +165,7 @@
       for="plone.app.contenttypes.interfaces.IDocument"
       class=".actions.ConversionForm"
       permission="zope2.View"
+      allowed_attributes="isAvailable"
       />
 
   <adapter factory=".interfaces.convert_title" name="default" />
@@ -165,6 +177,7 @@
       name="onlyoffice-download-as-file"
       class=".actions.DownloadAsForm"
       permission="zope2.View"
+      allowed_attributes="isAvailable"
       />
 
   <browser:page
@@ -172,6 +185,7 @@
       name="onlyoffice-download-as-document"
       class=".actions.DownloadAsForm"
       permission="zope2.View"
+      allowed_attributes="isAvailable"
       />
 
   <utility

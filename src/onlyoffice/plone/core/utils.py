@@ -42,7 +42,7 @@ def isJwtEnabled():
 def createSecurityToken(payload, jwtSecret = None):
     if (jwtSecret is None):
         jwtSecret = getJwtSecret()
-    return jwt.encode(payload, jwtSecret, algorithm="HS256").decode("utf-8")
+    return jwt.encode(payload, jwtSecret, algorithm="HS256")
 
 def createSecurityTokenFromContext(obj):
     return createSecurityToken({"key": obj.id}, IUUID(obj))

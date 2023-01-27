@@ -38,11 +38,14 @@
                     padding: 0px !important;
                 }
 
+                .hide {
+                    display: none !important;
+                }
             </style>
         </metal:css>
     </head>
 
-    <body>
+    <body data-i18ncatalogurl="/plonejsi18n">
 
         <metal:main fill-slot="main">
 

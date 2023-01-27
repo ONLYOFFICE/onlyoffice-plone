@@ -1,5 +1,9 @@
 # Change Log
 
+## 
+## Added
+- support for plone 6
+
 ## 3.0.0
 ## Added
 - download as

@@ -1,6 +1,4 @@
-require([
-    "jquery"
-], function ($) {
+jQuery(function($){
 
     /* Disable a control panel setting */
     $.disableSettings = function (settings) {

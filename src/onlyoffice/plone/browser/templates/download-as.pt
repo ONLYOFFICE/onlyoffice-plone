@@ -23,7 +23,10 @@
  *
  -->
 
-    <body>
+    <metal:block fill-slot="top_slot"
+               tal:define="dummy python:request.set('disable_border',1)" />
+
+    <body data-i18ncatalogurl="/plonejsi18n">
 
         <metal:main fill-slot="main">
 
@@ -31,8 +34,13 @@
                 form div.fieldErrorBox {
                     display: inline-block;
                 }
+
                 form .choice-field{
                     width: 100%
+                }
+
+                .hide {
+                      display: none !important;
                 }
             </style>
 
@@ -40,11 +48,11 @@
                 <h1 class="documentFirstHeading" tal:content="view/label">Download as</h1>
 
                 <div id="content-core">
-                    <form metal:use-macro="context/@@ploneform-macros/titlelessform"></form>
+                    <form metal:use-macro="context/@@ploneform-macros/titlelessform"/>
                     <div class="formControls">
-                            <input id="download" type="submit" class="plone-btn plone-btn-primary context" name="Download" value="Download" i18n:domain="onlyoffice.plone" i18n:attributes="value Download;" />
-                            <input id="cancel" type="submit" class="plone-btn" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
-                        </div>
+                        <input id="download" type="submit" class="btn submit-widget button-field btn-primary" name="Download" value="Download" i18n:domain="onlyoffice.plone" i18n:attributes="value Download;" />
+                        <input id="cancel" type="submit" class="btn submit-widget button-field btn-secondary" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
+                    </div>
                 </div>
             </div>
 
