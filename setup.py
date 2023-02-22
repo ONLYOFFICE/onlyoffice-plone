@@ -52,7 +52,7 @@ setup(
         'setuptools',
         # -*- Extra requirements: -*-
         'z3c.jbot',
-        'plone.api,
+        'plone.api',
         'plone.restapi',
         'plone.app.dexterity',
     ],
