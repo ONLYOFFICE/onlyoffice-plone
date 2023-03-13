@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2022
+# (c) Copyright Ascensio System SIA 2023
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ def isJwtEnabled():
 def createSecurityToken(payload, jwtSecret = None):
     if (jwtSecret is None):
         jwtSecret = getJwtSecret()
-    return jwt.encode(payload, jwtSecret, algorithm="HS256").decode("utf-8")
+    return jwt.encode(payload, jwtSecret, algorithm="HS256")
 
 def createSecurityTokenFromContext(obj):
     return createSecurityToken({"key": obj.id}, IUUID(obj))

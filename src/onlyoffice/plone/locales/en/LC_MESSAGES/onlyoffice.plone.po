@@ -99,7 +99,7 @@ msgid "Leave the field blank to save to the root of the site"
 msgstr ""
 
 #: ../browser/api.py
-msgid "The file was successfully saved as "
+msgid "The file was successfully saved as"
 msgstr ""
 
 #: ../browser/api.py

@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2022
+# (c) Copyright Ascensio System SIA 2023
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ def getSaveAsObject(self):
                 'title': translate(_(u'Save file copy as'), context = self.request),
                 'helpTitle':  translate(_(u'Leave the field blank to save to the root of the site'), context = self.request),
                 'messages': {
-                    'success':  translate(_(u'The file was successfully saved as '), context = self.request),
+                    'success':  translate(_(u'The file was successfully saved as'), context = self.request),
                     'errorNotAuthorized':  translate(_(u'You are not authorized to add content to this folder'), context = self.request),
                     'errorUnknown':  translate(_(u'Unknown error while saving file'), context = self.request)
                 }

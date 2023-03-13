@@ -8,7 +8,7 @@
 
 <!--
  *
- * (c) Copyright Ascensio System SIA 2022
+ * (c) Copyright Ascensio System SIA 2023
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,17 +39,20 @@
     <div id="insert-dialog-onlyoffice" style="display: none" i18n:domain="plone">
         <div class="linkModal">
             <h1 i18n:translate="label_select_content_item">Select a content item</h1>
-            <div id="fileTitle" class="field" style="display: none">
-                <label for="onlyoffice-file-title" class="horizontal" i18n:translate="label_title">Title</label>
+            <div id="fileTitle" class="mb-3 field fieldname-form.widgets.fileTitle widget-mode-input False">
+                <label>
+                    <label for="onlyoffice-file-title" class="form-label" i18n:translate="label_title">Title</label>
+                    <span class="required" title="Required"></span>
+                </label>
+                <input id="onlyoffice-file-title" name="onlyoffice.file.title" class="form-control text-widget required textline-field" type="text" required="required">
                 <div class="fieldErrorBox" i18n:domain="onlyoffice.plone" style="display: none">
-                    <div class="error" i18n:translate="">Required input is missing.</div>
+                    <em class="invalid-feedback" i18n:translate="">Please fill out this field.</em>
                 </div>
-                <input id="onlyoffice-file-title" name="onlyoffice.file.title" type="text">
             </div>
             <div id="relatedItems"></div>
             <div class="formControls">
-                <input type="submit" class="plone-btn" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
-                <input type="submit" class="plone-btn plone-btn-primary context" name="ok" value="Ok" i18n:attributes="value label_ok;" />
+                <input type="submit" class="btn submit-widget button-field btn-secondary" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
+                <input type="submit" class="btn submit-widget button-field btn-primary" name="ok" value="Ok" i18n:attributes="value label_ok;" />
             </div>
         </div>
     </div>
@@ -193,7 +196,7 @@
 
                 if (request.status == 200) {
                     var response = JSON.parse(request.response);
-                    docEditor.showMessage(saveAs.messages.success + response.fileName);
+                    docEditor.showMessage(saveAs.messages.success + " " + response.fileName);
                 } else if (request.status == 403) {
                     docEditor.showMessage(saveAs.messages.errorNotAuthorized);
                 } else {

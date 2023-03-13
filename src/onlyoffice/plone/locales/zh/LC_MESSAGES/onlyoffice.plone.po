@@ -101,7 +101,7 @@ msgid "Leave the field blank to save to the root of the site"
 msgstr " 请将该字段留空以保存到网站根目录下"
 
 #: ../browser/api.py
-msgid "The file was successfully saved as "
+msgid "The file was successfully saved as"
 msgstr "文档已另存为"
 
 #: ../browser/api.py

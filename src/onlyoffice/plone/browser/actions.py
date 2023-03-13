@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2022
+# (c) Copyright Ascensio System SIA 2023
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ class ConversionForm(form.Form):
     def updateActions(self):
         super().updateActions()
         if self.actions and "Convert" in self.actions:
-            self.actions["Convert"].addClass("context")
+            self.actions["Convert"].addClass("btn-primary")
 
 class DownloadAsForm(form.Form):
     fields = field.Fields(IDownloadAsForm)

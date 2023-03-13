@@ -101,7 +101,7 @@ msgid "Leave the field blank to save to the root of the site"
 msgstr "Deje el campo en blanco para guardar en la raíz del sitio"
 
 #: ../browser/api.py
-msgid "The file was successfully saved as "
+msgid "The file was successfully saved as"
 msgstr "El archivo se ha guardado correctamente como"
 
 #: ../browser/api.py

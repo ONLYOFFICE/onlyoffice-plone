@@ -12,8 +12,10 @@ The plugin allows to:
 
 Supported formats:
 
-* For viewing and editing: DOCX, XLSX, PPTX, DOCXF, OFORM.
-* For viewing only: PDF, ODT, ODS, ODP, DOC, XLS, PPT.
+* For editing: DOCX, XLSX, PPTX, DOCXF, OFORM.
+* For viewing: DJVU, DOC, DOCM, DOCX, DOCXF, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, TXT, XPS, XML, OFORM, CSV, FODS, ODS, OTS, XLS, XLSB, XLSM, XLSX, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM, PPTX.
+* For converting (download as): DOC, DOCM, DOCX, DOCXF, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, XPS, XML, OFORM, FODS, ODS, OTS, XLS, XLSB, XLSM, XLSX, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM, PPTX.
+* For converting to Office Open XML: DOC, DOCM, DOCXF, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, XPS, XML, FODS, ODS, OTS, XLS, XLSB, XLSM, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM.
 
 ## Installing ONLYOFFICE Docs
 
@@ -29,29 +31,19 @@ Community Edition vs Enterprise Edition comparison can be found [here](#onlyoffi
 
 ## Installing Plone ONLYOFFICE integration plugin
 
-1. Install plugin by adding it to your `buildout.cfg`:
-    ```
-    [buildout]
+1. Installation instructions can be found under [Manage add-ons and packages](https://6.docs.plone.org/install/manage-add-ons-packages.html).
+2. To activate, go to `Site Setup` -> `Add-ons` and press the `Install` button to enable the plugin.
 
-    ...
-
-    eggs =
-        onlyoffice.plone
-    ```
-2. Run `bin/buildout`.
-3. Go to `Site Setup` -> `Add-ons`and press the `Install` button to enable plugin.
-
-You could also install plugin via Docker
+You can also install the plugin via Docker:
 ```
-docker run --rm -p 8080:8080 -e ADDONS="onlyoffice.plone" plone
+docker run -p 8080:8080 -e ADDONS="onlyoffice.plone" plone/plone-backend:6.0 start
 ```
-Both options will automatically install plugin from [PyPi](https://pypi.org/project/onlyoffice.plone/).
 
-**Please note:** if you have the previous plugin version installed (earlier plugin versions with the previous name onlyoffice.connector), please remove it before installing the new version. 
+**Please note:** If you have the previous plugin version installed (earlier plugin versions with the previous name *onlyoffice.connector*), please remove it before installing the new version. 
 
 ## Configuring Plone ONLYOFFICE integration plugin
 
-To configure plugin go to `Site Setup`. Scroll down to `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
+To configure the plugin, go to `Site Setup`. Scroll down to the `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
 
 Starting from version 7.2, JWT is enabled by default and the secret key is generated automatically to restrict the access to ONLYOFFICE Docs and for security reasons and data integrity. 
 Specify your own **Secret key** on the Plone configuration page. 
@@ -59,60 +51,16 @@ In the ONLYOFFICE Docs [config file](https://api.onlyoffice.com/editors/signatur
 
 ## Developing Plone ONLYOFFICE plugin
 
-1. Clone repository and change directory:
-    ```
-    git clone --branch deploy git@github.com:ONLYOFFICE/onlyoffice-plone.git
-    cd onlyoffice-plone
-    ```
-2. Create a virtualenv in the package.
-3. Install requirements with pip.
-4. Run buildout:
-    ```
-    virtualenv .
-    ./bin/pip install -r requirements.txt
-    ./bin/buildout
-    ```
-5. Start Plone in foreground:
-    ```
-    ./bin/instance fg
-    ```
-If you have a working Plone instance, you can install plugin by adding the project files to the src directory:
-1. In the src directory create the onlyoffice.plone directory.
-2. Put your project files received by git into the onlyoffice.plone directory.
-3. Edit the buildout.cfg file:
-     ```
-     [buildout]
+Run this command to install the addon from the local repository:
+```
+docker run -p 8080:8080 -e DEVELOP="/app/src/onlyoffice.plone" -v /path/to/onlyoffice.plone:/app/src/onlyoffice.plone plone/plone-backend:6.0 start
+```
 
-     ...
-
-     eggs =
-         onlyoffice.plone
-
-    develop =
-        src/onlyoffice.plone
-     ```
-4. Rerun buildout for the changes to take effect:
-    ```
-    ./bin/buildout
-    ```
-5. Then start or restart your Plone instance.
-
-Note that Plone is based on Zope server and will not run as `root` user. If you intend to run it as `root` user. You must supply [effective-user directive](https://zope.readthedocs.io/en/2.12/SETUID.html). In order to do so add `effective-user <username>` line to `./parts/instance/etc/zope.conf`.
+For more information, check [Developing packages variable](https://6.dev-docs.plone.org/install/containers/images/backend.html#developing-packages-variable).
 
 ## Upgrade Plone ONLYOFFICE integration plugin
-1. If you specified a concrete plugin version in your buildout.cfg file (so-called “pinning”, and a recommended practice), 
- like onlyoffice.plone = 1.0.0, update this reference to point to the newer version. If the plugin version is not 
- specified, then the latest version will be automatically loaded:
-    ```
-    [versions]
-
-     ...
-
-    onlyoffice.plone = 1.0.1
-    ```
-2. Run bin/buildout. Wait until the new version is downloaded and installed.
-3. Restart Plone - your site may look weird, or even be inaccessible until you have performed the next step.
-4. Navigate to the Add-on screen (add /prefs_install_products_form to your site URL) and in the Upgrades list select onlyoffice.plone and click "Upgrade onlyoffice.plone".
+1. Update instructions can be found under [Manage add-ons and packages](https://6.docs.plone.org/install/manage-add-ons-packages.html).
+2. Navigate to the Add-on screen (add `/prefs_install_products_form` to your site URL) and in the Upgrades list select **onlyoffice.plone** and click *Upgrade onlyoffice.plone*.
 
 ## How it works
 

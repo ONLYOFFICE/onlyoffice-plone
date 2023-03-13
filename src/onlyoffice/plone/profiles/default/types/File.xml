@@ -14,7 +14,8 @@
       i18n:attributes="title"
       title="ONLYOFFICE Edit"
       url_expr="string:${object_url}/onlyoffice-edit"
-      visible="True">
+      visible="True"
+      icon_expr="string:onlyoffice-logo">
     <permission value="Modify portal content"/>
   </action>
 
@@ -26,7 +27,8 @@
       i18n:attributes="title"
       title="Fill in form in ONLYOFFICE"
       url_expr="string:${object_url}/onlyoffice-fill-form"
-      visible="True">
+      visible="True"
+      icon_expr="string:onlyoffice-logo">
     <permission value="Modify portal content"/>
   </action>
 
@@ -38,7 +40,8 @@
       i18n:attributes="title"
       title="Conversion in ONLYOFFICE"
       url_expr="string:${object_url}/onlyoffice-convert-file"
-      visible="True">
+      visible="True"
+      icon_expr="string:onlyoffice-logo">
     <permission value="View"/>
   </action>
 </object>
