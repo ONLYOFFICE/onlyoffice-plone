@@ -1,5 +1,9 @@
 # Change Log
 
+##
+## Added
+- ar-SA, si-LK and sr-Latn-RS empty file templates
+
 ## 4.0.0
 ## Added
 - support for plone 6
