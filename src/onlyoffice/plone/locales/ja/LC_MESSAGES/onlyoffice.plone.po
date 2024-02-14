@@ -89,8 +89,8 @@ msgid "Presentation"
 msgstr "プレゼンテーション"
 
 #: ../core/fileUtils.py
-msgid "Form template"
-msgstr "フォーム テンプレート"
+msgid "PDF form"
+msgstr ""
 
 #: ../browser/api.py
 msgid "Save file copy as"

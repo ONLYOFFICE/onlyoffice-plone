@@ -129,7 +129,7 @@ def getDefaultNameByType(str):
     if (str == 'slide'):
         return _(u'Presentation')
     if (str == 'form'):
-        return _(u'Form template')
+        return _(u'PDF form')
 
     return None
 
