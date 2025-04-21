@@ -15,6 +15,7 @@
   <!--<includeDependencies package="." />-->
 
   <include package=".browser" />
+  <include package=".restapi" />
   <include package="plone.app.registry" />
 
   <include file="permissions.zcml" />

@@ -55,6 +55,7 @@ setup(
         'plone.api',
         'plone.restapi',
         'plone.app.dexterity',
+        'plone.browserlayer',
     ],
     extras_require={
         'test': [
