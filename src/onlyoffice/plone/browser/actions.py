@@ -220,7 +220,10 @@ def get_config(self, forEdit, role=None):
                 "id": user.getId(),
                 "name": user.getProperty("fullname") or user.getUserName(),
             },
-            "customization": {"feedback": True},
+            "customization": {
+                "feedback": True,
+                "uiTheme": "default-light",
+            },
         },
     }
     if canEdit:
