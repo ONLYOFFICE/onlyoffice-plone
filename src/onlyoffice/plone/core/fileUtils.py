@@ -66,7 +66,15 @@ def getFileNameWithoutExt(context):
 
 def getFileExt(context):
     portal_type = context.portal_type
-
+    filename = None
+    
+    
+    if hasattr(context, 'file'):
+        #Check if content has uploaded file, in case required setting is disabled
+        if context.file is not None:
+            #Check if file contains data, for use with other content types than Image and File
+            filename = context.file.filename if context.file.getSize() and context.file.getSize() > 1 else None
+   
     if portal_type == "Image" : 
         filename = context.image.filename if hasattr(context, "image") else None
 
