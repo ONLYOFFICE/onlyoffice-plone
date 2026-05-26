@@ -55,14 +55,14 @@ setup(
         'plone.api',
         'plone.restapi',
         'plone.app.dexterity',
+        'plone.app.widgets'
     ],
     extras_require={
         'test': [
             'plone.app.testing',
             'plone.testing',
             'plone.app.contenttypes',
-            'plone.app.robotframework[debug]',
-            'plone.app.widgets'
+            'plone.app.robotframework[debug]'  
         ],
     },
     entry_points="""
