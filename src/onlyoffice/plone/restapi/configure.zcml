@@ -1,0 +1,48 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
+
+  <include package="plone.restapi" />
+
+  <plone:service
+      method="POST"
+      factory=".post.SettingsSave"
+      for="zope.interface.Interface"
+      permission="cmf.ManagePortal"
+      name="@onlyoffice-volto-settings-save"
+      />
+
+  <plone:service
+      method="POST"
+      factory=".post.Create"
+      for="*"
+      permission="cmf.AddPortalContent"
+      name="@onlyoffice-volto-create-file"
+      />
+
+  <plone:service
+      method="POST"
+      factory=".post.Convert"
+      for="*"
+      permission="zope2.View"
+      name="@onlyoffice-volto-convert-file"
+      />
+
+  <plone:service
+      method="GET"
+      factory=".get.Permissions"
+      for="*"
+      permission="zope2.View"
+      name="@onlyoffice-volto-get-permissions"
+      />
+
+  <plone:service
+      method="GET"
+      factory=".get.Config"
+      for="*"
+      permission="zope2.View"
+      name="@onlyoffice-volto-get-config"
+      />
+
+</configure>

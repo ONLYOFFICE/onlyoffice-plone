@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2023
+# (c) Copyright Ascensio System SIA 2026
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import onlyoffice.plone
 
 
 class OnlyofficePloneLayer(PloneSandboxLayer):
-
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
@@ -35,11 +34,12 @@ class OnlyofficePloneLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         import plone.restapi
+
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=onlyoffice.plone)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'onlyoffice.plone:default')
+        applyProfile(portal, "onlyoffice.plone:default")
 
 
 ONLYOFFICE_PLONE_FIXTURE = OnlyofficePloneLayer()
@@ -47,13 +47,13 @@ ONLYOFFICE_PLONE_FIXTURE = OnlyofficePloneLayer()
 
 ONLYOFFICE_PLONE_INTEGRATION_TESTING = IntegrationTesting(
     bases=(ONLYOFFICE_PLONE_FIXTURE,),
-    name='OnlyofficePloneLayer:IntegrationTesting',
+    name="OnlyofficePloneLayer:IntegrationTesting",
 )
 
 
 ONLYOFFICE_PLONE_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(ONLYOFFICE_PLONE_FIXTURE,),
-    name='OnlyofficePloneLayer:FunctionalTesting',
+    name="OnlyofficePloneLayer:FunctionalTesting",
 )
 
 
@@ -63,5 +63,5 @@ ONLYOFFICE_PLONE_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='OnlyofficePloneLayer:AcceptanceTesting',
+    name="OnlyofficePloneLayer:AcceptanceTesting",
 )

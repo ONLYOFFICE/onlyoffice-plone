@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2023
+# (c) Copyright Ascensio System SIA 2026
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,53 +14,52 @@
 # limitations under the License.
 #
 
-from z3c.form.widget import ComputedWidgetAttribute
-from zope.interface import Interface
-from zope import schema
+from onlyoffice.plone.core import conversionUtils
+from onlyoffice.plone.core import fileUtils
+from onlyoffice.plone.interfaces import _
 from Products.CMFPlone import PloneMessageFactory as _plone_message
+from z3c.form.widget import ComputedWidgetAttribute
+from zope import schema
+from zope.interface import implementer
+from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.interface import implementer
 
-from onlyoffice.plone.interfaces import _
-from onlyoffice.plone.core import fileUtils
-from onlyoffice.plone.core import conversionUtils
 
 class IConversionForm(Interface):
     title = schema.TextLine(
         title=_plone_message("label_title", default="Title"),
-        required = True,
+        required=True,
     )
 
     current_type = schema.TextLine(
-        title=_("Current type:"),
-        required = False,
-        readonly = True
+        title=_("Current type:"), required=False, readonly=True
     )
 
     target_type = schema.TextLine(
-        title=_("Target type:"),
-        required = False,
-        readonly = True
+        title=_("Target type:"), required=False, readonly=True
     )
 
+
 convert_title = ComputedWidgetAttribute(
-    lambda form: fileUtils.getFileTitleWithoutExt(form.context), field=IConversionForm["title"]
+    lambda form: fileUtils.getFileTitleWithoutExt(form.context),
+    field=IConversionForm["title"],
 )
 
 convert_current_type = ComputedWidgetAttribute(
-    lambda form: fileUtils.getFileExt(form.context), field=IConversionForm["current_type"]
+    lambda form: fileUtils.getFileExt(form.context),
+    field=IConversionForm["current_type"],
 )
 
 convert_target_type = ComputedWidgetAttribute(
-    lambda form: conversionUtils.getTargetExt(fileUtils.getFileExt(form.context)), field=IConversionForm["target_type"]
+    lambda form: conversionUtils.getTargetExt(fileUtils.getFileExt(form.context)),
+    field=IConversionForm["target_type"],
 )
 
 
 @implementer(IVocabularyFactory)
-class OnlyofficeConvertTypeVocabulary(object):
-
+class OnlyofficeConvertTypeVocabulary:
     def __call__(self, context):
         ext = fileUtils.getFileExt(context)
         supportedConvertTypes = conversionUtils.getConvertToExtArray(ext)
@@ -68,34 +67,36 @@ class OnlyofficeConvertTypeVocabulary(object):
         terms = []
 
         for supportedConvertType in supportedConvertTypes:
-             terms.append(SimpleTerm(supportedConvertType, supportedConvertType))
+            terms.append(SimpleTerm(supportedConvertType, supportedConvertType))
 
         return SimpleVocabulary(terms)
 
+
 OnlyofficeConvertTypeVocabularyFactory = OnlyofficeConvertTypeVocabulary()
+
 
 class IDownloadAsForm(Interface):
     title = schema.TextLine(
         title=_plone_message("label_title", default="Title"),
-        required = False,
-        readonly = True
+        required=False,
+        readonly=True,
     )
 
     current_type = schema.TextLine(
-        title=_("Current type:"),
-        required = False,
-        readonly = True
+        title=_("Current type:"), required=False, readonly=True
     )
 
     target_type = schema.Choice(
         title=_("Select file type you want to download"),
-        vocabulary="onlyoffice.plone.OnlyofficeConvertType"
+        vocabulary="onlyoffice.plone.OnlyofficeConvertType",
     )
+
 
 download_as_title = ComputedWidgetAttribute(
     lambda form: form.context.Title(), field=IDownloadAsForm["title"]
 )
 
 download_as_current_type = ComputedWidgetAttribute(
-    lambda form: fileUtils.getFileExt(form.context), field=IDownloadAsForm["current_type"]
+    lambda form: fileUtils.getFileExt(form.context),
+    field=IDownloadAsForm["current_type"],
 )

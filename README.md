@@ -1,70 +1,90 @@
-﻿# Plone ONLYOFFICE integration plugin
+﻿# ONLYOFFICE addon for Plone
 
-This plugin allows users to edit office documents within [Plone](https://plone.org/) using ONLYOFFICE Docs packaged as Document Server - [Community or Enterprise Edition](#onlyoffice-docs-editions).
+This addon allows users to edit office documents within [Plone](https://plone.org/) using [ONLYOFFICE Docs](https://www.onlyoffice.com/docs).
 
-## Features
+<p align="center">
+  <a href="https://www.onlyoffice.com/office-for-plone">
+    <img width="800" src="https://static-site.onlyoffice.com/public/images/templates/office-for-plone/hero/screen1@2x.png" alt="ONLYOFFICE for Plone">
+  </a>
+</p>
 
-The plugin allows to:
+## Features ✨
+
+The addon allows to:
 
 * Create and edit text documents, spreadsheets, and presentations.
 * Share documents with other users.
 * Co-edit documents in real-time: use two co-editing modes (Fast and Strict), Track Changes, comments, and built-in chat.
 
-Supported formats:
+### Supported file formats 📁
 
-* For editing: DOCX, XLSX, PPTX, DOCXF, OFORM.
-* For viewing: DJVU, DOC, DOCM, DOCX, DOCXF, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, TXT, XPS, XML, OFORM, CSV, FODS, ODS, OTS, XLS, XLSB, XLSM, XLSX, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM, PPTX.
-* For converting (download as): DOC, DOCM, DOCX, DOCXF, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, XPS, XML, OFORM, FODS, ODS, OTS, XLS, XLSB, XLSM, XLSX, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM, PPTX.
-* For converting to Office Open XML: DOC, DOCM, DOCXF, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, XPS, XML, FODS, ODS, OTS, XLS, XLSB, XLSM, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM.
+| Action                         | Formats                                                                                                                                                                                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Editing**                    | DOCX, XLSX, PPTX, PDF                                                                                                                                                                                                                       |
+| **Viewing**                    | DJVU, DOC, DOCM, DOCX, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, TXT, XPS, XML, CSV, FODS, ODS, OTS, XLS, XLSB, XLSM, XLSX, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM, PPTX |
+| **Convert (Download as)**      | DOC, DOCM, DOCX, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, XPS, XML, FODS, ODS, OTS, XLS, XLSB, XLSM, XLSX, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM, PPTX                 |
+| **Convert to Office Open XML** | DOC, DOCM, DOT, DOTM, DOTX, EPUB, FB2, FODT, HTML, MHT, ODT, OTT, OXPS, PDF, RTF, XPS, XML, FODS, ODS, OTS, XLS, XLSB, XLSM, XLT, XLTM, XLTX, FODP, ODP, OTP, POT, POTM, POTX, PPS, PPSM, PPSX, PPT, PPTM                                   |
 
 ## Installing ONLYOFFICE Docs
 
-You will need an instance of ONLYOFFICE Docs (Document Server) that is resolvable and connectable both from Plone and any end-clients. ONLYOFFICE Document Server must also be able to POST to Plone directly.
+To use the addon, you need a running instance of ONLYOFFICE Docs (Document Server) accessible to both your Plone server and client browsers.
 
-You can install free Community version of ONLYOFFICE Docs or scalable Enterprise Edition with pro features.
+ONLYOFFICE Docs must be able to send POST callbacks to Plone for document status updates.
 
-To install free Community version, use [Docker](https://github.com/onlyoffice/Docker-DocumentServer) (recommended) or follow [these instructions](https://helpcenter.onlyoffice.com/installation/docs-community-install-ubuntu.aspx) for Debian, Ubuntu, or derivatives.  
+You can deploy either version below:
 
-To install Enterprise Edition, follow instructions [here](https://helpcenter.onlyoffice.com/installation/docs-enterprise-index.aspx).
+#### 🖥️ Self-hosted version
+
+- **Community Edition (Free):** [Docker guide](https://github.com/ONLYOFFICE/Docker-DocumentServer) or [manual installation](https://helpcenter.onlyoffice.com/installation/docs-community-install-ubuntu.aspx)
+- **Enterprise Edition:** [Installation guide](https://helpcenter.onlyoffice.com/docs/installation/enterprise)
 
 Community Edition vs Enterprise Edition comparison can be found [here](#onlyoffice-docs-editions).
 
-## Installing Plone ONLYOFFICE integration plugin
+#### ☁️ Cloud
 
-1. Installation instructions can be found under [Manage add-ons and packages](https://6.docs.plone.org/install/manage-add-ons-packages.html).
-2. To activate, go to `Site Setup` -> `Add-ons` and press the `Install` button to enable the plugin.
+If you prefer not to maintain your own server, use **ONLYOFFICE Docs Cloud** which requires neither installation nor configuration.
 
-You can also install the plugin via Docker:
+👉 [Get started here](https://www.onlyoffice.com/docs-registration)
+
+## Installing the addon
+
+1. Installation instructions can be found under [Manage add-ons and packages](https://6.docs.plone.org/plone.api/addon.html).
+2. To activate, go to `Site Setup` -> `Add-ons` and press the `Install` button to enable the addon.
+
+You can also install the addon via Docker:
 ```
-docker run -p 8080:8080 -e ADDONS="onlyoffice.plone" plone/plone-backend:6.0 start
+docker run -p 8080:8080 -e ADDONS="onlyoffice.plone" plone/plone-backend:6.1 start
 ```
 
-**Please note:** If you have the previous plugin version installed (earlier plugin versions with the previous name *onlyoffice.connector*), please remove it before installing the new version. 
+> **📝 Note:** If you have a previous version (e.g., *onlyoffice.connector*), remove it before installing the new one.
 
-## Configuring Plone ONLYOFFICE integration plugin
+## Configuring the addon ⚙️
 
-To configure the plugin, go to `Site Setup`. Scroll down to the `Add-ons Configuration` section and press the `ONLYOFFICE Configuration` button.
+Navigate to **Site Setup** → **Add-ons Configuration** → **ONLYOFFICE Configuration** and configure:
 
-Starting from version 7.2, JWT is enabled by default and the secret key is generated automatically to restrict the access to ONLYOFFICE Docs and for security reasons and data integrity. 
-Specify your own **Secret key** on the Plone configuration page. 
-In the ONLYOFFICE Docs [config file](https://api.onlyoffice.com/editors/signature/), specify the same secret key and enable the validation.
+- Document Editing Service URL: Your ONLYOFFICE Docs endpoint
+- Secret key: For JWT token signing and validation
+- Internal request addresses (optional): For internal network routing
 
-## Developing Plone ONLYOFFICE plugin
+> JWT is enabled by default to protect the editors from unauthorized access. If setting a custom **Secret key**, ensure it matches the one in the ONLYOFFICE Docs [config file](https://api.onlyoffice.com/docs/docs-api/additional-api/signature/) for proper validation.
+
+## Developing the addon
 
 Run this command to install the addon from the local repository:
 ```
-docker run -p 8080:8080 -e DEVELOP="/app/src/onlyoffice.plone" -v /path/to/onlyoffice.plone:/app/src/onlyoffice.plone plone/plone-backend:6.0 start
+docker run -p 8080:8080 -e DEVELOP="/app/src/onlyoffice.plone" -v /path/to/onlyoffice.plone:/app/src/onlyoffice.plone plone/plone-backend:6.1 start
 ```
 
-For more information, check [Developing packages variable](https://6.dev-docs.plone.org/install/containers/images/backend.html#developing-packages-variable).
+For more information, check [Developing packages variable](https://6.docs.plone.org/#developing-packages-variable).
 
-## Upgrade Plone ONLYOFFICE integration plugin
-1. Update instructions can be found under [Manage add-ons and packages](https://6.docs.plone.org/install/manage-add-ons-packages.html).
+## Upgrade the addon
+
+1. Update instructions can be found under [Manage add-ons and packages](https://6.docs.plone.org/plone.api/addon.html).
 2. Navigate to the Add-on screen (add `/prefs_install_products_form` to your site URL) and in the Upgrades list select **onlyoffice.plone** and click *Upgrade onlyoffice.plone*.
 
 ## How it works
 
-The ONLYOFFICE integration follows the API documented [here](https://api.onlyoffice.com/editors/basic):
+The ONLYOFFICE addon follows the API documented [here](https://api.onlyoffice.com/docs/docs-api/get-started/basic-concepts/):
 
 * User navigates to a document within Plone and selects the `ONLYOFFICE Edit` action.
 * Plone prepares a JSON object for the Document Server with the following properties:
@@ -84,32 +104,34 @@ The ONLYOFFICE integration follows the API documented [here](https://api.onlyoff
 
 ONLYOFFICE offers different versions of its online document editors that can be deployed on your own servers.
 
-* Community Edition (`onlyoffice-documentserver` package)
-* Enterprise Edition (`onlyoffice-documentserver-ie` package)
+* Community Edition 🆓 (`onlyoffice-documentserver` package)
+* Enterprise Edition 🏢 (`onlyoffice-documentserver-ee` package)
 
-The table below will help you make the right choice.
+The table below will help you to make the right choice.
 
 | Pricing and licensing | Community Edition | Enterprise Edition |
 | ------------- | ------------- | ------------- |
-| | [Get it now](https://www.onlyoffice.com/download-docs.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-community)  | [Start Free Trial](https://www.onlyoffice.com/download-docs.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-enterprise)  |
-| Cost  | FREE  | [Go to the pricing page](https://www.onlyoffice.com/docs-enterprise-prices.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone)  |
-| Simultaneous connections | up to 20 maximum  | As in chosen pricing plan |
+| | [Get it now](https://www.onlyoffice.com/download-community?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-community)  | [Start Free Trial](https://www.onlyoffice.com/download?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-enterprise)  |
+| Cost  | FREE  | [Go to the pricing page](https://www.onlyoffice.com/docs-enterprise-prices?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone)  |
 | Number of users | up to 20 recommended | As in chosen pricing plan |
 | License | GNU AGPL v.3 | Proprietary |
 | **Support** | **Community Edition** | **Enterprise Edition** |
-| Documentation | [Help Center](https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx) | [Help Center](https://helpcenter.onlyoffice.com/installation/docs-enterprise-index.aspx) |
-| Standard support | [GitHub](https://github.com/ONLYOFFICE/DocumentServer/issues) or paid | One year support included |
+| Documentation | [Help Center](https://helpcenter.onlyoffice.com/docs/installation/community) | [Help Center](https://helpcenter.onlyoffice.com/docs/installation/enterprise) |
+| Standard support | [GitHub](https://github.com/ONLYOFFICE/DocumentServer/issues) or [Community](https://community.onlyoffice.com/) | 1 or 3 years support included |
 | Premium support | [Contact us](mailto:sales@onlyoffice.com) | [Contact us](mailto:sales@onlyoffice.com) |
 | **Services** | **Community Edition** | **Enterprise Edition** |
 | Conversion Service                | + | + |
-| Document Builder Service          | + | + |
+| Live Viewer                       | + | + |
+| Document Builder Service          | - | - |
+| Automation API                    | - | - |
 | **Interface** | **Community Edition** | **Enterprise Edition** |
-| Tabbed interface                       | + | + |
-| Dark theme                             | + | + |
-| 125%, 150%, 175%, 200% scaling         | + | + |
-| White Label                            | - | - |
-| Integrated test example (node.js)      | + | + |
-| Mobile web editors                     | - | +* |
+| Tabbed interface                  | + | + |
+| Dark theme                        | + | + |
+| 125%, 150%, 175%, 200% scaling    | + | + |
+| White Label                       | - | - |
+| Integrated test example (node.js) | + | + |
+| Admin Panel                       | - | + |
+| Mobile web editors                | - | +* |
 | **Plugins & Macros** | **Community Edition** | **Enterprise Edition** |
 | Plugins                           | + | + |
 | Macros                            | + | + |
@@ -123,33 +145,53 @@ The table below will help you make the right choice.
 | **Document Editor features** | **Community Edition** | **Enterprise Edition** |
 | Font and paragraph formatting   | + | + |
 | Object insertion                | + | + |
-| Adding Content control          | + | + | 
-| Editing Content control         | + | + | 
+| Adding Content control          | + | + |
+| Editing Content control         | + | + |
 | Layout tools                    | + | + |
 | Table of contents               | + | + |
 | Navigation panel                | + | + |
 | Mail Merge                      | + | + |
-| Comparing Documents             | + | + |
+| Comparing documents             | + | + |
+| Multipage View                  | + | + |
 | **Spreadsheet Editor features** | **Community Edition** | **Enterprise Edition** |
 | Font and paragraph formatting   | + | + |
 | Object insertion                | + | + |
 | Functions, formulas, equations  | + | + |
 | Table templates                 | + | + |
 | Pivot tables                    | + | + |
-| Data validation           | + | + |
+| Data validation                 | + | + |
 | Conditional formatting          | + | + |
-| Sparklines                   | + | + |
+| Sparklines                      | + | + |
 | Sheet Views                     | + | + |
+| Solver                          | + | + |
 | **Presentation Editor features** | **Community Edition** | **Enterprise Edition** |
 | Font and paragraph formatting   | + | + |
 | Object insertion                | + | + |
 | Transitions                     | + | + |
+| Animations                      | + | + |
 | Presenter mode                  | + | + |
 | Notes                           | + | + |
+| Slide Master                    | + | + |
 | **Form creator features** | **Community Edition** | **Enterprise Edition** |
-| Adding form fields           | + | + |
+| Adding form fields              | + | + |
 | Form preview                    | + | + |
 | Saving as PDF                   | + | + |
-| | [Get it now](https://www.onlyoffice.com/download-docs.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-community)  | [Start Free Trial](https://www.onlyoffice.com/download-docs.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-enterprise) |
+| Role-matching colors for fields | + | + |
+| **PDF Editor features**      | **Community Edition** | **Enterprise Edition** |
+| Text editing and co-editing                                | + | + |
+| Work with pages (adding, deleting, rotating)               | + | + |
+| Inserting objects (shapes, images, hyperlinks, etc.)       | + | + |
+| Text annotations (highlight, underline, cross out, stamps) | + | + |
+| Redact                          | + | + |
+| Comments                        | + | + |
+| Freehand drawings               | + | + |
+| Form filling                    | + | + |
+| | [Get it now](https://www.onlyoffice.com/download-community?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-community)  | [Start Free Trial](https://www.onlyoffice.com/download?utm_source=github&utm_medium=cpc&utm_campaign=GitHubPlone#docs-enterprise)  |
 
 \* If supported by DMS.
+
+## Need help? User Feedback and Support 💡
+
+* **🐞 Found a bug?** Please report it by creating an [issue](https://github.com/ONLYOFFICE/onlyoffice-plone/issues).
+* **❓ Have a question?** Ask our community and developers on the [ONLYOFFICE Forum](https://community.onlyoffice.com).
+* **👨‍💻 Need help for developers?** Check our [API documentation](https://api.onlyoffice.com).

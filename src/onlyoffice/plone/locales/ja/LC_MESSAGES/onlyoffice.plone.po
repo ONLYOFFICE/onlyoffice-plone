@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-10-10 14:08+0300\n"
+"PO-Revision-Date: 2025-10-23 13:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -14,11 +14,11 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: ../browser/controlpanel.py:12
-msgid "Document Editing service"
-msgstr "ドキュメント編集サービス"
+msgid "ONLYOFFICE Docs address"
+msgstr "ONLYOFFICE Docsアドレス"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
@@ -61,19 +61,19 @@ msgid "onlyoffice.plone (uninstall)"
 msgstr "onlyoffice.plone (アンインストールする)"
 
 #: ../browser/controlpanel.py:34
-msgid "Secret key (leave blank to disable)"
-msgstr "シークレットキー (ブランクで無効)"
+msgid "ONLYOFFICE Docs secret key"
+msgstr "ONLYOFFICE Docsシークレットキー"
 
 #: ../browser/controlpanel.py:34
-msgid "Server address for internal requests from the Document Editing Service"
-msgstr "ドキュメント編集サービスからの内部リクエスト用サーバーアドレス"
+msgid "Server address for internal requests from ONLYOFFICE Docs"
+msgstr "ONLYOFFICE Docsからの内部リクエスト用サーバーアドレス"
 
 #: ../browser/controlpanel.py:34
-msgid "Document Editing Service address for internal requests from the server"
-msgstr "サーバーからの内部リクエスト用ドキュメント編集サービスアドレス"
+msgid "ONLYOFFICE Docs address for internal requests from the server"
+msgstr "サーバーからの内部リクエスト用ONLYOFFICE Docsアドレス"
 
 #: ../browser/menu.py
-msgid "Create in ONLYOFFICE"
+msgid "Create with ONLYOFFICE"
 msgstr "ONLYOFFICEで作成"
 
 #: ../core/fileUtils.py
@@ -89,8 +89,8 @@ msgid "Presentation"
 msgstr "プレゼンテーション"
 
 #: ../core/fileUtils.py
-msgid "Form template"
-msgstr "フォーム テンプレート"
+msgid "PDF form"
+msgstr "フォームのテンプレート"
 
 #: ../browser/api.py
 msgid "Save file copy as"
@@ -145,8 +145,8 @@ msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is
 msgstr "アクティブコンテンツの混在は許可されていません。Document ServerにはHTTPSアドレスが必要です"
 
 #: ../browser/controlpanel.py
-msgid "Connect to demo ONLYOFFICE Document Server"
-msgstr "ONLYOFFICE Document Serverのデモ版へ接続します。"
+msgid "Connect to demo ONLYOFFICE Docs server"
+msgstr "ONLYOFFICE Docsデモサーバーに接続"
 
 #: ../browser/controlpanel.py
 msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."

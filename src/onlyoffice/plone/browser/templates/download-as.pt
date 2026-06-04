@@ -1,13 +1,16 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      xml:lang="en"
+      i18n:domain="plone"
+>
 
-<!--
+  <!--
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,98 +26,123 @@
  *
  -->
 
-    <metal:block fill-slot="top_slot"
-               tal:define="dummy python:request.set('disable_border',1)" />
+  <metal:block fill-slot="top_slot"
+               tal:define="
+                 dummy python:request.set('disable_border',1);
+               "
+  />
 
-    <body data-i18ncatalogurl="/plonejsi18n">
+  <body data-i18ncatalogurl="/plonejsi18n">
 
-        <metal:main fill-slot="main">
+    <metal:main fill-slot="main">
 
-            <style type="text/css">
-                form div.fieldErrorBox {
-                    display: inline-block;
-                }
+      <style type="text/css">
+        form div.fieldErrorBox {
+        display: inline-block;
+        }
 
-                form .choice-field{
-                    width: 100%
-                }
+        form .choice-field{
+        width: 100%
+        }
 
-                .hide {
-                      display: none !important;
-                }
-            </style>
+        .hide {
+        display: none !important;
+        }
+      </style>
 
-            <div id="content-core">
-                <h1 class="documentFirstHeading" tal:content="view/label">Download as</h1>
+      <div id="content-core">
+        <h1 class="documentFirstHeading"
+            tal:content="view/label"
+        >Download as</h1>
 
-                <div id="content-core">
-                    <form metal:use-macro="context/@@ploneform-macros/titlelessform"/>
-                    <div class="formControls">
-                        <input id="download" type="submit" class="btn submit-widget button-field btn-primary" name="Download" value="Download" i18n:domain="onlyoffice.plone" i18n:attributes="value Download;" />
-                        <input id="cancel" type="submit" class="btn submit-widget button-field btn-secondary" name="cancel" value="Cancel" i18n:attributes="value label_cancel;" />
-                    </div>
-                </div>
-            </div>
+        <div id="content-core">
+          <form metal:use-macro="context/@@ploneform-macros/titlelessform"></form>
+          <div class="formControls">
+            <input class="btn submit-widget button-field btn-primary"
+                   id="download"
+                   name="Download"
+                   type="submit"
+                   value="Download"
+                   i18n:attributes="value Download;"
+                   i18n:domain="onlyoffice.plone"
+            />
+            <input class="btn submit-widget button-field btn-secondary"
+                   id="cancel"
+                   name="cancel"
+                   type="submit"
+                   value="Cancel"
+                   i18n:attributes="value label_cancel;"
+            />
+          </div>
+        </div>
+      </div>
 
-            <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
-            <script type="text/javascript">
-                var modalDialog = $("a[id*='plone-contentmenu-actions-download-as']").patPloneModal().data("pattern-plone-modal");
-                var form = $("form[class*='view-name-onlyoffice-download-as']");
-                var targetType = $("#form-widgets-target_type");
+      <script type="text/javascript"
+              tal:attributes="
+                src string:${portal_url}/++resource++onlyoffice-static/js/utils.js;
+              "
+      ></script>
+      <script type="text/javascript">
+        var modalDialog = $("a[id*='plone-contentmenu-actions-download-as']").patPloneModal().data("pattern-plone-modal");
+        var form = $("form[class*='view-name-onlyoffice-download-as']");
+        var targetType = $("#form-widgets-target_type");
 
-                function onResponseSuccess(data) {
-                    $("#onlyoffice-download-as").remove()
-                    $("body").append("<iframe id='onlyoffice-download-as' style='display:none;'></iframe>");
-                    $("#onlyoffice-download-as").attr("src", data.fileUrl);
-                    form.data().patternFormunloadalert._changed = false;
-                    modalDialog.hide();
-                };
+        function onResponseSuccess(data) {
+          $("#onlyoffice-download-as").remove();
+          $("body").append("<iframe id='onlyoffice-download-as' style='display:none;'></iframe>");
+          $("#onlyoffice-download-as").attr("src", data.fileUrl);
+          form.data().patternFormunloadalert._changed = false;
+          modalDialog.hide();
+        }
 
-                function onResponseError(message) {
-                    modalDialog.loading.hide();
-                    $(".pattern-modal-buttons input").removeAttr("disabled");
-                    $.showMessage(message, "error", true);
-                }
+        function onResponseError(message) {
+          modalDialog.loading.hide();
+          $(".pattern-modal-buttons input").removeAttr("disabled");
+          $.showMessage(message, "error", true);
+        }
 
-                function requestConvert () {
-                    $(".pattern-modal-buttons input").attr("disabled", "disabled");
+        function requestConvert() {
+          $(".pattern-modal-buttons input").attr("disabled", "disabled");
 
-                    form.ajaxSubmit({
-                        type: "POST",
-                        url: form.attr('action') + "-action",
-                        data: {
-                            "targetType": targetType.val()
-                        },
-                        success: function(data) {
-                            if (!data.hasOwnProperty("error")) {
-                                onResponseSuccess(data);
-                            } else {
-                                onResponseError(data.error);
-                            }
-                        },
-                        error: function(state, value, xhr) {
-                            if (state.status == 403) {
-                                onResponseError($.I18N("You are not authorized to add content to this folder"));
-                            } else{
-                                onResponseError(xhr);
-                            }
-                        }
-                    });
-                };
+          form.ajaxSubmit({
+            type: "POST",
+            url: form.attr("action") + "-action",
+            data: {
+              targetType: targetType.val(),
+            },
+            success: function (data) {
+              if (!data.hasOwnProperty("error")) {
+                onResponseSuccess(data);
+              } else {
+                onResponseError(data.error);
+              }
+            },
+            error: function (state, value, xhr) {
+              if (state.status == 403) {
+                onResponseError($.I18N("You are not authorized to add content to this folder"));
+              } else {
+                onResponseError(xhr);
+              }
+            },
+          });
+        }
 
-                $("#download").on("click", function (event) {
-                    requestConvert();
-                });
+        $("#download").on("click", function (event) {
+          requestConvert();
+        });
 
-                $("#cancel").on("click", function (event) {
-                    form.data().patternFormunloadalert._changed = false;
-                    modalDialog.hide();
-                });
-            </script>
+        $("#cancel").on("click", function (event) {
+          form.data().patternFormunloadalert._changed = false;
+          modalDialog.hide();
+        });
+      </script>
 
-            <label id="error" class="hide" i18n:translate="Error">Error</label>
+      <label class="hide"
+             id="error"
+             i18n:translate="Error"
+      >Error</label>
 
-        </metal:main>
+    </metal:main>
 
-    </body>
+  </body>
 </html>

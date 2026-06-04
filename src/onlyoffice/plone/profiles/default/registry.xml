@@ -1,45 +1,47 @@
-<?xml version="1.0"?>
-<registry
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="onlyoffice.plone">
+<?xml version="1.0" encoding="utf-8"?>
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="onlyoffice.plone"
+>
 
-<!-- -*- extra stuff goes here -*- -->
+  <!-- -*- extra stuff goes here -*- -->
 
-    <records interface="onlyoffice.plone.browser.controlpanel.IOnlyofficeControlPanel" prefix="onlyoffice.plone" />
+  <records interface="onlyoffice.plone.browser.controlpanel.IOnlyofficeControlPanel"
+           prefix="onlyoffice.plone"
+  />
 
-    <record name="plone.icon.onlyoffice-logo">
-        <field type="plone.registry.field.TextLine">
-            <title>ONLYOFFICE Logo Icon</title>
-        </field>
-        <value key="resource">++plone++onlyoffice-icons/onlyoffice-logo.svg</value>
-    </record>
+  <record name="plone.icon.onlyoffice-logo">
+    <field type="plone.registry.field.TextLine">
+      <title>ONLYOFFICE Logo Icon</title>
+    </field>
+    <value key="resource">++plone++onlyoffice-icons/onlyoffice-logo.svg</value>
+  </record>
 
-    <record name="plone.icon.onlyoffice-file-word">
-        <field type="plone.registry.field.TextLine">
-            <title>ONLYOFFICE File Word Icon</title>
-        </field>
-        <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-word.svg</value>
-    </record>
+  <record name="plone.icon.onlyoffice-file-word">
+    <field type="plone.registry.field.TextLine">
+      <title>ONLYOFFICE File Word Icon</title>
+    </field>
+    <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-word.svg</value>
+  </record>
 
-    <record name="plone.icon.onlyoffice-file-cell">
-        <field type="plone.registry.field.TextLine">
-            <title>ONLYOFFICE File Cell Icon</title>
-        </field>
-        <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-cell.svg</value>
-    </record>
+  <record name="plone.icon.onlyoffice-file-cell">
+    <field type="plone.registry.field.TextLine">
+      <title>ONLYOFFICE File Cell Icon</title>
+    </field>
+    <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-cell.svg</value>
+  </record>
 
-    <record name="plone.icon.onlyoffice-file-slide">
-        <field type="plone.registry.field.TextLine">
-            <title>ONLYOFFICE File Slide Icon</title>
-        </field>
-        <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-slide.svg</value>
-    </record>
+  <record name="plone.icon.onlyoffice-file-slide">
+    <field type="plone.registry.field.TextLine">
+      <title>ONLYOFFICE File Slide Icon</title>
+    </field>
+    <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-slide.svg</value>
+  </record>
 
-    <record name="plone.icon.onlyoffice-file-form">
-        <field type="plone.registry.field.TextLine">
-            <title>ONLYOFFICE File Form Icon</title>
-        </field>
-        <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-form.svg</value>
-    </record>
+  <record name="plone.icon.onlyoffice-file-form">
+    <field type="plone.registry.field.TextLine">
+      <title>ONLYOFFICE File Form Icon</title>
+    </field>
+    <value key="resource">++plone++onlyoffice-icons/onlyoffice-file-form.svg</value>
+  </record>
 
 </registry>

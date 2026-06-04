@@ -1,40 +1,40 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Plone\n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-10-07 18:58+0300\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2025-10-23 13:48+0300\n"
+"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: es\n"
+"Language-Name: Spanish\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
-"X-Generator: Poedit 3.1.1\n"
+"Domain: onlyoffice.plone\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: ../browser/controlpanel.py:12
-msgid "Document Editing service"
-msgstr "Servicio de edición de documentos"
+msgid "ONLYOFFICE Docs address"
+msgstr "Dirección de ONLYOFFICE Docs"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
-msgstr "Instalar add-on del conector de ONLYOFFICE"
+msgstr "Instalar add-on del conector de ONLYOFFICE."
 
 #: ../browser/controlpanel.py:21
 msgid "ONLYOFFICE Configuration"
-msgstr "ONLYOFFICE Configuración"
+msgstr "Configuración de ONLYOFFICE"
 
 #: ../profiles/default/types/File.xml
 msgid "ONLYOFFICE Edit"
-msgstr "ONLYOFFICE Edición"
+msgstr "Edición de ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View"
-msgstr "ONLYOFFICE Vista"
+msgstr "Vista de ONLYOFFICE"
 
 #: ../browser/configure.zcml
 msgid "Fill in form in ONLYOFFICE"
@@ -42,15 +42,15 @@ msgstr "Rellenar el formulario en ONLYOFFICE"
 
 #: ../browser/configure.zcml:52
 msgid "ONLYOFFICE View page"
-msgstr "ONLYOFFICE Vista de páginas"
+msgstr "Vista de páginas de ONLYOFFICE"
 
 #: ../browser/templates/error.pt:10
 msgid "ONLYOFFICE can't open this file."
-msgstr "ONLYOFFICE no puede abrir este archivo"
+msgstr "ONLYOFFICE no puede abrir este archivo."
 
 #: ../configure.zcml:37
 msgid "Uninstalls the ONLYOFFICE connector add-on."
-msgstr "Desinstalar add-on del conector de ONLYOFFICE"
+msgstr "Desinstalar add-on del conector de ONLYOFFICE."
 
 #: ../configure.zcml:28
 msgid "onlyoffice.plone"
@@ -61,20 +61,20 @@ msgid "onlyoffice.plone (uninstall)"
 msgstr "onlyoffice.plone (desinstalar)"
 
 #: ../browser/controlpanel.py:34
-msgid "Secret key (leave blank to disable)"
-msgstr "Clave secreta (deje en blanco o desactive)"
+msgid "ONLYOFFICE Docs secret key"
+msgstr "Clave secreta de ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py:34
-msgid "Server address for internal requests from the Document Editing Service"
-msgstr "Dirección de servidor para solicitudes internas del Servicio de Edición de Documentos"
+msgid "Server address for internal requests from ONLYOFFICE Docs"
+msgstr "Dirección del servidor para solicitudes internas de ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py:34
-msgid "Document Editing Service address for internal requests from the server"
-msgstr "Dirección del Servicio de Edición de Documentos para solicitudes internas del servidor"
+msgid "ONLYOFFICE Docs address for internal requests from the server"
+msgstr "Dirección de ONLYOFFICE Docs para solicitudes internas del servidor"
 
 #: ../browser/menu.py
-msgid "Create in ONLYOFFICE"
-msgstr "Crear en ONLYOFFICE"
+msgid "Create with ONLYOFFICE"
+msgstr "Crear con ONLYOFFICE"
 
 #: ../core/fileUtils.py
 msgid "Document"
@@ -89,8 +89,8 @@ msgid "Presentation"
 msgstr "Presentación"
 
 #: ../core/fileUtils.py
-msgid "Form template"
-msgstr "Plantilla de formulario"
+msgid "PDF form"
+msgstr "Formulario PDF"
 
 #: ../browser/api.py
 msgid "Save file copy as"
@@ -118,7 +118,7 @@ msgstr "Versión no soportada del Servidor de documentos."
 
 #: ../browser/templates/view.pt
 msgid "Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online."
-msgstr "Por favor, actualice ONLYOFFICE Docs a la versión 7.0 para poder trabajar con formularios rellenables en línea"
+msgstr "Por favor, actualice ONLYOFFICE Docs a la versión 7.0 para poder trabajar con formularios rellenables en línea."
 
 #: ../browser/templates/view.pt
 msgid "Required input is missing."
@@ -145,8 +145,8 @@ msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is
 msgstr "Contenido Mixto Activo no está permitido. Se requiere la dirección HTTPS para el Servidor de documentos."
 
 #: ../browser/controlpanel.py
-msgid "Connect to demo ONLYOFFICE Document Server"
-msgstr "Conectarse al Servidor de documentos de ONLYOFFICE de demostración"
+msgid "Connect to demo ONLYOFFICE Docs server"
+msgstr "Conectarse al servidor de demostración de ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py
 msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."

@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2023
+# (c) Copyright Ascensio System SIA 2026
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 
-PROFILE_ID = 'onlyoffice.plone:default'
+PROFILE_ID = "onlyoffice.plone:default"
+
 
 def upgrade_to_2(context):
     context.runImportStepFromProfile(
-        PROFILE_ID.replace('default', 'to_2'),
-        'plone.app.registry',
+        PROFILE_ID.replace("default", "to_2"),
+        "plone.app.registry",
     )

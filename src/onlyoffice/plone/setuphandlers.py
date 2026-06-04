@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2023
+# (c) Copyright Ascensio System SIA 2026
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,85 @@
 # limitations under the License.
 #
 
-# -*- coding: utf-8 -*-
+from onlyoffice.plone.browser.menu import OnlyofficeCreateSubMenuItem
+from plone.app.contentmenu.interfaces import IContentMenuItem
 from Products.CMFPlone.interfaces import INonInstallable
+from zope.component import getSiteManager
 from zope.interface import implementer
+from zope.interface import Interface
+
+# -*- coding: utf-8 -*-
+import logging
+
+
+logger = logging.getLogger("onlyoffice")
 
 
 @implementer(INonInstallable)
-class HiddenProfiles(object):
-
+class HiddenProfiles:
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller."""
         return [
-            'onlyoffice.plone:uninstall',
+            "onlyoffice.plone:uninstall",
         ]
 
 
-def post_install(context):
-    """Post install script"""
-    # Do something at the end of the installation of this package.
+def post_install(portal):
+    sm = getSiteManager(portal)
+
+    try:
+        adapter = sm.adapters.lookup(
+            (Interface, Interface),
+            IContentMenuItem,
+            name="plone.contentmenu.onlyoffice.create",
+        )
+
+        if adapter is None:
+            sm.registerAdapter(
+                factory=OnlyofficeCreateSubMenuItem,
+                required=(Interface, Interface),
+                provided=IContentMenuItem,
+                name="plone.contentmenu.onlyoffice.create",
+            )
+            logger.info("Adapter registered for portal %s", portal.getId())
+        else:
+            logger.info("Adapter already registered for portal %s", portal.getId())
+
+    except Exception as e:
+        logger.error(
+            "Error registering adapter for portal %s: %s", portal.getId(), str(e)
+        )
 
 
-def uninstall(context):
-    """Uninstall script"""
-    # Do something at the end of the uninstallation of this package.
+def uninstall(portal, reinstall=False):
+    if not reinstall:
+        sm = getSiteManager(portal)
+
+        try:
+            adapter = sm.adapters.lookup(
+                (Interface, Interface),
+                IContentMenuItem,
+                name="plone.contentmenu.onlyoffice.create",
+            )
+
+            if adapter is not None:
+                sm.unregisterAdapter(
+                    factory=OnlyofficeCreateSubMenuItem,
+                    provided=IContentMenuItem,
+                    required=(Interface, Interface),
+                    name="plone.contentmenu.onlyoffice.create",
+                )
+                logger.info("Adapter unregistered for portal %s", portal.getId())
+            else:
+                logger.info("Adapter not found for portal %s", portal.getId())
+
+        except (KeyError, ValueError) as e:
+            logger.warning(
+                "Adapter not found for unregister in portal %s: %s",
+                portal.getId(),
+                str(e),
+            )
+        except Exception as e:
+            logger.error(
+                "Error unregistering adapter for portal %s: %s", portal.getId(), str(e)
+            )

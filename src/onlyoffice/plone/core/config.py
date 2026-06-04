@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2023
+# (c) Copyright Ascensio System SIA 2026
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,20 +14,21 @@
 # limitations under the License.
 #
 
-class Config():
+
+class Config:
     docUrl = None
     ploneUrl = None
     docInnerUrl = None
     jwtSecret = None
 
-    demoDocUrl = "https://onlinedocs.onlyoffice.com/"
+    demoDocUrl = "https://onlinedocs.docs.onlyoffice.com/"
     demoHeader = "AuthorizationJWT"
     demoJwtSecret = "sn2puSUF7muF5Jas"
     demoTrial = 30
 
     def __init__(self, registry):
-        self.docUrl = registry.get('onlyoffice.plone.docUrl')
-        self.ploneUrl = registry.get('onlyoffice.plone.ploneUrl')
-        self.docInnerUrl = registry.get('onlyoffice.plone.docInnerUrl')
-        self.jwtSecret = registry.get('onlyoffice.plone.jwtSecret')
-        self.demoEnabled = registry.get('onlyoffice.plone.demoEnabled')
+        self.docUrl = registry.get("onlyoffice.plone.docUrl")
+        self.ploneUrl = registry.get("onlyoffice.plone.ploneUrl")
+        self.docInnerUrl = registry.get("onlyoffice.plone.docInnerUrl")
+        self.jwtSecret = registry.get("onlyoffice.plone.jwtSecret")
+        self.demoEnabled = registry.get("onlyoffice.plone.demoEnabled")

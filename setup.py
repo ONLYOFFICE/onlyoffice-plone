@@ -1,73 +1,76 @@
-# -*- coding: utf-8 -*-
 """Installer for the onlyoffice.plone package."""
 
 from setuptools import find_packages
 from setuptools import setup
 
 
-long_description = '\n\n'.join([
-    open('README.md').read(),
-    open('AUTHORS.md').read(),
-    open('CHANGELOG.md').read(),
-])
+long_description = "\n\n".join(
+    [
+        open("README.md").read(),
+        open("AUTHORS.md").read(),
+        open("CHANGELOG.md").read(),
+    ]
+)
 
 
 setup(
-    name='onlyoffice.plone',
-    version='4.0.0',
-    description="Plone ONLYOFFICE integration plugin",
+    name="onlyoffice.plone",
+    version="4.1.0",
+    description="ONLYOFFICE addon for Plone",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    python_requires=">=3.9",
     # Get more from https://pypi.org/classifiers/
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.1",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: Apache Software License",
+        "Development Status :: 5 - Production/Stable",
     ],
-    keywords='Python Plone',
-    author='Ascensio System SIA',
-    author_email='integration@onlyoffice.com',
-    url='https://github.com/ONLYOFFICE/onlyoffice-plone',
+    keywords="Python Plone",
+    author="Ascensio System SIA",
+    author_email="integration@onlyoffice.com",
+    url="https://github.com/ONLYOFFICE/onlyoffice-plone",
     project_urls={
-        'PyPI': 'https://pypi.python.org/pypi/onlyoffice.plone',
-        'Source': 'https://github.com/ONLYOFFICE/onlyoffice-plone',
-        'Tracker': 'https://github.com/ONLYOFFICE/onlyoffice-plone/issues',
+        "PyPI": "https://pypi.python.org/pypi/onlyoffice.plone",
+        "Source": "https://github.com/ONLYOFFICE/onlyoffice-plone",
+        "Tracker": "https://github.com/ONLYOFFICE/onlyoffice-plone/issues",
         # 'Documentation': 'https://onlyoffice.plone.readthedocs.io/en/latest/',
     },
-    license='Apache-2.0 License',
-    packages=find_packages('src', exclude=['ez_setup']),
-    namespace_packages=['onlyoffice'],
-    package_dir={'': 'src'},
+    license="Apache-2.0 License",
+    packages=find_packages("src", exclude=["ez_setup"]),
+    namespace_packages=["onlyoffice"],
+    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
+        "setuptools",
         # -*- Extra requirements: -*-
-        'z3c.jbot',
-        'plone.api',
-        'plone.restapi',
-        'plone.app.dexterity',
-        'plone.app.widgets'
+        "plone.browserlayer",
+        "z3c.jbot==2.0",
+        "plone.api",
+        "plone.restapi",
+        "plone.app.dexterity",
     ],
     extras_require={
-        'test': [
-            'plone.app.testing',
-            'plone.testing',
-            'plone.app.contenttypes',
-            'plone.app.robotframework[debug]'  
+        "test": [
+            "plone.app.testing",
+            "plone.testing",
+            "plone.app.contenttypes",
+            "plone.app.robotframework[debug]",
         ],
     },
     entry_points="""
-    [z3c.autoinclude.plugin]
+    [plone.autoinclude.plugin]
     target = plone
+    module = onlyoffice.plone
     [console_scripts]
     update_locale = onlyoffice.plone.locales.update:update_locale
     """,

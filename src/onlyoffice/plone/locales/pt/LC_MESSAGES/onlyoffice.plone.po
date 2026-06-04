@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-10-10 14:07+0300\n"
+"PO-Revision-Date: 2025-10-23 13:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -14,11 +14,11 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: ../browser/controlpanel.py:12
-msgid "Document Editing service"
-msgstr "Serviço de edição de documentos"
+msgid "ONLYOFFICE Docs address"
+msgstr "Endereço do ONLYOFFICE Docs"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
@@ -61,20 +61,20 @@ msgid "onlyoffice.plone (uninstall)"
 msgstr "onlyoffice.plone (desinstalar)"
 
 #: ../browser/controlpanel.py:34
-msgid "Secret key (leave blank to disable)"
-msgstr "Chave secreta (deixe em branco para desativar)"
+msgid "ONLYOFFICE Docs secret key"
+msgstr "Chave secreta do ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py:34
-msgid "Server address for internal requests from the Document Editing Service"
-msgstr "Endereço do servidor para solicitações internas do Serviço de Edição de Documentos"
+msgid "Server address for internal requests from ONLYOFFICE Docs"
+msgstr "Endereço do servidor para solicitações internas do ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py:34
-msgid "Document Editing Service address for internal requests from the server"
-msgstr "Endereço do serviço de edição de documentos para solicitações internas do servidor"
+msgid "ONLYOFFICE Docs address for internal requests from the server"
+msgstr "Endereço do ONLYOFFICE Docs para solicitações internas do servidor"
 
 #: ../browser/menu.py
-msgid "Create in ONLYOFFICE"
-msgstr "Criar no ONLYOFFICE"
+msgid "Create with ONLYOFFICE"
+msgstr "Criar com o ONLYOFFICE"
 
 #: ../core/fileUtils.py
 msgid "Document"
@@ -89,8 +89,8 @@ msgid "Presentation"
 msgstr "Apresentação"
 
 #: ../core/fileUtils.py
-msgid "Form template"
-msgstr "Modelo de formulário"
+msgid "PDF form"
+msgstr "Formulário em PDF"
 
 #: ../browser/api.py
 msgid "Save file copy as"
@@ -145,8 +145,8 @@ msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is
 msgstr "Conteúdo Misto não é permitido. É necessário um endereço HTTPS para o ONLYOFFICE Docs."
 
 #: ../browser/controlpanel.py
-msgid "Connect to demo ONLYOFFICE Document Server"
-msgstr "Conecte-se ao servidor de documentos do ONLYOFFICE de demonstração"
+msgid "Connect to demo ONLYOFFICE Docs server"
+msgstr "Conectar ao servidor de demonstração do ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py
 msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."

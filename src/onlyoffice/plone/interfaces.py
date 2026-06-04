@@ -1,5 +1,5 @@
 #
-# (c) Copyright Ascensio System SIA 2023
+# (c) Copyright Ascensio System SIA 2026
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,13 +17,15 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
-from zope import schema
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.i18nmessageid import MessageFactory
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+
 import logging
 
+
 logger = logging.getLogger("onlyoffice")
-_ = MessageFactory('onlyoffice.plone')
+_ = MessageFactory("onlyoffice.plone")
+
 
 class IOnlyofficePloneLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""

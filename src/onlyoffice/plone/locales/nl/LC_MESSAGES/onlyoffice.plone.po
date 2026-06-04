@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-09-30 17:58+0300\n"
+"PO-Revision-Date: 2025-10-23 13:53+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -14,11 +14,11 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: ../browser/controlpanel.py:12
-msgid "Document Editing service"
-msgstr "Documentbewerkingsservice"
+msgid "ONLYOFFICE Docs address"
+msgstr "Adres van ONLYOFFICE Docs"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
@@ -61,20 +61,20 @@ msgid "onlyoffice.plone (uninstall)"
 msgstr "onlyoffice.plone (verwijdering)"
 
 #: ../browser/controlpanel.py:34
-msgid "Secret key (leave blank to disable)"
-msgstr "Geheime sleutel (leeg laten om uit te schakelen)"
+msgid "ONLYOFFICE Docs secret key"
+msgstr "ONLYOFFICE Docs geheime sleutel"
 
 #: ../browser/controlpanel.py:34
-msgid "Server address for internal requests from the Document Editing Service"
-msgstr ""
+msgid "Server address for internal requests from ONLYOFFICE Docs"
+msgstr "Serveradres voor interne verzoeken van ONLYOFFICE Docs"
 
 #: ../browser/controlpanel.py:34
-msgid "Document Editing Service address for internal requests from the server"
-msgstr ""
+msgid "ONLYOFFICE Docs address for internal requests from the server"
+msgstr "ONLYOFFICE Docs-adres voor interne verzoeken van de server"
 
 #: ../browser/menu.py
-msgid "Create in ONLYOFFICE"
-msgstr "Aanmaken in ONLYOFFICE"
+msgid "Create with ONLYOFFICE"
+msgstr "Aanmaken met ONLYOFFICE"
 
 #: ../core/fileUtils.py
 msgid "Document"
@@ -89,8 +89,8 @@ msgid "Presentation"
 msgstr "Presentatie"
 
 #: ../core/fileUtils.py
-msgid "Form template"
-msgstr "Formulier sjabloon"
+msgid "PDF form"
+msgstr "PDF-formulier"
 
 #: ../browser/api.py
 msgid "Save file copy as"
@@ -145,8 +145,8 @@ msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is
 msgstr "Gemende Actieve Inhoud is niet toegestaan. HTTPS-adres voor ONLYOFFICE Docs is vereist."
 
 #: ../browser/controlpanel.py
-msgid "Connect to demo ONLYOFFICE Document Server"
-msgstr "Verbinding maken met demo ONLYOFFICE documentserver"
+msgid "Connect to demo ONLYOFFICE Docs server"
+msgstr "Maak verbinding met de demo ONLYOFFICE Docs-server"
 
 #: ../browser/controlpanel.py
 msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."

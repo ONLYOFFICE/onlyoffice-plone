@@ -1,43 +1,61 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
       lang="en"
       metal:use-macro="here/prefs_main_template/macros/master"
-      i18n:domain="plone">
+      xml:lang="en"
+      i18n:domain="plone"
+>
 
-<head>
+  <head>
     <tal:javascript metal:fill-slot="javascript_head_slot">
-        <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/utils.js"></script>
-        <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++onlyoffice-static/js/controlpanel.js"></script>
+      <script type="text/javascript"
+              tal:attributes="
+                src string:${portal_url}/++resource++onlyoffice-static/js/utils.js;
+              "
+      ></script>
+      <script type="text/javascript"
+              tal:attributes="
+                src string:${portal_url}/++resource++onlyoffice-static/js/controlpanel.js;
+              "
+      ></script>
     </tal:javascript>
 
     <metal:css fill-slot="style_slot">
-        <style type="text/css">
-            .unclickable {
-                opacity: 0.6;
-            }
-            
-            #form-widgets-docUrlPublicValidation {
-              display: none;
-            }
-        </style>
+      <style type="text/css">
+        .unclickable {
+        opacity: 0.6;
+        }
+
+        #form-widgets-docUrlPublicValidation {
+        display: none;
+        }
+      </style>
     </metal:css>
-</head>
+  </head>
 
-<body data-i18ncatalogurl="/plonejsi18n">
+  <body data-i18ncatalogurl="/plonejsi18n">
 
-<metal:main metal:fill-slot="prefs_configlet_main" i18n:domain="plone">
+    <metal:main metal:fill-slot="prefs_configlet_main"
+                i18n:domain="plone"
+    >
 
-    <header>
-      <h1 class="documentFirstHeading" tal:content="view/label">View Title</h1>
-    </header>
+      <header>
+        <h1 class="documentFirstHeading"
+            tal:content="view/label"
+        >View Title</h1>
+      </header>
 
-    <div id="content-core" tal:attributes="class view/settings">
-      <span tal:replace="structure view/contents" />
-    </div>
+      <div id="content-core"
+           tal:attributes="
+             class view/settings;
+           "
+      >
+        <span tal:replace="structure view/contents"></span>
+      </div>
 
-</metal:main>
+    </metal:main>
 
-</body>
+  </body>
 </html>

@@ -1,28 +1,22 @@
-include *.js
-include *.json
-include *.py
+include *.in
 include *.md
 include *.txt
-include *.cfg
-recursive-include src *.css
+include 3rd-Party.license
+include LICENSE
+include tox.ini
+recursive-include licenses *.license
+recursive-include src *.docx
 recursive-include src *.js
-recursive-include src *.map
+recursive-include src *.json
+recursive-include src *.md
+recursive-include src *.pdf
 recursive-include src *.po
-recursive-include src *.pot
+recursive-include src *.pptx
 recursive-include src *.pt
-recursive-include src *.py
+recursive-include src *.robot
+recursive-include src *.rst
 recursive-include src *.sh
-recursive-include src *.txt
+recursive-include src *.svg
+recursive-include src *.xlsx
 recursive-include src *.xml
 recursive-include src *.zcml
-recursive-include src *.eot
-recursive-include src *.svg
-recursive-include src *.ttf
-recursive-include src *.woff
-recursive-include src *.woff2
-recursive-include src *.json
-
-recursive-include src *.docx
-recursive-include src *.docxf
-recursive-include src *.pptx
-recursive-include src *.xlsx

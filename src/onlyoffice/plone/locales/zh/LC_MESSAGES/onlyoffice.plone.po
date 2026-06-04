@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-02-14 10:33+0000\n"
-"PO-Revision-Date: 2022-10-10 14:08+0300\n"
+"PO-Revision-Date: 2025-10-23 13:56+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -14,11 +14,11 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: ../browser/controlpanel.py:12
-msgid "Document Editing service"
-msgstr "文档编辑服务"
+msgid "ONLYOFFICE Docs address"
+msgstr "ONLYOFFICE 文档地址"
 
 #: ../configure.zcml:28
 msgid "Installs the ONLYOFFICE connector add-on."
@@ -61,20 +61,20 @@ msgid "onlyoffice.plone (uninstall)"
 msgstr "onlyoffice.plone (卸载)"
 
 #: ../browser/controlpanel.py:34
-msgid "Secret key (leave blank to disable)"
-msgstr "秘钥(留空为关闭)"
+msgid "ONLYOFFICE Docs secret key"
+msgstr "ONLYOFFICE 文档密钥"
 
 #: ../browser/controlpanel.py:34
-msgid "Server address for internal requests from the Document Editing Service"
-msgstr "来自文档编辑服务用于内部请求的服务器地址"
+msgid "Server address for internal requests from ONLYOFFICE Docs"
+msgstr "用于接收来自 ONLYOFFICE 文档内部请求的服务器地址"
 
 #: ../browser/controlpanel.py:34
-msgid "Document Editing Service address for internal requests from the server"
-msgstr "来自服务器用于内部请求的文档编辑服务"
+msgid "ONLYOFFICE Docs address for internal requests from the server"
+msgstr "用于接收来自服务器内部请求的 ONLYOFFICE 文档地址"
 
 #: ../browser/menu.py
-msgid "Create in ONLYOFFICE"
-msgstr "在ONLYOFFICE中创建"
+msgid "Create with ONLYOFFICE"
+msgstr "使用 ONLYOFFICE 创建"
 
 #: ../core/fileUtils.py
 msgid "Document"
@@ -89,7 +89,7 @@ msgid "Presentation"
 msgstr "演示文稿"
 
 #: ../core/fileUtils.py
-msgid "Form template"
+msgid "PDF form"
 msgstr "表单模板"
 
 #: ../browser/api.py
@@ -145,8 +145,8 @@ msgid "Mixed Active Content is not allowed. HTTPS address for Document Server is
 msgstr "不允许混合活动内容，请使用HTTPS连接Document Server"
 
 #: ../browser/controlpanel.py
-msgid "Connect to demo ONLYOFFICE Document Server"
-msgstr "连接到演示ONLYOFFICE文件服务器"
+msgid "Connect to demo ONLYOFFICE Docs server"
+msgstr "连接到 ONLYOFFICE 文档演示服务器"
 
 #: ../browser/controlpanel.py
 msgid "This is a public test server, please do not use it for private sensitive data. The server will be available during a 30-day period."
