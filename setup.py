@@ -54,7 +54,7 @@ setup(
         "setuptools",
         # -*- Extra requirements: -*-
         "plone.browserlayer",
-        "z3c.jbot==2.0",
+        "z3c.jbot",
         "plone.api",
         "plone.restapi",
         "plone.app.dexterity",
