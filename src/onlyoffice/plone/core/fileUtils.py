@@ -20,10 +20,17 @@ from onlyoffice.plone.core import formatUtils
 from onlyoffice.plone.interfaces import _
 from plone.app.dexterity.interfaces import IDXFileFactory
 from plone.app.z3cform.widgets.relateditems import get_relateditems_options
+from plone.rfc822.interfaces import IPrimaryFieldInfo
 from zope.event import notify
 from zope.lifecycleevent import ObjectModifiedEvent
 
 import re
+
+
+def _extFromFilename(filename):
+    if filename:
+        return filename[filename.rfind(".") + 1 :].lower()  # noqa: E203
+    return None
 
 
 def getCorrectFileName(str):
@@ -43,18 +50,37 @@ def getFileNameWithoutExt(context):
 
 
 def getFileExt(context):
-    portal_type = context.portal_type
+    # Determine the document extension from the actual stored file rather than
+    # from a field hardcoded as "file". We resolve the content's primary file
+    # field (so this works whatever the field is named), then fall back to the
+    # well-known "file"/"image" fields. The extension returned here is what the
+    # rest of the add-on matches against the formats ONLYOFFICE manages
+    # (.docx, .xlsx, .pptx, ...).
+    filename = None
 
-    if portal_type == "Image":
-        filename = context.image.filename if hasattr(context, "image") else None
+    try:
+        info = IPrimaryFieldInfo(context, None)
+    except Exception:
+        info = None
 
-    if portal_type == "File" or portal_type == "Document":
-        filename = context.file.filename if hasattr(context, "file") else None
+    value = getattr(info, "value", None)
+    if value is not None:
+        size = getattr(value, "getSize", None)
+        if size is None or size():
+            filename = getattr(value, "filename", None)
 
-    if filename:
-        return filename[filename.rfind(".") + 1 :].lower()  # noqa: E203
+    if not filename:
+        # The field may be None when its 'required' setting is disabled.
+        for field_name in ("file", "image"):
+            field = getattr(context, field_name, None)
+            if field is None:
+                continue
+            size = getattr(field, "getSize", None)
+            if (size is None or size()) and getattr(field, "filename", None):
+                filename = field.filename
+                break
 
-    return None
+    return _extFromFilename(filename)
 
 
 def getFileType(context):
