@@ -202,6 +202,16 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <!-- Cancel in the editor. For every type the editor opens (the
+       Docent document types carry their own marker, not IFile), as the
+       view only marks the object. -->
+  <browser:page
+      name="onlyoffice-discard"
+      for="*"
+      class=".api.Discard"
+      permission="cmf.ModifyPortalContent"
+      />
+
   <browser:page
       name="onlyoffice-rename"
       for="plone.app.contenttypes.interfaces.IFile"

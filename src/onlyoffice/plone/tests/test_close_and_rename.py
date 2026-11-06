@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-"""The Docent bar over the editor (Rename, Save & Close) and the
+"""The Docent bar over the editor (Rename, Cancel, Save & Close) and the
 "Changes saved" note on the page that follows."""
 
 from onlyoffice.plone.browser.viewlets import ChangesSavedNoteViewlet
@@ -63,6 +63,22 @@ class TestTheBar(unittest.TestCase):
         self.assertLess(
             bar.index('id="ooDocentRename"'), bar.index('id="ooDocentClose"')
         )
+
+    def test_cancel_sits_between_rename_and_save_and_close(self):
+        source = _template()
+        bar = source[source.index('id="ooDocentBar"') :]
+        self.assertLess(bar.index('id="ooDocentRename"'), bar.index('id="ooDocentCancel"'))
+        self.assertLess(bar.index('id="ooDocentCancel"'), bar.index('id="ooDocentClose"'))
+        # Hidden until the script knows the editor opened for editing.
+        start = bar.index('id="ooDocentCancel"')
+        self.assertIn('hidden="hidden"', bar[start : bar.index(">", start)])
+        self.assertIn("cancelButton.hidden = false;", source)
+
+    def test_cancel_marks_the_document_and_asks_first(self):
+        source = _template()
+        self.assertIn("onlyoffice-discard", source)
+        self.assertIn("window.confirm(", source)
+        self.assertIn('title="Leave without saving your changes"', source)
 
     def test_save_and_close_stores_the_live_document(self):
         source = _template()

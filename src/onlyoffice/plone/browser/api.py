@@ -84,7 +84,7 @@ class Callback(BrowserView):
                 body = body["payload"]
 
             status = body["status"]
-            self._handleStatus(status, body.get("url"))
+            self._handleStatus(status, body.get("url"), body.get("users"))
 
         except Exception as e:
             error = str(e)
@@ -102,7 +102,7 @@ class Callback(BrowserView):
 
         return json.dumps(response)
 
-    def _handleStatus(self, status, url):
+    def _handleStatus(self, status, url, users=None):
         # ONLYOFFICE callback statuses:
         #   1 = document is being edited
         #   2 = document is ready for saving (the last editor closed it)
@@ -111,14 +111,32 @@ class Callback(BrowserView):
         #   6 = force save while still being edited (e.g. Strict-mode Save)
         #   7 = force save error
         if status in (2, 3):
-            # The editing session has ended; persist and start a new version so
-            # the next open gets a fresh key.
+            # The editing session has ended. Cancel in the editor marked the
+            # document (Discard): the edits are not kept, and a fresh key
+            # starts the next open from the stored file.
+            if utils.discardPending(self.context):
+                logger.info(
+                    "discarding edits of " + self.context.absolute_url() + " (Cancel)"
+                )
+                utils.clearDiscard(self.context)
+                utils.resetDocumentKey(self.context)
+                return
+            # Persist and start a new version so the next open gets a fresh key.
             self._save(url)
             utils.resetDocumentKey(self.context)
         elif status == 6:
             # Intermediate force save: persist the current content but keep the
-            # same key, since the editing session is still open.
+            # same key, since the editing session is still open. Somebody is
+            # still editing and wants this kept, so a Cancel mark is stale.
+            utils.clearDiscard(self.context)
             self._save(url)
+        elif status == 4:
+            # Closed with no changes: nothing to keep or to throw away.
+            utils.clearDiscard(self.context)
+        elif status == 1 and users:
+            # Somebody is still editing after the one who pressed Cancel
+            # left (the document server names who): their work is kept.
+            utils.clearDiscard(self.context)
 
     def _save(self, url):
         # Only from the document server. The body names the URL to read the
@@ -320,6 +338,36 @@ class SaveCurrent(BrowserView):
         )
         self.context.reindexObject()
         logger.info("saved current document " + self.context.absolute_url())
+
+        return json_dumps({"status": "success"})
+
+
+class Discard(BrowserView):
+    """Cancel in the editor: mark the open editing session so the callback
+    throws its edits away instead of writing them over the file.
+
+    The document server writes a closed document back a few seconds after
+    the last editor leaves, whatever the page did, which is why leaving is
+    not enough. The mark names the current document key, so it cannot
+    outlive the session: the callback clears it when the session ends,
+    when a force save shows someone still wants the edits, or when another
+    editor is still there.
+    """
+
+    def __call__(self):
+        self.request.response.setHeader(
+            "Content-Type", "application/json; charset=utf-8"
+        )
+
+        if not getSecurityManager().checkPermission(
+            permissions.ModifyPortalContent, self.context
+        ):
+            pm = getToolByName(self.context, "portal_membership")
+            self.request.response.setStatus(401 if bool(pm.isAnonymousUser()) else 403)
+            return json_dumps({"error": "Not authorized"})
+
+        utils.markDiscard(self.context)
+        logger.info("edits to be discarded for " + self.context.absolute_url())
 
         return json_dumps({"status": "success"})
 

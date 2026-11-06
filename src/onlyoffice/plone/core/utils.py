@@ -34,6 +34,9 @@ import uuid
 
 
 DOCUMENT_KEY_ANNOTATION = "onlyoffice.plone.documentKey"
+#: The document key whose edits are to be thrown away (Cancel in the
+#: editor). The callback drops the write-back for that key.
+DISCARD_ANNOTATION = "onlyoffice.plone.discardKey"
 
 
 def userCanView(context):
@@ -95,6 +98,28 @@ def resetDocumentKey(obj):
     IAnnotations(obj)[DOCUMENT_KEY_ANNOTATION] = key
     safeWrite(obj)
     return key
+
+
+def markDiscard(obj):
+    """Cancel pressed in the editor: the edits of the current editing
+    session (this document key) are not to be kept."""
+    IAnnotations(obj)[DISCARD_ANNOTATION] = getDocumentKey(obj)
+    safeWrite(obj)
+
+
+def discardPending(obj):
+    """True when the document was marked (markDiscard) for the editing
+    session that is still open, i.e. its current key."""
+    annotations = IAnnotations(obj)
+    mark = annotations.get(DISCARD_ANNOTATION)
+    return bool(mark) and mark == annotations.get(DOCUMENT_KEY_ANNOTATION)
+
+
+def clearDiscard(obj):
+    annotations = IAnnotations(obj)
+    if DISCARD_ANNOTATION in annotations:
+        del annotations[DISCARD_ANNOTATION]
+        safeWrite(obj)
 
 
 def isJwtEnabled():

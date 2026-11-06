@@ -136,6 +136,44 @@ class TestPublicEndpoints(unittest.TestCase):
         self.assertFalse(utils.isDocServerUrl("https://docs.example.org.evil/x"))
         self.assertFalse(utils.isDocServerUrl(None))
 
+    # -- Cancel ---------------------------------------------------------------
+
+    def test_after_cancel_the_write_back_is_dropped_and_the_key_moves(self):
+        key = utils.getDocumentKey(self.file)
+        utils.markDiscard(self.file)
+        response, fetch = self._save(self._signed({"status": 2, "url": EDITED}))
+        self.assertEqual(response["error"], 0)
+        fetch.assert_not_called()
+        self.assertEqual(self.file.file.data, b"ORIGINAL")
+        self.assertNotEqual(utils.getDocumentKey(self.file), key)
+        self.assertFalse(utils.discardPending(self.file))
+
+    def test_the_cancel_mark_is_for_the_open_session_only(self):
+        utils.markDiscard(self.file)
+        utils.resetDocumentKey(self.file)
+        self.assertFalse(utils.discardPending(self.file))
+        response, fetch = self._save(self._signed({"status": 2, "url": EDITED}))
+        fetch.assert_called_once()
+        self.assertEqual(self.file.file.data, b"EDITED")
+
+    def test_a_force_save_after_cancel_is_kept(self):
+        # Somebody still editing pressed Save: their work wins.
+        utils.markDiscard(self.file)
+        response, fetch = self._save(self._signed({"status": 6, "url": EDITED}))
+        fetch.assert_called_once()
+        self.assertEqual(self.file.file.data, b"EDITED")
+        self.assertFalse(utils.discardPending(self.file))
+
+    def test_another_editor_still_there_clears_the_cancel(self):
+        utils.markDiscard(self.file)
+        self._save(self._signed({"status": 1, "users": ["someone-else"]}))
+        self.assertFalse(utils.discardPending(self.file))
+
+    def test_nobody_left_editing_keeps_the_cancel(self):
+        utils.markDiscard(self.file)
+        self._save(self._signed({"status": 1, "users": []}))
+        self.assertTrue(utils.discardPending(self.file))
+
     # -- the download -------------------------------------------------------
 
     def test_with_no_secret_a_download_is_refused(self):

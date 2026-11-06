@@ -11,6 +11,7 @@ Changes maintained on the DocentIMS fork on top of upstream ONLYOFFICE 4.1.0.
 - getFileExt now derives the document extension from the actual stored file via the content's primary field (not a field hardcoded as "file"), so any content type holding an ONLYOFFICE-managed format (.docx, .xlsx, .pptx, ...) is recognised; still safe when the file field is missing, None, or empty
 - stabilized ONLYOFFICE document key generation and added force-save handling
 ## Changed
+- editor: a Cancel button between Rename and Save & Close leaves without keeping the edits. It marks the document (onlyoffice-discard) and the callback drops the document server's write-back for that editing session, then issues a fresh key; a force save or another editor still at work clears the mark, so nobody else's work is lost. Asks first when there is something to lose
 - the note after leaving an edited document says "Changes saved" only after Save & Close, which has stored it; leaving any other way says "Changes are being saved", since ONLYOFFICE writes the file back a few seconds later
 - editor: Rename, Save name, Cancel and Save & Close keep their Docent pill shape and colours instead of the theme's coral outlined capitals (the theme styles every button in #content-core, and its id selector beat the bar's classes)
 - editor: Save & Close, Close, Rename, Save name and Cancel have tooltips that say what they do; the "Changes saved" note's close button is titled Dismiss
