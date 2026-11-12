@@ -12,6 +12,8 @@ pre-commit run -a                              # lint (black, isort, flake8, zpr
 python -m build                                # sdist; CI removes .git/.gitignore/.gitmodules first so submodule files are packed
 ```
 
+On Windows set `PYTHONUTF8=1` for pre-commit / build: `setup.py` reads `README.md` without an encoding and fails on cp1251.
+
 Tests (no Docs needed; Docker, Plone 6.1). `tox -e test` is broken (`-s onlyoffice-plone` in tox.ini), use:
 
 ```bash
