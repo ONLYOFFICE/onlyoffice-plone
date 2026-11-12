@@ -115,6 +115,7 @@ ignore = [
     "src/onlyoffice/plone/core/__pycache__/*",
     "src/onlyoffice/plone/__pycache__/*",
     "src/onlyoffice/plone/browser/overrides/.gitkeep",
+    ".claude/**",
 ]
 
 ##
